@@ -145,4 +145,12 @@ public final class Constants {
             new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
+
+    /* Turret profile */
+    public static final int TURRET_MOTOR = 10; // FIXME: change this in phoenix tuner    
+
+    /*Encoder Profiles */
+    public static final int FALCON_ENCODER_COUNTS = 2048;
+    public static final double TURRET_FORWARD_POSITION = 1.0; //FIXMEGODPLEASE
+    public static final double TURRET_REVERSE_POSITION = -1.0; //fixmepleasealso
 }
