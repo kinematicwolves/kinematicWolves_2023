@@ -153,4 +153,5 @@ public final class Constants {
     public static final int FALCON_ENCODER_COUNTS = 2048;
     public static final double TURRET_FORWARD_POSITION = 1.0; //FIXMEGODPLEASE
     public static final double TURRET_REVERSE_POSITION = -1.0; //fixmepleasealso
+    public static final double TURRET_INITIAL_POSITION = 0; 
 }

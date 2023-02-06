@@ -8,11 +8,16 @@ import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Turret extends SubsystemBase {
   private final WPI_TalonFX m_turretMotor = new WPI_TalonFX(Constants.TURRET_MOTOR);
+
+private static final int initPosition = 0;
+private static final int positionThreshold = 10;
+private String turretState = "Initial_Position";
 
   //variables 
  // private String TurretStates = "TurretStateInitial";
@@ -30,25 +35,54 @@ public class Turret extends SubsystemBase {
 
   }
 
-  public void TurretStateInitial(){
-    m_turretMotor.setSelectedSensorPosition(0);
-  }
-  
-  public void TurretStateForward(){
-    m_turretMotor.setSelectedSensorPosition(Constants.TURRET_FORWARD_POSITION);
+  public void monitorTurretStates(){
+    if (getSimplifiedEncoderPosition() == Constants.TURRET_INITIAL_POSITION){
+      turretState = "Initial_Position";
+    }
+    else if (getSimplifiedEncoderPosition() == Constants.TURRET_FORWARD_POSITION){
+      turretState = "Foward Turret State";
+    }
+    else if (getSimplifiedEncoderPosition() == Constants.TURRET_REVERSE_POSITION){
+      turretState = "Reverse Turret State";
+    } 
   }
 
-  public void TurretStateReverse(){
-    m_turretMotor.setSelectedSensorPosition(Constants.TURRET_REVERSE_POSITION);
+  public boolean turretPositonFwd(){
+    return getTurretState() == "Foward Turret State";
+  }
+
+  public boolean turretPositionRvs(){
+    return getTurretState() == "Reverse Turret State";
+  }
+
+  public boolean turretPositionInit(){
+    return getTurretState() == "Initial Turret State"; 
+  }
+
+  public String getTurretState(){
+    return turretState;
   }
 
   public double convertEncoderCounts(double encoderPosition){
     return Math.abs(encoderPosition / Constants.FALCON_ENCODER_COUNTS * 0.5);
   }
+
+  public double getSimplifiedEncoderPosition(){
+    return convertEncoderCounts(m_turretMotor.getSelectedSensorPosition());
+  }
+
+  public void setTurretMotorOutput(double commandedOutput){
+    m_turretMotor.set(commandedOutput);
+  }  
   
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    monitorTurretStates();
+    
+    double currentPosition = m_turretMotor.getSelectedSensorPosition();
+    SmartDashboard.putNumber("Turret_Encoder_Position", convertEncoderCounts(currentPosition));
+    SmartDashboard.putString("Turret_State", getTurretState());
     }
   }
 
