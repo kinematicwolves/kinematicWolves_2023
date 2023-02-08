@@ -1,14 +1,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
-import frc.robot.commands.*;
-import frc.robot.subsystems.*;
+import frc.robot.commands.DriveRobotOpenLoop;
+import frc.robot.commands.ZeroGyro;
+import frc.robot.subsystems.SwerveSubsytem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -18,36 +16,21 @@ import frc.robot.subsystems.*;
  */
 public class RobotContainer {
     /* Controllers */
-    private final Joystick driver = new Joystick(0);
-
-    /* Drive Controls */
-    private final int translationAxis = XboxController.Axis.kLeftY.value;
-    private final int strafeAxis = XboxController.Axis.kLeftX.value;
-    private final int rotationAxis = XboxController.Axis.kRightX.value;
-
-    /* Driver Buttons */
-    private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
-    // ignor this. should always be field centric
-    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value); 
-
+    private final XboxController m_driverController = new XboxController(0);
+    
     /* Subsystems */
-    private final Swerve s_Swerve = new Swerve();
+    private final SwerveSubsytem s_Swerve = new SwerveSubsytem();
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
-    public RobotContainer() {
-        s_Swerve.setDefaultCommand(
-            new TeleopSwerve(
-                s_Swerve, 
-                () -> driver.getRawAxis(translationAxis), 
-                () -> driver.getRawAxis(strafeAxis), 
-                () -> driver.getRawAxis(rotationAxis), 
-                () -> false//robotCentric.getAsBoolean()
-            )
-        );
-
+    public RobotContainer() {;
         // Configure the button bindings
         configureButtonBindings();
+        setDefaultCommands();
+    }
+
+    public void setDefaultCommands(){
+        s_Swerve.setDefaultCommand(new DriveRobotOpenLoop(s_Swerve, m_driverController));
     }
 
     /**
@@ -57,8 +40,9 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
-        /* Driver Buttons */
-        zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        JoystickButton a_driverController = new JoystickButton(m_driverController, XboxController.Button.kA.value);
+
+        a_driverController.whenPressed(new ZeroGyro(s_Swerve));
     }
 
     /**
