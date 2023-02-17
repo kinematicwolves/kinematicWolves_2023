@@ -1,8 +1,12 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.DriveRobotOpenLoop;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.ZeroGyro;
 import frc.robot.subsystems.SwerveSubsytem;
 
@@ -14,23 +18,37 @@ import frc.robot.subsystems.SwerveSubsytem;
  */
 public class RobotContainer {
     /* Controllers */
-    private final XboxController m_driverController = new XboxController(0);
-    
+    private final Joystick driverController = new Joystick(Constants.DRIVER_CONTROLLER);
+
+    /* Drive Controls */
+    private final int translationAxis = XboxController.Axis.kLeftY.value;
+    private final int strafeAxis = XboxController.Axis.kLeftX.value;
+    private final int rotationAxis = XboxController.Axis.kRightX.value;
+    private final boolean robotCentric = true;
+
     /* Subsystems */
-    private final SwerveSubsytem s_Swerve = new SwerveSubsytem();
+    private final SwerveSubsytem m_SwerveSubsytem = new SwerveSubsytem();
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
-    public RobotContainer() {;
+    public RobotContainer() {
         // Configure the button bindings
+        configureButtonBindings();
+        // Set Default Commands
         setDefaultCommands();
+
+        m_SwerveSubsytem.setDefaultCommand(
+            new TeleopSwerve(
+                m_SwerveSubsytem, 
+                () -> driverController.getRawAxis(translationAxis), 
+                () -> driverController.getRawAxis(strafeAxis), 
+                () -> driverController.getRawAxis(rotationAxis), 
+                () -> robotCentric
+            )
+        );
     }
 
-    public void setDefaultCommands(){
-        s_Swerve.setDefaultCommand(new DriveRobotOpenLoop(s_Swerve, m_driverController)); //Joysticks
-        s_Swerve.setDefaultCommand(new ZeroGyro(s_Swerve, m_driverController)); // A button
-    }
-
+    private void setDefaultCommands(){}
 
     /**
      * Use this method to define your button->command mappings. Buttons can be created by
@@ -38,7 +56,16 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
+    private void configureButtonBindings() {
+        /* Button Box */
+        Trigger aButton = new JoystickButton(driverController, XboxController.Button.kA.value);
+        Trigger bButton = new JoystickButton(driverController, XboxController.Button.kB.value);
 
+
+        aButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
+      
+
+    }
 
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
