@@ -154,7 +154,7 @@ public final class Constants {
     public static final class LightProfile {
         public static final int CANDLE1_ID = 0; //FIXME
         public static final int CANDLE2_ID = 0; //FIXME
-        public static final int CANDLE1_LED_COUNT = 100; //FIXME
+        public static final int CANDLE1_LED_COUNT = 309; //FIXME
         public static final int CANDLE2_LED_COUNT = 100; //FIXME
     }
 }
