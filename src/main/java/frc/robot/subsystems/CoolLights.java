@@ -33,7 +33,7 @@ public class CoolLights extends SubsystemBase {
     m_candle2.configLEDType(LEDStripType.GRB);
   }
 
-    /* CANdle 1 Animations */
+    /* CANdle 1 (ARM) Animations */
   public void setCANdle1RainbowAnimation(){
     m_candle1Animation = new RainbowAnimation(0.8, 0.88, Constants.LightProfile.CANDLE1_LED_COUNT);
   }

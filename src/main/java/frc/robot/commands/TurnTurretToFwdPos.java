@@ -5,14 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.TurretSubsystem;
 
-public class TurnToTurretPos0 extends CommandBase {
-  private TurretSubsystem m_turret;
-  /** Creates a new TurnToTurretPos0. */
-  public TurnToTurretPos0(TurretSubsystem turret) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    turret = m_turret; 
+public class TurnTurretToFwdPos extends CommandBase {
+  /** Creates a new TurnTurretPosFwd. */
+  private final TurretSubsystem m_TurretSubsystem; 
+  public TurnTurretToFwdPos(TurretSubsystem TurretSubsystem) {
+    // Use addRequirements() here to declare subsystem dependencies.'
+    m_TurretSubsystem = TurretSubsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -21,7 +22,11 @@ public class TurnToTurretPos0 extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    if (m_TurretSubsystem.getTurretPositionDegrees() < Constants.TurretProfile.TURRET_FORWARD_POSITION) {
+      m_TurretSubsystem.setTurretMotorOutput(0.1);
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -30,6 +35,6 @@ public class TurnToTurretPos0 extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_TurretSubsystem.getTurretState() == "Foward Turret State";
   }
 }

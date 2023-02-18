@@ -7,9 +7,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.GripperControl;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.commands.TurnTurretToFwdPos;
+import frc.robot.commands.TurnTurretToInitPos;
+import frc.robot.commands.TurnTurretToRvsPos;
 import frc.robot.commands.ZeroGyro;
+import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.GripperSubsytem;
 import frc.robot.subsystems.SwerveSubsytem;
+import frc.robot.subsystems.TurretSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -38,6 +43,8 @@ public class RobotContainer {
     /* Subsystems */
     private final SwerveSubsytem m_SwerveSubsytem = new SwerveSubsytem();
     private final GripperSubsytem m_GripperSubsytem = new GripperSubsytem();
+    private final AirSubsystem m_AirSubsystem = new AirSubsystem();
+    private final TurretSubsystem m_TurretSubsystem = new TurretSubsystem();
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -99,7 +106,10 @@ public class RobotContainer {
         a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
 
         /* Munipulator Button Commands */
-        a_munipulatorButton.onTrue(new GripperControl(null, null));
+        a_munipulatorButton.onTrue(new GripperControl(m_GripperSubsytem, m_AirSubsystem));
+        x_munipulatorButton.onTrue(new TurnTurretToRvsPos(m_TurretSubsystem));
+        y_munipulatorButton.onTrue(new TurnTurretToInitPos(m_TurretSubsystem));
+        b_munipulatorButton.onTrue(new TurnTurretToFwdPos(m_TurretSubsystem));
 
     }
 
