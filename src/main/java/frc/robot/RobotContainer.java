@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.ZeroGyro;
 import frc.robot.subsystems.SwerveSubsytem;
@@ -19,6 +18,14 @@ import frc.robot.subsystems.SwerveSubsytem;
 public class RobotContainer {
     /* Controllers */
     private final Joystick driverController = new Joystick(Constants.DRIVER_CONTROLLER);
+    private final Joystick munipulatorController = new Joystick(Constants.MUNIPULATOR_CONTROLLER);
+
+    /* Driver Controller Map
+        * A = Zero Gyro
+        */
+    /* Munipulator Controller Map
+        * 
+        */
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -58,13 +65,44 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         /* Button Box */
-        Trigger aButton = new JoystickButton(driverController, XboxController.Button.kA.value);
-        Trigger bButton = new JoystickButton(driverController, XboxController.Button.kB.value);
+        JoystickButton a_driverButton = new JoystickButton(driverController, XboxController.Button.kA.value);
+        JoystickButton b_driverButton = new JoystickButton(driverController, XboxController.Button.kB.value);
+        JoystickButton x_riverButton = new JoystickButton(driverController, XboxController.Button.kX.value);
+        JoystickButton y_driverButton = new JoystickButton(driverController, XboxController.Button.kY.value);
+        JoystickButton rb_driverButton = new JoystickButton(driverController, XboxController.Button.kRightBumper.value);
+        JoystickButton lb_driverButton = new JoystickButton(driverController, XboxController.Button.kRightBumper.value);
+        JoystickButton start_driverButton = new JoystickButton(driverController, XboxController.Button.kStart.value);
+        JoystickButton back_driverButton = new JoystickButton(driverController, XboxController.Button.kBack.value);
+        JoystickButton rs_driverButton = new JoystickButton(driverController, XboxController.Button.kRightStick.value);
+        JoystickButton ls_driverButton = new JoystickButton(driverController, XboxController.Button.kLeftStick.value);
+        JoystickButton rt_driverButton = new JoystickButton(driverController, XboxController.Axis.kRightTrigger.value);
+        JoystickButton lt_driverButton = new JoystickButton(driverController, XboxController.Axis.kLeftTrigger.value);
+        
+        JoystickButton a_munipulatorButton = new JoystickButton(driverController, XboxController.Button.kA.value);
+        JoystickButton b_munipulatorButton = new JoystickButton(driverController, XboxController.Button.kB.value);
+        JoystickButton x_munipulatorButton = new JoystickButton(driverController, XboxController.Button.kX.value);
+        JoystickButton y_munipulatorButton = new JoystickButton(driverController, XboxController.Button.kY.value);
+        JoystickButton rb_munipulatorButton = new JoystickButton(driverController, XboxController.Button.kRightBumper.value);
+        JoystickButton lb_munipulatorButton = new JoystickButton(driverController, XboxController.Button.kRightBumper.value);
+        JoystickButton start_munipulatorButton = new JoystickButton(driverController, XboxController.Button.kStart.value);
+        JoystickButton back_munipulatorButton = new JoystickButton(driverController, XboxController.Button.kBack.value);
+        JoystickButton rs_munipulatorButton = new JoystickButton(driverController, XboxController.Button.kRightStick.value);
+        JoystickButton ls_munipulatorButton = new JoystickButton(driverController, XboxController.Button.kLeftStick.value);
+        JoystickButton rt_munipulatorButton = new JoystickButton(driverController, XboxController.Axis.kRightTrigger.value);
+        JoystickButton lt_munipulatorButton = new JoystickButton(driverController, XboxController.Axis.kLeftTrigger.value);
 
 
-        aButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
-      
+        /* Driver Button Commands */
+        a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
 
+        /* Munipulator Button Commands */
+
+            /* Driver Controller Map
+         * A = Zero Gyro
+         */
+            /* Munipulator Controller Map 
+         * 
+        */
     }
 
     /**

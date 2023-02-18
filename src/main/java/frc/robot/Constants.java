@@ -12,9 +12,10 @@ import frc.robot.Util.Lib.util.SwerveModuleConstants;
 
 public final class Constants {
     public static final double stickDeadband = 0.1;
-    public static final int DRIVER_CONTROLLER = 1;
+    public static final int DRIVER_CONTROLLER = 0;
+    public static final int MUNIPULATOR_CONTROLLER = 1;
 
-    public static final class Swerve {
+    public static final class SwerveProfile {
         public static final int pigeonID = 13;
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
@@ -26,8 +27,7 @@ public final class Constants {
         public static final double wheelBase = Units.inchesToMeters(20.52); 
         public static final double wheelCircumference = chosenModule.wheelCircumference;
 
-        /* Swerve Kinematics 
-         * No need to ever change this unless you are not doing a traditional rectangular/square 4 module swerve */
+        /* Swerve Kinematics */
          public static final SwerveDriveKinematics swerveKinematics = new SwerveDriveKinematics(
             new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
             new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
@@ -146,8 +146,10 @@ public final class Constants {
             new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
-    /* Limelight Profile */ 
-    public static final double LIMELIGHT_VERTICAL_ANGLE = 0; //FIXME
-    public static final double TARGET_HEIGHT = 0; //FIXME
-    public static final double LIMELIGHT_HEIGHT = 0; //FIXME
+
+    /* LED's Profile */
+    public static final int CANDLE1_ID = 0; //FIXME
+    public static final int CANDLE2_ID = 0; //FIXME
+    public static final int CANDLE1_LED_COUNT = 100; //FIXME
+    public static final int CANDLE2_LED_COUNT = 100; //FIXME
 }
