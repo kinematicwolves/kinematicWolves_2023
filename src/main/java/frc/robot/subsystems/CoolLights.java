@@ -17,8 +17,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class CoolLights extends SubsystemBase {
-  private final CANdle m_candle1 = new CANdle(Constants.CANDLE1_ID);
-  private final CANdle m_candle2 = new CANdle(Constants.CANDLE2_ID);
+  private final CANdle m_candle1 = new CANdle(Constants.LightProfile.CANDLE1_ID);
+  private final CANdle m_candle2 = new CANdle(Constants.LightProfile.CANDLE2_ID);
   private Animation m_candle1Animation = null;
   private Animation m_candle2Animation = null;
 
@@ -35,42 +35,42 @@ public class CoolLights extends SubsystemBase {
 
     /* CANdle 1 Animations */
   public void setCANdle1RainbowAnimation(){
-    m_candle1Animation = new RainbowAnimation(0.8, 0.88, Constants.CANDLE1_LED_COUNT);
+    m_candle1Animation = new RainbowAnimation(0.8, 0.88, Constants.LightProfile.CANDLE1_LED_COUNT);
   }
   public void setCANdle1PurpleTwinkleAnimation(){
-    m_candle1Animation = new TwinkleAnimation(255, 0, 255, 69, 0.9, Constants.CANDLE1_LED_COUNT, TwinklePercent.Percent100); 
+    m_candle1Animation = new TwinkleAnimation(255, 0, 255, 69, 0.9, Constants.LightProfile.CANDLE1_LED_COUNT, TwinklePercent.Percent100); 
   }
   public void setCANdle1RedTwinkleAnimation(){
-    m_candle1Animation = new TwinkleAnimation(225, 0, 1, 0, 0.9, Constants.CANDLE1_LED_COUNT,TwinklePercent.Percent100);
+    m_candle1Animation = new TwinkleAnimation(225, 0, 1, 0, 0.9, Constants.LightProfile.CANDLE1_LED_COUNT,TwinklePercent.Percent100);
   }
   public void setCANdle1BlueTwinkleAnimation(){
-    m_candle1Animation = new TwinkleAnimation(0, 0, 225, 30, 0.9, Constants.CANDLE1_LED_COUNT,TwinklePercent.Percent100);
+    m_candle1Animation = new TwinkleAnimation(0, 0, 225, 30, 0.9, Constants.LightProfile.CANDLE1_LED_COUNT,TwinklePercent.Percent100);
   }
   public void setCANdle1GreenTwinkleAnimation(){
-    m_candle1Animation = new TwinkleAnimation(0, 225, 0, 0, 0.9, Constants.CANDLE1_LED_COUNT,TwinklePercent.Percent100); 
+    m_candle1Animation = new TwinkleAnimation(0, 225, 0, 0, 0.9, Constants.LightProfile.CANDLE1_LED_COUNT,TwinklePercent.Percent100); 
   }
   public void setCANdle1BlackAnimation(){
-    m_candle1Animation = new TwinkleAnimation(0, 0, 0, 0 , 0 , Constants.CANDLE1_LED_COUNT,TwinklePercent.Percent100); 
+    m_candle1Animation = new TwinkleAnimation(0, 0, 0, 0 , 0 , Constants.LightProfile.CANDLE1_LED_COUNT,TwinklePercent.Percent100); 
   }
 
     /* CANdle 2 Animations */
   public void setCANdle2RainbowAnimation(){
-    m_candle1Animation = new RainbowAnimation(0.8, 0.88, Constants.CANDLE2_LED_COUNT);
+    m_candle1Animation = new RainbowAnimation(0.8, 0.88, Constants.LightProfile.CANDLE2_LED_COUNT);
   }
   public void setCANdle2PurpleTwinkleAnimation(){
-    m_candle1Animation = new TwinkleAnimation(255, 0, 255, 69, 0.9, Constants.CANDLE2_LED_COUNT, TwinklePercent.Percent100); 
+    m_candle1Animation = new TwinkleAnimation(255, 0, 255, 69, 0.9, Constants.LightProfile.CANDLE2_LED_COUNT, TwinklePercent.Percent100); 
   }
   public void setCANdle2RedTwinkleAnimation(){
-    m_candle1Animation = new TwinkleAnimation(225, 0, 1, 0, 0.9, Constants.CANDLE2_LED_COUNT,TwinklePercent.Percent100);
+    m_candle1Animation = new TwinkleAnimation(225, 0, 1, 0, 0.9, Constants.LightProfile.CANDLE2_LED_COUNT,TwinklePercent.Percent100);
   }
   public void setCANdle2BlueTwinkleAnimation(){
-    m_candle1Animation = new TwinkleAnimation(0, 0, 225, 30, 0.9, Constants.CANDLE2_LED_COUNT,TwinklePercent.Percent100);
+    m_candle1Animation = new TwinkleAnimation(0, 0, 225, 30, 0.9, Constants.LightProfile.CANDLE2_LED_COUNT,TwinklePercent.Percent100);
   }
   public void setCANdle2GreenTwinkleAnimation(){
-    m_candle1Animation = new TwinkleAnimation(0, 225, 0, 0, 0.9, Constants.CANDLE2_LED_COUNT,TwinklePercent.Percent100); 
+    m_candle1Animation = new TwinkleAnimation(0, 225, 0, 0, 0.9, Constants.LightProfile.CANDLE2_LED_COUNT,TwinklePercent.Percent100); 
   }
   public void setCANdle2BlackAnimation(){
-    m_candle1Animation = new TwinkleAnimation(0, 0, 0, 0 , 0 , Constants.CANDLE2_LED_COUNT,TwinklePercent.Percent100); 
+    m_candle1Animation = new TwinkleAnimation(0, 0, 0, 0 , 0 , Constants.LightProfile.CANDLE2_LED_COUNT,TwinklePercent.Percent100); 
   }
 
   public void setDisabledLightShow(){

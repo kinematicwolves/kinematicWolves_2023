@@ -11,9 +11,12 @@ import frc.robot.Util.Lib.util.COTSFalconSwerveConstants;
 import frc.robot.Util.Lib.util.SwerveModuleConstants;
 
 public final class Constants {
-    public static final double stickDeadband = 0.1;
-    public static final int DRIVER_CONTROLLER = 0;
-    public static final int MUNIPULATOR_CONTROLLER = 1;
+    
+    public static final class ControllerProfile {
+        public static final double stickDeadband = 0.1;
+        public static final int DRIVER_CONTROLLER = 0;
+        public static final int MUNIPULATOR_CONTROLLER = 1;
+    }
 
     public static final class SwerveProfile {
         public static final int pigeonID = 13;
@@ -153,8 +156,10 @@ public final class Constants {
     public static final double MIDNODE_HEIGHT = 0; //FIXME
 
     /* LED's Profile */
-    public static final int CANDLE1_ID = 0; //FIXME
-    public static final int CANDLE2_ID = 0; //FIXME
-    public static final int CANDLE1_LED_COUNT = 100; //FIXME
-    public static final int CANDLE2_LED_COUNT = 100; //FIXME
+    public static final class LightProfile {
+        public static final int CANDLE1_ID = 0; //FIXME
+        public static final int CANDLE2_ID = 0; //FIXME
+        public static final int CANDLE1_LED_COUNT = 100; //FIXME
+        public static final int CANDLE2_LED_COUNT = 100; //FIXME
+    }
 }
