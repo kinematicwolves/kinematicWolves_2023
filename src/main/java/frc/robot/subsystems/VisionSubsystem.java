@@ -102,9 +102,9 @@ public class VisionSubsystem extends SubsystemBase {
     return(v);
   }
 
-  // Calculate distance to target
+  // Calculate distance to target (midnode)
   private double calculateDistance() {
-   return (Constants.TARGET_HEIGHT-Constants.LIMELIGHT_HEIGHT)/Math.sin(Math.toRadians(getFilteredVerticalAngle()));
+   return (Constants.MIDNODE_HEIGHT-Constants.LIMELIGHT_HEIGHT)/Math.sin(Math.toRadians(getFilteredVerticalAngle()));
   }
 
   // Return distance

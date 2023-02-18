@@ -150,4 +150,5 @@ public final class Constants {
     public static final double LIMELIGHT_VERTICAL_ANGLE = 0; //FIXME
     public static final double TARGET_HEIGHT = 0; //FIXME
     public static final double LIMELIGHT_HEIGHT = 0; //FIXME
+    public static final double MIDNODE_HEIGHT = 0; //FIXME
 }
