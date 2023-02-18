@@ -97,12 +97,6 @@ public class RobotContainer {
 
         /* Munipulator Button Commands */
 
-            /* Driver Controller Map
-         * A = Zero Gyro
-         */
-            /* Munipulator Controller Map 
-         * 
-        */
     }
 
     /**
