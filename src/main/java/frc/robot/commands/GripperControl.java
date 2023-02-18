@@ -5,14 +5,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.subsystems.AirSubsystem;
+import frc.robot.subsystems.GripperSubsytem;
 
-public class TurnToTurretPos0 extends CommandBase {
-  private TurretSubsystem m_turret;
-  /** Creates a new TurnToTurretPos0. */
-  public TurnToTurretPos0(TurretSubsystem turret) {
+public class GripperControl extends CommandBase {
+  private final GripperSubsytem m_GripperSubsytem;
+  private final AirSubsystem m_AirSubsystem;
+
+  /** Creates a new GripperControl. */
+  public GripperControl(GripperSubsytem gripperSubsytem, AirSubsystem airSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    turret = m_turret; 
+    m_GripperSubsytem = gripperSubsytem;
+    m_AirSubsystem = airSubsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -21,7 +25,14 @@ public class TurnToTurretPos0 extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    if (m_GripperSubsytem.isGripperOpen()) {
+    m_GripperSubsytem.setGripperClosed(m_AirSubsystem, 0.1); 
+    }
+    else {
+      m_GripperSubsytem.setGriperOpen(m_AirSubsystem);
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -30,6 +41,6 @@ public class TurnToTurretPos0 extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

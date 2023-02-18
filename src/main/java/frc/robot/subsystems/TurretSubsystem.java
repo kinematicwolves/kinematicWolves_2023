@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Turret extends SubsystemBase {
-  private final WPI_TalonFX m_turretMotor = new WPI_TalonFX(Constants.TURRET_MOTOR);
+public class TurretSubsystem extends SubsystemBase {
+  private final WPI_TalonFX m_turretMotor = new WPI_TalonFX(Constants.TurretProfile.TURRET_MOTOR);
 
 private static final int initPosition = 0;
 private static final int positionThreshold = 10;
@@ -23,26 +23,26 @@ private String turretState = "Initial_Position";
  // private String TurretStates = "TurretStateInitial";
 
   /** Creates a new Turret. */
-  public Turret() {
+  public TurretSubsystem() {
     m_turretMotor.configFactoryDefault();
     m_turretMotor.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToZero, 10);
     m_turretMotor.setSelectedSensorPosition(0);
     m_turretMotor.setInverted(TalonFXInvertType.Clockwise);
 
     //Digital Limits
-    m_turretMotor.configReverseSoftLimitThreshold(convertEncoderCounts(Constants.TURRET_REVERSE_POSITION));
-    m_turretMotor.configForwardSoftLimitThreshold(convertEncoderCounts(Constants.TURRET_FORWARD_POSITION));
+    m_turretMotor.configReverseSoftLimitThreshold(convertEncoderCounts(Constants.TurretProfile.TURRET_REVERSE_POSITION));
+    m_turretMotor.configForwardSoftLimitThreshold(convertEncoderCounts(Constants.TurretProfile.TURRET_FORWARD_POSITION));
 
   }
 
   public void monitorTurretStates(){
-    if (getSimplifiedEncoderPosition() == Constants.TURRET_INITIAL_POSITION){
+    if (getSimplifiedEncoderPosition() == Constants.TurretProfile.TURRET_INITIAL_POSITION){
       turretState = "Initial_Position";
     }
-    else if (getSimplifiedEncoderPosition() == Constants.TURRET_FORWARD_POSITION){
+    else if (getSimplifiedEncoderPosition() == Constants.TurretProfile.TURRET_FORWARD_POSITION){
       turretState = "Foward Turret State";
     }
-    else if (getSimplifiedEncoderPosition() == Constants.TURRET_REVERSE_POSITION){
+    else if (getSimplifiedEncoderPosition() == Constants.TurretProfile.TURRET_REVERSE_POSITION){
       turretState = "Reverse Turret State";
     } 
   }

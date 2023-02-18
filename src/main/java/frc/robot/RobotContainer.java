@@ -5,8 +5,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.GripperControl;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.ZeroGyro;
+import frc.robot.subsystems.GripperSubsytem;
 import frc.robot.subsystems.SwerveSubsytem;
 
 /**
@@ -35,6 +37,7 @@ public class RobotContainer {
 
     /* Subsystems */
     private final SwerveSubsytem m_SwerveSubsytem = new SwerveSubsytem();
+    private final GripperSubsytem m_GripperSubsytem = new GripperSubsytem();
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -96,6 +99,7 @@ public class RobotContainer {
         a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
 
         /* Munipulator Button Commands */
+        a_munipulatorButton.onTrue(new GripperControl(null, null));
 
     }
 

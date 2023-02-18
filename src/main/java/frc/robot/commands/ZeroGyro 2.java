@@ -5,14 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.subsystems.SwerveSubsytem;
 
-public class TurnToTurretPos0 extends CommandBase {
-  private TurretSubsystem m_turret;
-  /** Creates a new TurnToTurretPos0. */
-  public TurnToTurretPos0(TurretSubsystem turret) {
+public class ZeroGyro extends CommandBase {
+  /** Creates a new zeroGyro. */
+  private SwerveSubsytem m_swerve;
+
+  public ZeroGyro(SwerveSubsytem swerve) {
     // Use addRequirements() here to declare subsystem dependencies.
-    turret = m_turret; 
+    m_swerve = swerve; 
   }
 
   // Called when the command is initially scheduled.
@@ -21,7 +22,9 @@ public class TurnToTurretPos0 extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+      m_swerve.zeroGyro();
+  }
 
   // Called once the command ends or is interrupted.
   @Override

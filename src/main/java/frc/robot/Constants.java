@@ -151,13 +151,13 @@ public final class Constants {
     }
 
     /* Turret profile */
-    public static final int TURRET_MOTOR = 10; // FIXME: change this in phoenix tuner    
+    public static final class TurretProfile {
+        public static final int TURRET_MOTOR = 10; // FIXME: change this in phoenix tuner    
+        public static final double TURRET_FORWARD_POSITION = 1.0; //FIXMEGODPLEASE
+        public static final double TURRET_REVERSE_POSITION = -1.0; //fixmepleasealso
+        public static final double TURRET_INITIAL_POSITION = 0; 
+    }
 
-    /*Encoder Profiles */
-    public static final int FALCON_ENCODER_COUNTS = 2048;
-    public static final double TURRET_FORWARD_POSITION = 1.0; //FIXMEGODPLEASE
-    public static final double TURRET_REVERSE_POSITION = -1.0; //fixmepleasealso
-    public static final double TURRET_INITIAL_POSITION = 0; 
     /* LED's Profile */
     public static final class LightProfile {
         public static final int CANDLE1_ID = 0; //FIXME
@@ -165,4 +165,32 @@ public final class Constants {
         public static final int CANDLE1_LED_COUNT = 100; //FIXME
         public static final int CANDLE2_LED_COUNT = 100; //FIXME
     }
+
+    public static final class GripperProfile {
+        /* Gripper Motor ID's */
+        public static final int LEFT_FINGER = 0;
+        public static final int RIGHT_FINGER = 0;
+
+        /* Current limits for Neo 550's 
+         * Stall Limit - the current limit in amps at 0 rpm
+         * Free Limit - the current limit at free speed (11000 for neo 550's)
+         * Limit RPM - less than this value will be set to the stall limit, rpm  values greater than limit rpm will scale linearly to free limit 
+        */
+        public static final int GRIPPER_CURRENT_STALL_LIMIT = 10;
+        public static final int GRIPPER_CURRENT_FREE_LIMIT = 11000;
+        public static final int GRIPPER_CURRENT_LIMIT_RPM = 2;
+    }
+
+    public static final class PneumaticProfile {
+        public static final int PNEUMATIC_HUB_ID = 0; // FIXME
+        /* Pnuematic Hub Ports */
+        public static final int GRIPPER_SOL_FWD = 0; // FIXME
+        public static final int GRIPPER_SOL_RVS = 0; // FIXME
+        /* Air Pressure */
+        public static final int MIN_AIR_PRESSURE = 60;
+        public static final int MAX_AIR_PRESSURE = 120;
+    }
+
+    /* Falcon counts per rotation */
+    public static final int FALCON_ENCODER_COUNTS = 2048;
 }
