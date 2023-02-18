@@ -5,9 +5,11 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.AutoAlignment;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.ZeroGyro;
 import frc.robot.subsystems.SwerveSubsytem;
+import frc.robot.subsystems.VisionSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -22,12 +24,13 @@ public class RobotContainer {
 
     /* Driver Controller Map
         * A = Zero Gyro
+        * B = Auto align with mid node
         */
     /* Munipulator Controller Map
         * 
         */
 
-    /* Drive Controls */
+    /* Joystick Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
     private final int rotationAxis = XboxController.Axis.kRightX.value;
@@ -35,6 +38,7 @@ public class RobotContainer {
 
     /* Subsystems */
     private final SwerveSubsytem m_SwerveSubsytem = new SwerveSubsytem();
+    private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -94,6 +98,7 @@ public class RobotContainer {
 
         /* Driver Button Commands */
         a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
+        b_driverButton.onTrue(new AutoAlignment(m_VisionSubsystem, m_SwerveSubsytem, 0.2, 0.2));
 
         /* Munipulator Button Commands */
 

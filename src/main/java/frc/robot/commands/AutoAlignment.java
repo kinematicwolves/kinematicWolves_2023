@@ -13,12 +13,15 @@ public class AutoAlignment extends CommandBase {
   private VisionSubsystem m_VisionSubsystem;
   private SwerveSubsytem m_SwerveSubsytem;
   private final double m_strafeSpeed;
+  private final double m_yTranslationSpeed;
 
-  public AutoAlignment(VisionSubsystem visionSubsystem, SwerveSubsytem swerveSubsytem, double strafeSpeed) {
+  public AutoAlignment(VisionSubsystem visionSubsystem, SwerveSubsytem swerveSubsytem, double strafeSpeed,
+  double yTranslationSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_VisionSubsystem = visionSubsystem;
     m_SwerveSubsytem = swerveSubsytem;
     m_strafeSpeed = strafeSpeed;
+    m_yTranslationSpeed = yTranslationSpeed;
   }
 
   // Called when the command is initially scheduled.
@@ -31,7 +34,7 @@ public class AutoAlignment extends CommandBase {
   @Override
   public void execute() {
     if (m_SwerveSubsytem.isLinedUp(m_VisionSubsystem));
-    m_SwerveSubsytem.yTranslateDrivetrainToTarget(m_strafeSpeed, m_VisionSubsystem);
+    m_SwerveSubsytem.yTranslateDrivetrainToTarget(m_yTranslationSpeed, m_VisionSubsystem);
   }
 
   // Called once the command ends or is interrupted.
