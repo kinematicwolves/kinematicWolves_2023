@@ -17,8 +17,8 @@ import frc.robot.subsystems.SwerveSubsytem;
  */
 public class RobotContainer {
     /* Controllers */
-    private final Joystick driverController = new Joystick(Constants.DRIVER_CONTROLLER);
-    private final Joystick munipulatorController = new Joystick(Constants.MUNIPULATOR_CONTROLLER);
+    private final Joystick driverController = new Joystick(Constants.ControllerProfile.DRIVER_CONTROLLER);
+    private final Joystick munipulatorController = new Joystick(Constants.ControllerProfile.MUNIPULATOR_CONTROLLER);
 
     /* Driver Controller Map
         * A = Zero Gyro
