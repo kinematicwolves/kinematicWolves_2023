@@ -7,26 +7,30 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
-import frc.robot.Lib.util.COTSFalconSwerveConstants;
-import frc.robot.Lib.util.SwerveModuleConstants;
+import frc.robot.Util.Lib.util.COTSFalconSwerveConstants;
+import frc.robot.Util.Lib.util.SwerveModuleConstants;
 
 public final class Constants {
-    public static final double stickDeadband = 0.1;
+    
+    public static final class ControllerProfile {
+        public static final double stickDeadband = 0.1;
+        public static final int DRIVER_CONTROLLER = 0;
+        public static final int MUNIPULATOR_CONTROLLER = 1;
+    }
 
-    public static final class Swerve {
+    public static final class SwerveProfile {
         public static final int pigeonID = 13;
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
-        public static final COTSFalconSwerveConstants chosenModule =  //TODO: This must be tuned to specific robot
+        public static final COTSFalconSwerveConstants chosenModule =  
             COTSFalconSwerveConstants.SDSMK4i(COTSFalconSwerveConstants.driveGearRatios.SDSMK4i_L2);
 
         /* Drivetrain Constants */
-        public static final double trackWidth = Units.inchesToMeters(20.52); //TODO: This must be tuned to specific robot
-        public static final double wheelBase = Units.inchesToMeters(20.52); //TODO: This must be tuned to specific robot
+        public static final double trackWidth = Units.inchesToMeters(20.52); 
+        public static final double wheelBase = Units.inchesToMeters(20.52); 
         public static final double wheelCircumference = chosenModule.wheelCircumference;
 
-        /* Swerve Kinematics 
-         * No need to ever change this unless you are not doing a traditional rectangular/square 4 module swerve */
+        /* Swerve Kinematics */
          public static final SwerveDriveKinematics swerveKinematics = new SwerveDriveKinematics(
             new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
             new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
@@ -80,9 +84,9 @@ public final class Constants {
 
         /* Swerve Profiling Values */
         /** Meters per Second */
-        public static final double maxSpeed = 4.5; //TODO: This must be tuned to specific robot
+        public static final double maxSpeed = 4.5; 
         /** Radians per Second */
-        public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
+        public static final double maxAngularVelocity = 10.0; 
 
         /* Neutral Modes */
         public static final NeutralMode angleNeutralMode = NeutralMode.Coast;
@@ -90,7 +94,7 @@ public final class Constants {
 
         /* Module Specific Constants */
         /* Front Left Module - Module 0 */
-        public static final class Mod0 { //TODO: This must be tuned to specific robot
+        public static final class Mod0 { 
             public static final int driveMotorID = 1;
             public static final int angleMotorID = 2;
             public static final int canCoderID = 3;
@@ -100,7 +104,7 @@ public final class Constants {
         }
 
         /* Front Right Module - Module 1 */
-        public static final class Mod1 { //TODO: This must be tuned to specific robot
+        public static final class Mod1 { 
             public static final int driveMotorID = 4;
             public static final int angleMotorID = 5;
             public static final int canCoderID = 6;
@@ -110,7 +114,7 @@ public final class Constants {
         }
         
         /* Back Left Module - Module 2 */
-        public static final class Mod2 { //TODO: This must be tuned to specific robot
+        public static final class Mod2 { 
             public static final int driveMotorID = 7;
             public static final int angleMotorID = 8;
             public static final int canCoderID = 9;
@@ -120,7 +124,7 @@ public final class Constants {
         }
 
         /* Back Right Module - Module 3 */
-        public static final class Mod3 { //TODO: This must be tuned to specific robot
+        public static final class Mod3 { 
             public static final int driveMotorID = 10;
             public static final int angleMotorID = 11;
             public static final int canCoderID = 12;
@@ -154,4 +158,11 @@ public final class Constants {
     public static final double TURRET_FORWARD_POSITION = 1.0; //FIXMEGODPLEASE
     public static final double TURRET_REVERSE_POSITION = -1.0; //fixmepleasealso
     public static final double TURRET_INITIAL_POSITION = 0; 
+    /* LED's Profile */
+    public static final class LightProfile {
+        public static final int CANDLE1_ID = 0; //FIXME
+        public static final int CANDLE2_ID = 0; //FIXME
+        public static final int CANDLE1_LED_COUNT = 100; //FIXME
+        public static final int CANDLE2_LED_COUNT = 100; //FIXME
+    }
 }
