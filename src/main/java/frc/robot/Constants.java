@@ -192,6 +192,19 @@ public final class Constants {
         public static final int MAX_AIR_PRESSURE = 120;
     }
 
+    public static final class ArmProfile {
+        /* Arm ID's */
+        public static final int LEFT_OUTER_ARM = 0; //FIXME
+        public static final int RIGHT_OUTER_ARM = 0; //FIXME
+        public static final int LEFT_INNER_ARM = 0; //FIXME
+        public static final int RIGHT_INNER_ARM = 0; //FIXME
+        public static final int WRIST_MOTOR = 0; //FIXME
+        /* Arm Gear Ratios (gearbox + sprocket)*/
+        public static final double OUTER_ARM_GEAR_RATIO = 28/1 + 44/14;
+        public static final double INNER_ARM_GEAR_RATIO = 90/1 + 44/15;
+        public static final double WRIST_GEAR_RATIO = 25/1;
+    }
+
     /* Falcon counts per rotation */
     public static final int FALCON_ENCODER_COUNTS = 2048;
 }
