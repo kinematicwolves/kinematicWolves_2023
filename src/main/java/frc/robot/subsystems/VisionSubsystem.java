@@ -19,14 +19,24 @@ public class VisionSubsystem extends SubsystemBase {
   
   // Limelight object
   private NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+  // Reflective tape data entry's
   private NetworkTableEntry tx = table.getEntry("tx"); // x coordinate
   private NetworkTableEntry ty = table.getEntry("ty"); // y coordinate
   private NetworkTableEntry ta = table.getEntry("ta"); // Target area
   private NetworkTableEntry tv = table.getEntry("tv"); // target valid? boolean
-  public boolean limeLightIsOn = false; 
+
+  // April tag data entry's
+  private NetworkTableEntry botPos = table.getEntry("botPos");
 
   // LED Mode table
   private NetworkTableEntry LEDModeEntry = table.getEntry("ledMode");
+  public boolean limeLightIsOn = false; 
+
+  // Pipeline control table
+  private NetworkTableEntry pipelineControls = table.getEntry("pipeline");
+
+  // Camera mode
+  private NetworkTableEntry cameraModeControl = table.getEntry("camMode");
 
   private double[] ffGains = {
       0.0008171388625648901,
@@ -69,8 +79,7 @@ public class VisionSubsystem extends SubsystemBase {
   private double filtered_v_angle;
   private double v_angle;
   
-  public VisionSubsystem() {      
-  }
+  public VisionSubsystem() {}
 
   // Limelight x
   public double getHorizontalAngle() {
@@ -140,6 +149,7 @@ public class VisionSubsystem extends SubsystemBase {
   public void turnLimelightOff(){
     LEDModeEntry.setNumber(1);
     limeLightIsOn = false; 
+    pipelineControls.setNumber(9);
   }
 
   public boolean isLimeLightOn(){

@@ -20,6 +20,8 @@ public class Robot extends TimedRobot {
 
 
   private Command m_autonomousCommand;
+  private Command m_disabledCommand;
+  private Command m_telopLightingCommand;
 
   private RobotContainer m_robotContainer;
 
@@ -53,7 +55,17 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+        if (m_telopLightingCommand != null){
+      m_telopLightingCommand.cancel();
+      m_telopLightingCommand = null;
+    }
+    
+    m_disabledCommand = m_robotContainer.getDisabledCommand();
+    if (m_disabledCommand != null){
+      m_disabledCommand.schedule();
+    }
+  }
 
   @Override
   public void disabledPeriodic() {}
