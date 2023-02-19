@@ -26,7 +26,7 @@ public class GripperControl extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_GripperSubsytem.isGripperOpen()) {
+    if (m_GripperSubsytem.isTargetInRange()) {
     m_GripperSubsytem.setGripperClosed(m_AirSubsystem, 0.1); 
     }
     else {

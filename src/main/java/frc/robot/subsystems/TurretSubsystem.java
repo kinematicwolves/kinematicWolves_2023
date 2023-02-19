@@ -17,8 +17,6 @@ import frc.robot.Util.Lib.Conversions;
 public class TurretSubsystem extends SubsystemBase {
   private final WPI_TalonFX m_turretMotor = new WPI_TalonFX(Constants.TurretProfile.TURRET_MOTOR);
 
-private static final int initPosition = 0;
-private static final int positionThreshold = 10;
 private String turretState = "Initial_Position";
 private static final double gearRatio = 10/140;
 
@@ -82,7 +80,7 @@ private static final double gearRatio = 10/140;
   public void periodic() {
     // This method will be called once per scheduler run
     monitorTurretStates();
-    
+    // Prints Turret position in Degrees and its state (SmartDash Board)
     double currentPosition = m_turretMotor.getSelectedSensorPosition();
     SmartDashboard.putNumber("Turret_Position_Degrees", Conversions.falconToDegrees(currentPosition, gearRatio));
     SmartDashboard.putString("Turret_State", getTurretState());

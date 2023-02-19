@@ -167,10 +167,10 @@ public final class Constants {
     }
 
     public static final class GripperProfile {
-        /* Gripper Motor ID's */
-        public static final int LEFT_FINGER = 0;
-        public static final int RIGHT_FINGER = 0;
-
+        /* Gripper ID's */
+        public static final int LEFT_FINGER = 0; //FIXME
+        public static final int RIGHT_FINGER = 0; //FIXME
+        public static final int DISTANCE_SENSOR = 0; //FIXME
         /* Current limits for Neo 550's 
          * Stall Limit - the current limit in amps at 0 rpm
          * Free Limit - the current limit at free speed (11000 for neo 550's)
