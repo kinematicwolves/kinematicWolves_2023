@@ -3,14 +3,19 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.BlueAllianceLightshow;
+import frc.robot.commands.RedAllianceLightshow;
+import frc.robot.commands.SetDisabledState;
 import frc.robot.commands.GripperControl;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.TurnTurretToFwdPos;
 import frc.robot.commands.TurnTurretToInitPos;
 import frc.robot.commands.TurnTurretToRvsPos;
 import frc.robot.commands.ZeroGyro;
+import frc.robot.subsystems.LightingSubsystem;
 import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.GripperSubsytem;
 import frc.robot.subsystems.SwerveSubsytem;
@@ -23,16 +28,16 @@ import frc.robot.subsystems.TurretSubsystem;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-    /* Controllers */
-    private final Joystick driverController = new Joystick(Constants.ControllerProfile.DRIVER_CONTROLLER);
-    private final Joystick munipulatorController = new Joystick(Constants.ControllerProfile.MUNIPULATOR_CONTROLLER);
-
     /* Driver Controller Map
         * A = Zero Gyro
         */
     /* Munipulator Controller Map
         * 
         */
+
+    /* Controllers */
+    private final Joystick driverController = new Joystick(Constants.ControllerProfile.DRIVER_CONTROLLER);
+    private final Joystick munipulatorController = new Joystick(Constants.ControllerProfile.MUNIPULATOR_CONTROLLER);
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -42,10 +47,13 @@ public class RobotContainer {
 
     /* Subsystems */
     private final SwerveSubsytem m_SwerveSubsytem = new SwerveSubsytem();
+    private final LightingSubsystem m_LightingSubsystem = new LightingSubsystem();
     private final GripperSubsytem m_GripperSubsytem = new GripperSubsytem();
     private final AirSubsystem m_AirSubsystem = new AirSubsystem();
     private final TurretSubsystem m_TurretSubsystem = new TurretSubsystem();
 
+    /* Sendable Choosers */
+    SendableChooser<Command> m_LightsChooser = new SendableChooser<>(); 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -63,6 +71,10 @@ public class RobotContainer {
                 () -> robotCentric
             )
         );
+        
+        // A chooser for Lightshow commands
+        m_LightsChooser.setDefaultOption("Red Alliance Lighshow", new RedAllianceLightshow(m_LightingSubsystem));
+        m_LightsChooser.addOption("Blue Alliance LightShow", new BlueAllianceLightshow(m_LightingSubsystem));
     }
 
     private void setDefaultCommands(){}
@@ -122,4 +134,15 @@ public class RobotContainer {
         // An ExampleCommand will run in autonomous
         return null;
     }
+
+    public Command getTeleopLightingCommand(){
+        // Alliance color selector for leds
+        return m_LightsChooser.getSelected();
+       }
+
+    public Command getDisabledCommand(){
+        // Command to reset robot to initial state
+        Command disabled = new SetDisabledState(m_LightingSubsystem);
+        return disabled;
+      }
 }
