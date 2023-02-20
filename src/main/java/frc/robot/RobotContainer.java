@@ -112,7 +112,6 @@ public class RobotContainer {
         /* Driver Button Commands */
         a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
         b_driverButton.onTrue(new AutoAlignment(m_VisionSubsystem, m_SwerveSubsytem, 0.2, 0.2));
-
         /* Munipulator Button Commands */
 
     }

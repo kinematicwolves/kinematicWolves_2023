@@ -39,7 +39,10 @@ public class AutoAlignment extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_SwerveSubsytem.strafeDrivetrainToTarget(0, m_VisionSubsystem);
+    m_SwerveSubsytem.yTranslateDrivetrainToTarget(0, m_VisionSubsystem);
+  }
 
   // Returns true when the command should end.
   @Override

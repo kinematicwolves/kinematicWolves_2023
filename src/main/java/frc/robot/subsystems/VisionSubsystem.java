@@ -78,6 +78,8 @@ public class VisionSubsystem extends SubsystemBase {
   private double h_angle;
   private double filtered_v_angle;
   private double v_angle;
+
+  private double aprilTagDistance;
   
   public VisionSubsystem() {}
 
@@ -96,7 +98,7 @@ public class VisionSubsystem extends SubsystemBase {
   // Limelight y
   public double getVerticalAngle() {
     v_angle = ty.getDouble(0.0);
-    return(v_angle + Constants.LIMELIGHT_VERTICAL_ANGLE);
+    return(v_angle + Constants.LimelightProfile.LIMELIGHT_VERTICAL_ANGLE);
   }
 
   // Limelight area
@@ -113,7 +115,7 @@ public class VisionSubsystem extends SubsystemBase {
 
   // Calculate distance to target (midnode)
   private double calculateDistance() {
-   return (Constants.MIDNODE_HEIGHT-Constants.LIMELIGHT_HEIGHT)/Math.sin(Math.toRadians(getFilteredVerticalAngle()));
+   return (Constants.LimelightProfile.MIDNODE_HEIGHT-Constants.LimelightProfile.LIMELIGHT_HEIGHT)/Math.sin(Math.toRadians(getFilteredVerticalAngle()));
   }
 
   // Return distance
@@ -141,6 +143,10 @@ public class VisionSubsystem extends SubsystemBase {
     return(filtered_distance);
   }
 
+  public double getAprilTagDistance() {
+    return aprilTagDistance;
+  }
+
   public void turnLimelightOn(){
     LEDModeEntry.setNumber(3);
     limeLightIsOn = true;
@@ -149,11 +155,26 @@ public class VisionSubsystem extends SubsystemBase {
   public void turnLimelightOff(){
     LEDModeEntry.setNumber(1);
     limeLightIsOn = false; 
-    pipelineControls.setNumber(9);
   }
 
   public boolean isLimeLightOn(){
     return limeLightIsOn;
+  }
+
+  public void setReflectiveTapePipeline() {
+    pipelineControls.setNumber(Constants.LimelightProfile.REFLECTIVE_TAPE_PIPELINE);
+  }
+
+  public void setAprilTagPipeline() {
+    pipelineControls.setNumber(Constants.LimelightProfile.APRIL_TAG_PIPELINE);
+  }
+
+  public void setDriverCameraMode() {
+    cameraModeControl.setNumber(Constants.LimelightProfile.DRIVER_CAMERA_ENTRY);
+  }
+
+  public void setVisionProcessMode() {
+    cameraModeControl.setNumber(Constants.LimelightProfile.VISION_PROCESSOR_ENTRY);
   }
 
   @Override
