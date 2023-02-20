@@ -1,8 +1,11 @@
 package frc.robot;
 
+import javax.management.openmbean.OpenType;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -36,8 +39,7 @@ public class RobotContainer {
     private final int translationAxis = XboxController.Axis.kLeftY.value;
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
     private final int rotationAxis = XboxController.Axis.kRightX.value;
-    private final boolean robotCentric = true;
-
+    private final boolean robotCentric = false;
     /* Subsystems */
     private final SwerveSubsytem m_SwerveSubsytem = new SwerveSubsytem();
     private final LightingSubsystem m_LightingSubsystem = new LightingSubsystem();
@@ -106,6 +108,7 @@ public class RobotContainer {
 
         /* Driver Button Commands */
         a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
+        b_driverButton.onTrue(new RedAllianceLightshow(m_LightingSubsystem));
 
         /* Munipulator Button Commands */
 
