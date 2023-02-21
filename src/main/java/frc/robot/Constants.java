@@ -203,6 +203,8 @@ public final class Constants {
         public static final double OUTER_ARM_GEAR_RATIO = 28/1 + 44/14;
         public static final double INNER_ARM_GEAR_RATIO = 90/1 + 44/15;
         public static final double WRIST_GEAR_RATIO = 25/1;
+        /* Defult Power Outputs */
+        public static final double INNER_ARM_DEFAULT_OUTPUT = 0;
     }
 
     /* Falcon counts per rotation */
