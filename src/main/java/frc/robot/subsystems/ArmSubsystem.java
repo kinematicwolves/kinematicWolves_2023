@@ -4,16 +4,19 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.EncoderType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.TrapezoidProfileCommand;
 import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
@@ -22,28 +25,51 @@ public class ArmSubsystem extends SubsystemBase {
   private final WPI_TalonSRX m_leftOuterArm = new WPI_TalonSRX(Constants.ArmProfile.LEFT_OUTER_ARM);
   private final WPI_TalonSRX m_rightOuterArm = new WPI_TalonSRX(Constants.ArmProfile.RIGHT_OUTER_ARM);
   private final CANSparkMax m_wrist = new CANSparkMax(Constants.ArmProfile.WRIST_MOTOR, MotorType.kBrushless);
+  private final RelativeEncoder m_wristEncoder = m_wrist.getEncoder(Type.kHallSensor, 42);
 
+  private final TrapezoidProfile.State state = new TrapezoidProfile.State(m_rightInnerArm.getSelectedSensorPosition(), m_rightInnerArm.getSelectedSensorVelocity());
+  private final TrapezoidProfile.State goal = new TrapezoidProfile.State( 0, 0);
+
+  // private final TrapezoidProfile m_Profile = new TrapezoidProfile(0, goal, state);
+
+  private String innerArmState = "init State";
+  
   /** Creates a new Arm. */
   public ArmSubsystem() {
-    m_leftInnerArm.configFactoryDefault();
-    m_rightOuterArm.configFactoryDefault();
-    m_leftOuterArm.configFactoryDefault();
-    m_rightInnerArm.configFactoryDefault();
-    m_wrist.restoreFactoryDefaults();
+    m_leftInnerArm.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToZero, 10);
+    m_rightInnerArm.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToZero, 10);
   }
 
-  public void moveArmToFwdCommandedPos(double innerArmPosCount, double outerArmPosCount, double wristPosCount) {
-      var innerArmEncoderCount = m_rightInnerArm.getSelectedSensorPosition();
-      var outerArmEncoderCount = m_rightOuterArm.getSelectedSensorPosition();
-      var wristEncoderCount = m_wrist.getEncoder(Type.kHallSensor, 42); // 25:1
+  public void moniterArmStatePos1() {
+    if (getInnerArmPos() > 0 ) {
+    innerArmState = "Test state";
   }
-
-  public void moveArmToRvsCommandedPos(double innerArmPosCount, double outerArmPosCount, double wristPosCount) {
-    var innerArmEncoderCount = m_rightInnerArm.getSelectedSensorPosition();
-    var outerArmEncoderCount = m_rightOuterArm.getSelectedSensorPosition();
-    var wristEncoderCount = m_wrist.getEncoder(Type.kHallSensor, 42); // 25:1
-    // setInnerArmOutput(Constants.ArmProfile.INNER_ARM_DEFAULT_OUTPUT) == 
+    else {
+      innerArmState = "Out of Bounds";
+  }  
 }
+
+public String getInnerArmState() {
+  return innerArmState;
+}
+
+  public void getArmEncoderPositions() {
+    getInnerArmPos();
+    getOuterArmPos();
+    getWristPos();
+  }
+
+  private double getInnerArmPos() {
+    return m_rightInnerArm.getSelectedSensorPosition();
+  }
+
+  private double getOuterArmPos() {
+    return m_rightOuterArm.getSelectedSensorPosition(); 
+  }
+
+  private double getWristPos() {
+    return m_wristEncoder.getPosition();
+  }
 
   public void setInnerArmOutput(double commandedOutputFraction) {
     m_leftInnerArm.set(commandedOutputFraction);
@@ -64,6 +90,9 @@ public class ArmSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    moniterArmStatePos1();
+
+    SmartDashboard.putNumber("moniterArmStatePos1", m_rightInnerArm.getSelectedSensorPosition());
 
   }
 }
