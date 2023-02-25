@@ -61,8 +61,8 @@ public final class Constants {
 
         /* These values are used by the drive falcon to ramp in open loop and closed loop driving.
          * We found a small open loop ramp (0.25) helps with tread wear, tipping, etc */
-        public static final double openLoopRamp = 0.25;
-        public static final double closedLoopRamp = 0.0;
+        public static final double openLoopRamp = 0.4;
+        public static final double closedLoopRamp = 0.4;
 
         /* Angle Motor PID Values */
         public static final double angleKP = chosenModule.angleKP;
@@ -84,7 +84,9 @@ public final class Constants {
 
         /* Swerve Profiling Values */
         /** Meters per Second */
-        public static final double maxSpeed = 4.5; 
+        public static final double maxSpeed = 3.2; 
+        /*Open Loop Throttle */
+        public static final double maxOpenLoopThrottle = 1.0;
         /** Radians per Second */
         public static final double maxAngularVelocity = 10.0; 
 
@@ -152,7 +154,7 @@ public final class Constants {
 
     /* Turret profile */
     public static final class TurretProfile {
-        public static final int TURRET_MOTOR = 10; // FIXME: change this in phoenix tuner    
+        public static final int TURRET_MOTOR = 16; // FIXME: change this in phoenix tuner    
         public static final double TURRET_FORWARD_POSITION = 1.0; //FIXMEGODPLEASE
         public static final double TURRET_REVERSE_POSITION = -1.0; //fixmepleasealso
         public static final double TURRET_INITIAL_POSITION = 0; 
@@ -171,7 +173,7 @@ public final class Constants {
         /* Gripper ID's */
         public static final int LEFT_FINGER = 25; //FIXME
         public static final int RIGHT_FINGER = 29; //FIXME
-        public static final int DISTANCE_SENSOR = 0; //FIXME
+       // public static final int DISTANCE_SENSOR = 0; //FIXME
         /* Current limits for Neo 550's 
          * Stall Limit - the current limit in amps at 0 rpm
          * Free Limit - the current limit at free speed (11000 for neo 550's)
@@ -205,6 +207,24 @@ public final class Constants {
         public static final double WRIST_GEAR_RATIO = 25/1;
         /* Defult Power Outputs */
         public static final double INNER_ARM_DEFAULT_OUTPUT = 0;
+
+        public static final TrapezoidProfile.Constraints INNER_ARM_MOTION_CONSTRAINT = new TrapezoidProfile.Constraints(2.0, 2.0);
+
+        public static final int INNER_POSITION_0 = 0;
+        public static final int OUTER_POSITION_0 = 0;
+        public static final int WRIST_POSITION_0 = 0;
+
+        public static final int INNER_POSITION_1 = 31592;
+        public static final int OUTER_POSITION_1 = -1000;
+        public static final int WRIST_POSITION_1 = 0; //FIXME
+
+        public static final int INNER_POSITION_2 = 5268;
+        public static final int OUTER_POSITION_2 = -2110;
+        public static final int WRIST_POSITION_2 = 0; //FIXME
+
+        public static final int INNER_POSITION_3 = 19625;
+        public static final int OUTER_POSITION_3 = -3638;
+        public static final int WRIST_POSITION_3 = 0; //FIXME
     }
 
     /* Falcon counts per rotation */

@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class GripperSubsytem extends SubsystemBase {
-  private final CANSparkMax m_leftFinger = new CANSparkMax(Constants.GripperProfile.RIGHT_FINGER, MotorType.kBrushless);
+  private final CANSparkMax m_leftFinger = new CANSparkMax(Constants.GripperProfile.LEFT_FINGER, MotorType.kBrushless);
   private final CANSparkMax m_rightFinger = new CANSparkMax(Constants.GripperProfile.RIGHT_FINGER, MotorType.kBrushless);
   private final TimeOfFlight m_distanceSensor = new TimeOfFlight(0);
 

@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
@@ -14,9 +13,9 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.TrapezoidProfileCommand;
 import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
@@ -27,26 +26,52 @@ public class ArmSubsystem extends SubsystemBase {
   private final CANSparkMax m_wrist = new CANSparkMax(Constants.ArmProfile.WRIST_MOTOR, MotorType.kBrushless);
   private final RelativeEncoder m_wristEncoder = m_wrist.getEncoder(Type.kHallSensor, 42);
 
+  private final Timer m_timer;
+
+  private TrapezoidProfile m_profile;
+  private TrapezoidProfile.State m_state;
+
   private final TrapezoidProfile.State state = new TrapezoidProfile.State(m_rightInnerArm.getSelectedSensorPosition(), m_rightInnerArm.getSelectedSensorVelocity());
   private final TrapezoidProfile.State goal = new TrapezoidProfile.State( 0, 0);
 
-  // private final TrapezoidProfile m_Profile = new TrapezoidProfile(0, goal, state);
-
   private String innerArmState = "init State";
+
+  private double m_setpoint;
   
   /** Creates a new Arm. */
   public ArmSubsystem() {
+    updateInnerArmMotionProfile();
     m_leftInnerArm.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToZero, 10);
     m_rightInnerArm.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToZero, 10);
+
+    m_setpoint = Constants.ArmProfile.INNER_POSITION_0;
+
+    m_timer = new Timer();
+    m_timer.start();
+    m_timer.reset();
   }
 
-  public void moniterArmStatePos1() {
-    if (getInnerArmPos() > 0 ) {
-    innerArmState = "Test state";
+//   public void moniterArmStatePos1() {
+//     if (getInnerArmPos() > 0 ) {
+//     innerArmState = "Test state";
+//   }
+//     else {
+//       innerArmState = "Out of Bounds";
+//   }  
+// }
+
+public void setTargetPosition(double _setpoint) {
+  if (_setpoint != m_setpoint) {
+    m_setpoint = _setpoint;
+    updateInnerArmMotionProfile();
   }
-    else {
-      innerArmState = "Out of Bounds";
-  }  
+}
+
+private void updateInnerArmMotionProfile() {
+  TrapezoidProfile.State state = new TrapezoidProfile.State(m_rightInnerArm.getSelectedSensorPosition(), m_rightInnerArm.getSelectedSensorVelocity());
+  TrapezoidProfile.State goal = new TrapezoidProfile.State(m_setpoint, 0.0);
+  m_profile = new TrapezoidProfile(Constants.ArmProfile.INNER_ARM_MOTION_CONSTRAINT, goal, state);
+  m_timer.reset();
 }
 
 public String getInnerArmState() {
@@ -59,8 +84,8 @@ public String getInnerArmState() {
     getWristPos();
   }
 
-  private double getInnerArmPos() {
-    return m_rightInnerArm.getSelectedSensorPosition();
+  private void getInnerArmPos() {
+    m_rightInnerArm.getSelectedSensorPosition();
   }
 
   private double getOuterArmPos() {
@@ -90,9 +115,12 @@ public String getInnerArmState() {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    moniterArmStatePos1();
+    // moniterArmStatePos1();
 
     SmartDashboard.putNumber("moniterArmStatePos1", m_rightInnerArm.getSelectedSensorPosition());
+    SmartDashboard.putNumber("outer_arm_pos1", m_rightInnerArm.getSelectedSensorPosition());
+    SmartDashboard.putNumber("inner_arm_pos1", m_rightOuterArm.getSelectedSensorPosition());
+    SmartDashboard.putNumber("wrist_pos1", m_wristEncoder.getPosition());
 
   }
 }

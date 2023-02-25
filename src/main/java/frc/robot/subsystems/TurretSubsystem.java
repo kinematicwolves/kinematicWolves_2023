@@ -82,7 +82,7 @@ private static final double gearRatio = 10/140;
     monitorTurretStates();
     // Prints Turret position in Degrees and its state (SmartDash Board)
     double currentPosition = m_turretMotor.getSelectedSensorPosition();
-    SmartDashboard.putNumber("Turret_Position_Degrees", Conversions.falconToDegrees(currentPosition, gearRatio));
+    SmartDashboard.putNumber("Turret_Position_Degrees", currentPosition);
     SmartDashboard.putString("Turret_State", getTurretState());
     }
   }
