@@ -4,8 +4,10 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.ArmTest;
 import frc.robot.commands.BlueAllianceLightshow;
 import frc.robot.commands.RedAllianceLightshow;
 import frc.robot.commands.SetDisabledState;
@@ -17,6 +19,7 @@ import frc.robot.commands.TurnTurretToRvsPos;
 import frc.robot.commands.ZeroGyro;
 import frc.robot.subsystems.LightingSubsystem;
 import frc.robot.subsystems.AirSubsystem;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.GripperSubsytem;
 import frc.robot.subsystems.SwerveSubsytem;
 import frc.robot.subsystems.TurretSubsystem;
@@ -51,6 +54,7 @@ public class RobotContainer {
     private final GripperSubsytem m_GripperSubsytem = new GripperSubsytem();
     private final AirSubsystem m_AirSubsystem = new AirSubsystem();
     private final TurretSubsystem m_TurretSubsystem = new TurretSubsystem();
+    private final ArmSubsystem m_ArmSubsystem = new ArmSubsystem();
 
     /* Sendable Choosers */
     SendableChooser<Command> m_LightsChooser = new SendableChooser<>(); 
@@ -75,6 +79,7 @@ public class RobotContainer {
         // A chooser for Lightshow commands
         m_LightsChooser.setDefaultOption("Red Alliance Lighshow", new RedAllianceLightshow(m_LightingSubsystem));
         m_LightsChooser.addOption("Blue Alliance LightShow", new BlueAllianceLightshow(m_LightingSubsystem));
+        SmartDashboard.putData(m_LightsChooser);
     }
 
     private void setDefaultCommands(){}
@@ -116,6 +121,7 @@ public class RobotContainer {
 
         /* Driver Button Commands */
         a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
+        b_driverButton.onTrue(new ArmTest(m_ArmSubsystem));
 
         /* Munipulator Button Commands */
         a_munipulatorButton.onTrue(new GripperControl(m_GripperSubsytem, m_AirSubsystem));
