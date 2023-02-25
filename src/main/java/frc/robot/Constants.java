@@ -196,8 +196,8 @@ public final class Constants {
         /* Arm ID's */
         public static final int LEFT_OUTER_ARM = 0; //FIXME
         public static final int RIGHT_OUTER_ARM = 0; //FIXME
-        public static final int LEFT_INNER_ARM = 0; //FIXME
-        public static final int RIGHT_INNER_ARM = 0; //FIXME
+        public static final int LEFT_INNER_ARM = 14; //FIXME
+        public static final int RIGHT_INNER_ARM = 17; //FIXME
         public static final int WRIST_MOTOR = 0; //FIXME
         /* Arm Gear Ratios (gearbox + sprocket)*/
         public static final double OUTER_ARM_GEAR_RATIO = 28/1 + 44/14;
