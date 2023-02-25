@@ -15,7 +15,7 @@ import frc.robot.Constants;
 public class GripperSubsytem extends SubsystemBase {
   private final CANSparkMax m_leftFinger = new CANSparkMax(Constants.GripperProfile.RIGHT_FINGER, MotorType.kBrushless);
   private final CANSparkMax m_rightFinger = new CANSparkMax(Constants.GripperProfile.RIGHT_FINGER, MotorType.kBrushless);
-  private final TimeOfFlight m_distanceSensor = new TimeOfFlight(0);
+  //private final TimeOfFlight m_distanceSensor = new TimeOfFlight(0);
 
   private boolean gripperIsOpen = false;
   private boolean targetInRange = false;
@@ -43,11 +43,11 @@ public class GripperSubsytem extends SubsystemBase {
     return targetInRange;
   }
 
-  public boolean targetInRange() {
-    targetInRange = true;
-    var targetDistance = m_distanceSensor.getRange();
-    return targetDistance < 10;
-  }
+  // public boolean targetInRange() {
+  //   targetInRange = true;
+  //   var targetDistance = m_distanceSensor.getRange();
+  //   return targetDistance < 10;
+  // }
 
   public void runGripperWheels(double commandedOutFraction) {
     m_leftFinger.set(-1 * commandedOutFraction);
@@ -63,7 +63,7 @@ public class GripperSubsytem extends SubsystemBase {
     Constants.GripperProfile.GRIPPER_CURRENT_LIMIT_RPM);
 
     // TimeOfFlightSensor
-    double rangeOfTarget = m_distanceSensor.getRange();
-    SmartDashboard.putNumber("Target_Distance_In_Millimeters", rangeOfTarget);
+    // double rangeOfTarget = m_distanceSensor.getRange();
+    // SmartDashboard.putNumber("Target_Distance_In_Millimeters", rangeOfTarget);
   }
 }

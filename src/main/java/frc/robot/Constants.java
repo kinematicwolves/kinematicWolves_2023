@@ -169,8 +169,8 @@ public final class Constants {
 
     public static final class GripperProfile {
         /* Gripper ID's */
-        public static final int LEFT_FINGER = 0; //FIXME
-        public static final int RIGHT_FINGER = 0; //FIXME
+        public static final int LEFT_FINGER = 25; //FIXME
+        public static final int RIGHT_FINGER = 26; //FIXME
         public static final int DISTANCE_SENSOR = 0; //FIXME
         /* Current limits for Neo 550's 
          * Stall Limit - the current limit in amps at 0 rpm
@@ -183,7 +183,7 @@ public final class Constants {
     }
 
     public static final class PneumaticProfile {
-        public static final int PNEUMATIC_HUB_ID = 0; // FIXME
+        public static final int PNEUMATIC_HUB_ID = 30; // FIXME
         /* Pnuematic Hub Ports */
         public static final int GRIPPER_SOL_FWD = 0; // FIXME
         public static final int GRIPPER_SOL_RVS = 0; // FIXME
@@ -194,11 +194,11 @@ public final class Constants {
 
     public static final class ArmProfile {
         /* Arm ID's */
-        public static final int LEFT_OUTER_ARM = 0; //FIXME
-        public static final int RIGHT_OUTER_ARM = 0; //FIXME
-        public static final int LEFT_INNER_ARM = 14; //FIXME
-        public static final int RIGHT_INNER_ARM = 17; //FIXME
-        public static final int WRIST_MOTOR = 0; //FIXME
+        public static final int LEFT_OUTER_ARM = 15; //FIXME
+        public static final int RIGHT_OUTER_ARM = 18; //FIXME
+        public static final int LEFT_INNER_ARM = 17; //FIXME
+        public static final int RIGHT_INNER_ARM = 14; //FIXME
+        public static final int WRIST_MOTOR = 28; //FIXME
         /* Arm Gear Ratios (gearbox + sprocket)*/
         public static final double OUTER_ARM_GEAR_RATIO = 28/1 + 44/14;
         public static final double INNER_ARM_GEAR_RATIO = 90/1 + 44/15;
