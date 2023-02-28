@@ -131,6 +131,18 @@ public class RobotContainer {
 
     }
 
+/*  Things to add from Tomai.
+/*  Wrist inputs
+/*  Inner Arm
+/*  Outer Arm
+/*  Add buttons for Arm Setpoints
+/*  Auto_Align
+/*  Turret rotation input by driver
+/*  Wrist cannot go past an encoder count where it hits the robot in initial position based off driver input
+ *  Turret rotation not allowed when not in initial position
+ *  
+ */
+
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
      *

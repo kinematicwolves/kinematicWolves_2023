@@ -7,10 +7,12 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
+import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
+import com.revrobotics.CANSparkMax.SoftLimitDirection;
 
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.Timer;
@@ -26,10 +28,10 @@ public class ArmSubsystem extends SubsystemBase {
   private final CANSparkMax m_wrist = new CANSparkMax(Constants.ArmProfile.WRIST_MOTOR, MotorType.kBrushless);
   private final RelativeEncoder m_wristEncoder = m_wrist.getEncoder(Type.kHallSensor, 42);
 
-  private final Timer m_timer;
+  //private final Timer m_timer;
 
   private TrapezoidProfile m_profile;
-  private TrapezoidProfile.State m_state;
+  private TrapezoidProfile.State m_state;  
 
   private final TrapezoidProfile.State state = new TrapezoidProfile.State(m_rightInnerArm.getSelectedSensorPosition(), m_rightInnerArm.getSelectedSensorVelocity());
   private final TrapezoidProfile.State goal = new TrapezoidProfile.State( 0, 0);
@@ -43,12 +45,13 @@ public class ArmSubsystem extends SubsystemBase {
     updateInnerArmMotionProfile();
     m_leftInnerArm.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToZero, 10);
     m_rightInnerArm.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToZero, 10);
+    
 
     m_setpoint = Constants.ArmProfile.INNER_POSITION_0;
 
-    m_timer = new Timer();
-    m_timer.start();
-    m_timer.reset();
+    // m_timer = new Timer();
+    // m_timer.start();
+    // m_timer.reset();
   }
 
 //   public void moniterArmStatePos1() {
@@ -71,7 +74,7 @@ private void updateInnerArmMotionProfile() {
   TrapezoidProfile.State state = new TrapezoidProfile.State(m_rightInnerArm.getSelectedSensorPosition(), m_rightInnerArm.getSelectedSensorVelocity());
   TrapezoidProfile.State goal = new TrapezoidProfile.State(m_setpoint, 0.0);
   m_profile = new TrapezoidProfile(Constants.ArmProfile.INNER_ARM_MOTION_CONSTRAINT, goal, state);
-  m_timer.reset();
+ // m_timer.reset();
 }
 
 public String getInnerArmState() {
@@ -110,7 +113,16 @@ public String getInnerArmState() {
     m_wrist.set(commandedOutputFraction);
   }
 
-
+  // public void runManual(double _power) {
+  //   //reset and zero out a bunch of automatic mode stuff so exiting manual mode happens cleanly and passively
+  //   m_setpoint = m_encoder.getPosition();
+  //   targetState = new TrapezoidProfile.State(m_setpoint, 0.0);
+  //   m_profile = new TrapezoidProfile(Constants.Arm.kArmMotionConstraint, targetState, targetState);
+  //   //update the feedforward variable with the newly zero target velocity
+  //   feedforward = Constants.Arm.kArmFeedforward.calculate(m_encoder.getPosition()+Constants.Arm.kArmZeroCosineOffset, targetState.velocity);
+  //   m_motor.set(_power + (feedforward / 12.0));
+  //   manualValue = _power;
+  // }
 
   @Override
   public void periodic() {
