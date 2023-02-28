@@ -8,10 +8,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ArmTest;
-import frc.robot.commands.BlueAllianceLightshow;
-import frc.robot.commands.RedAllianceLightshow;
+import frc.robot.commands.TeleOpLightshow;
 import frc.robot.commands.SetDisabledState;
-import frc.robot.commands.GripperControl;
+import frc.robot.commands.CollectWithSensor;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.TurnTurretToFwdPos;
 import frc.robot.commands.TurnTurretToInitPos;
@@ -77,12 +76,13 @@ public class RobotContainer {
         );
         
         // A chooser for Lightshow commands
-        m_LightsChooser.setDefaultOption("Red Alliance Lighshow", new RedAllianceLightshow(m_LightingSubsystem));
-        m_LightsChooser.addOption("Blue Alliance LightShow", new BlueAllianceLightshow(m_LightingSubsystem));
+        m_LightsChooser.setDefaultOption("Red Alliance Lighshow", new TeleOpLightshow(m_LightingSubsystem));
         SmartDashboard.putData(m_LightsChooser);
     }
 
-    private void setDefaultCommands(){}
+    private void setDefaultCommands(){
+        m_GripperSubsytem.setDefaultCommand(new CollectWithSensor(m_GripperSubsytem, m_AirSubsystem, m_LightingSubsystem));
+    }
 
     /**
      * Use this method to define your button->command mappings. Buttons can be created by
@@ -124,7 +124,6 @@ public class RobotContainer {
         b_driverButton.onTrue(new ArmTest(m_ArmSubsystem));
 
         /* Munipulator Button Commands */
-        a_munipulatorButton.onTrue(new GripperControl(m_GripperSubsytem, m_AirSubsystem));
         x_munipulatorButton.onTrue(new TurnTurretToRvsPos(m_TurretSubsystem));
         y_munipulatorButton.onTrue(new TurnTurretToInitPos(m_TurretSubsystem));
         b_munipulatorButton.onTrue(new TurnTurretToFwdPos(m_TurretSubsystem));
@@ -143,7 +142,8 @@ public class RobotContainer {
 
     public Command getTeleopLightingCommand(){
         // Alliance color selector for leds
-        return m_LightsChooser.getSelected();
+        Command teleOp = new TeleOpLightshow(m_LightingSubsystem);
+        return teleOp;
        }
 
     public Command getDisabledCommand(){

@@ -18,7 +18,6 @@ import frc.robot.Util.CTREConfigs;
 public class Robot extends TimedRobot {
   public static CTREConfigs ctreConfigs;
 
-
   private Command m_autonomousCommand;
   private Command m_disabledCommand;
   private Command m_telopLightingCommand;
