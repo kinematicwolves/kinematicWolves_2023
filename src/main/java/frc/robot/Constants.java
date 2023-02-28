@@ -173,6 +173,7 @@ public final class Constants {
         /* Gripper ID's */
         public static final int LEFT_FINGER = 25; //FIXME
         public static final int RIGHT_FINGER = 29; //FIXME
+        public static final int DISTANCE_SENSOR = 0; //FIXME
        // public static final int DISTANCE_SENSOR = 0; //FIXME
         /* Current limits for Neo 550's 
          * Stall Limit - the current limit in amps at 0 rpm

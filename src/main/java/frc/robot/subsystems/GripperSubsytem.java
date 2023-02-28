@@ -4,10 +4,13 @@
 
 package frc.robot.subsystems;
 
+import javax.imageio.plugins.tiff.TIFFDirectory;
+
 import com.playingwithfusion.TimeOfFlight;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -15,43 +18,32 @@ import frc.robot.Constants;
 public class GripperSubsytem extends SubsystemBase {
   private final CANSparkMax m_leftFinger = new CANSparkMax(Constants.GripperProfile.LEFT_FINGER, MotorType.kBrushless);
   private final CANSparkMax m_rightFinger = new CANSparkMax(Constants.GripperProfile.RIGHT_FINGER, MotorType.kBrushless);
-  private final TimeOfFlight m_distanceSensor = new TimeOfFlight(0);
+  private final TimeOfFlight m_distanceSensor = new TimeOfFlight(Constants.GripperProfile.DISTANCE_SENSOR);
 
-  private boolean gripperIsOpen = false;
-  private boolean targetInRange = false;
+  private Timer m_timer = new Timer();
 
   /** Creates a new GripperSubsytem. */
   public GripperSubsytem() {}
 
-  public boolean isGripperOpen() {
-    return gripperIsOpen;
-  }
-
   public void setGriperOpen(AirSubsystem airSubsystem) {
-    gripperIsOpen = true;
     airSubsystem.openGriper();
     runGripperWheels(0);
   }
 
   public void setGripperClosed(AirSubsystem airSubsystem, double wheelSpeeds) {
-    gripperIsOpen = false;
     airSubsystem.closeGriper();
     runGripperWheels(wheelSpeeds);
   }
 
-  public boolean isTargetInRange() {
-    return targetInRange;
-  }
-
-   public boolean targetInRange() {
-     targetInRange = true;
-     var targetDistance = m_distanceSensor.getRange();
-     return targetDistance < 10;
-   }
-
   public void runGripperWheels(double commandedOutFraction) {
     m_leftFinger.set(-1 * commandedOutFraction);
     m_rightFinger.set(commandedOutFraction);
+  }
+
+  public void collectInRange(AirSubsystem airSubsystem) {
+    if (m_distanceSensor.getRange() < 10) {
+      setGripperClosed(airSubsystem, 0.1);
+    }
   }
 
   @Override

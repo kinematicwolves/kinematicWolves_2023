@@ -18,13 +18,13 @@ public class SetDisabledState extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_LightingSubsystem.setDisabledLightShow();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_LightingSubsystem.setDisabledLightShow();
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
