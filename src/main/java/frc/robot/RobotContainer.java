@@ -81,7 +81,7 @@ public class RobotContainer {
     }
 
     private void setDefaultCommands(){
-        m_GripperSubsytem.setDefaultCommand(new CollectWithSensor(m_GripperSubsytem, m_AirSubsystem, m_LightingSubsystem));
+      //  m_GripperSubsytem.setDefaultCommand(new CollectWithSensor(m_GripperSubsytem, m_AirSubsystem, m_LightingSubsystem));
     }
 
     /**

@@ -4,13 +4,10 @@
 
 package frc.robot.subsystems;
 
-import javax.imageio.plugins.tiff.TIFFDirectory;
-
 import com.playingwithfusion.TimeOfFlight;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -19,8 +16,6 @@ public class GripperSubsytem extends SubsystemBase {
   private final CANSparkMax m_leftFinger = new CANSparkMax(Constants.GripperProfile.LEFT_FINGER, MotorType.kBrushless);
   private final CANSparkMax m_rightFinger = new CANSparkMax(Constants.GripperProfile.RIGHT_FINGER, MotorType.kBrushless);
   private final TimeOfFlight m_distanceSensor = new TimeOfFlight(Constants.GripperProfile.DISTANCE_SENSOR);
-
-  private Timer m_timer = new Timer();
 
   /** Creates a new GripperSubsytem. */
   public GripperSubsytem() {}

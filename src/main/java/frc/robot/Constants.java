@@ -163,10 +163,10 @@ public final class Constants {
     /* LED's Profile */
     public static final class LightProfile {
         /* CANdle ID's */
-        public static final int ARM_CANDLE_ID = 0; //FIXME
+        public static final int ARM_CANDLE_ID = 20; //FIXME
         public static final int CHASSIS_CANDLE_ID = 0; //FIXME
-        public static final int Arm_LED_COUNT = 300; //FIXME
-        public static final int CHASSIS_LED_COUNT = 100; //FIXME
+        public static final int Arm_LED_COUNT = 150; //FIXME
+        public static final int CHASSIS_LED_COUNT = 0; //FIXME
     }
 
     public static final class GripperProfile {
@@ -197,11 +197,11 @@ public final class Constants {
 
     public static final class ArmProfile {
         /* Arm ID's */
-        public static final int LEFT_OUTER_ARM = 15; //FIXME
-        public static final int RIGHT_OUTER_ARM = 18; //FIXME
-        public static final int LEFT_INNER_ARM = 17; //FIXME
-        public static final int RIGHT_INNER_ARM = 14; //FIXME
-        public static final int WRIST_MOTOR = 28; //FIXME
+        public static final int LEFT_OUTER_ARM = 15;
+        public static final int RIGHT_OUTER_ARM = 18; 
+        public static final int LEFT_INNER_ARM = 14; 
+        public static final int RIGHT_INNER_ARM = 17; 
+        public static final int WRIST_MOTOR = 28; 
         /* Arm Gear Ratios (gearbox + sprocket)*/
         public static final double OUTER_ARM_GEAR_RATIO = 28/1 + 44/14;
         public static final double INNER_ARM_GEAR_RATIO = 90/1 + 44/15;
@@ -216,11 +216,11 @@ public final class Constants {
         public static final int WRIST_POSITION_0 = 0;
 
         public static final int INNER_POSITION_1 = 31592;
-        public static final int OUTER_POSITION_1 = -1000;
+        public static final int OUTER_POSITION_1 = 1000;
         public static final int WRIST_POSITION_1 = 0; //FIXME
 
-        public static final int INNER_POSITION_2 = 5268;
-        public static final int OUTER_POSITION_2 = -2110;
+        public static final int INNER_POSITION_2 = 526;
+        public static final int OUTER_POSITION_2 = 2110;
         public static final int WRIST_POSITION_2 = 0; //FIXME
 
         public static final int INNER_POSITION_3 = 19625;

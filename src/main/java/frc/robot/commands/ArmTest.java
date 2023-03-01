@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.ArmSubsystem;
 
 public class ArmTest extends CommandBase {
@@ -23,7 +24,7 @@ public class ArmTest extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_ArmSubsystem.setInnerArmOutput(0.1);
+    m_ArmSubsystem.setInnerTargetPosition(Constants.ArmProfile.INNER_POSITION_2);
   }
 
   // Called once the command ends or is interrupted.
@@ -33,6 +34,6 @@ public class ArmTest extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (m_ArmSubsystem.getInnerArmState() == "Test state");
+    return false;
   }
 }
