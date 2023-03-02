@@ -14,7 +14,7 @@ import frc.robot.Util.Lib.util.SwerveModuleConstants;
 public final class Constants {
     
     public static final class ControllerProfile {
-        public static final double stickDeadband = 0.1;
+        public static final double stickDeadband = 0.2;
         public static final int DRIVER_CONTROLLER = 0;
         public static final int MUNIPULATOR_CONTROLLER = 1;
     }
@@ -87,9 +87,9 @@ public final class Constants {
         /** Meters per Second */
         public static final double maxSpeed = 3.2; 
         /*Open Loop Throttle */
-        public static final double maxOpenLoopThrottle = 0.5;
+        public static final double maxOpenLoopThrottle = 0.6;
         /** Radians per Second */
-        public static final double maxAngularVelocity = 10.0; 
+        public static final double maxAngularVelocity = 8.0; 
 
         /* Neutral Modes */
         public static final NeutralMode angleNeutralMode = NeutralMode.Coast;
