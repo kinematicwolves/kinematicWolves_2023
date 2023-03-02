@@ -66,6 +66,14 @@ public class ArmSubsystem extends SubsystemBase {
     m_setpoint = Constants.ArmProfile.OUTER_POSITION_2;
   }
 
+  public void runWrist(double commandedOutFraction){
+    
+  }
+
+  public void runOuterArm(double commandedOutFraction){
+    m_leftOuterArm.set(-1 * commandedOutFraction);
+    m_rightOuterArm.set(commandedOutFraction);
+  }
   public void setOuterTargetPosition(double _setpoint) {
     if (_setpoint != m_setpoint) {
       m_setpoint = _setpoint;
@@ -80,20 +88,20 @@ public class ArmSubsystem extends SubsystemBase {
     m_timer.reset();
   }
 
-  public void runAutomatic() {
-    double elapsedTime = m_timer.get();
-    if (m_profile.isFinished(elapsedTime)) {
-      targetState = new TrapezoidProfile.State(m_setpoint, 0.0);
-    }
-    else {
-      targetState = m_profile.calculate(elapsedTime);
-    }
+  // public void runAutomatic() {
+  //   double elapsedTime = m_timer.get();
+  //   if (m_profile.isFinished(elapsedTime)) {
+  //     targetState = new TrapezoidProfile.State(m_setpoint, 0.0);
+  //   }
+  //   else {
+  //     targetState = m_profile.calculate(elapsedTime);
+  //   }
 
-    feedforward = Constants.ArmProfile.kArmFeedforward.calculate(m_rightOuterArm.getSelectedSensorPosition()+Constants.ArmProfile.kArmZeroCosineOffset
-    ,targetState.velocity);
-    m_pidcontroller.setReference(targetState.position, CANSparkMax.ControlType.kPosition, 0, feedforward);
-    //m_rightOuterArm.
-  }
+  //   feedforward = Constants.ArmProfile.kArmFeedforward.calculate(m_rightOuterArm.getSelectedSensorPosition()+Constants.ArmProfile.kArmZeroCosineOffset
+  //   ,targetState.velocity);
+  //   m_pidcontroller.setReference(targetState.position, CANSparkMax.ControlType.kPosition, 0, feedforward);
+  //   //m_rightOuterArm.
+  // }
 
   @Override
   public void periodic() {

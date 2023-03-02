@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ArmTest;
 import frc.robot.commands.TeleOpLightshow;
@@ -16,7 +17,6 @@ import frc.robot.commands.TurnTurretToFwdPos;
 import frc.robot.commands.TurnTurretToInitPos;
 import frc.robot.commands.TurnTurretToRvsPos;
 import frc.robot.commands.ZeroGyro;
-import frc.robot.commands.runAutomatic;
 import frc.robot.subsystems.LightingSubsystem;
 import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
@@ -82,7 +82,7 @@ public class RobotContainer {
     }
 
     private void setDefaultCommands(){
-       m_GripperSubsytem.setDefaultCommand(new CollectWithSensor(m_GripperSubsytem, m_AirSubsystem, m_LightingSubsystem));
+       //m_GripperSubsytem.setDefaultCommand(new CollectWithSensor(m_GripperSubsytem, m_AirSubsystem, m_LightingSubsystem));
        //m_ArmSubsystem.setDefaultCommand(new runAutomatic(m_ArmSubsystem));
     }
 
@@ -122,8 +122,12 @@ public class RobotContainer {
 
 
         /* Driver Button Commands */
-        a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
+        //a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
         b_driverButton.onTrue(new ArmTest(m_ArmSubsystem));
+        a_driverButton.onTrue(new InstantCommand(() -> m_GripperSubsytem.runGripperWheels(0.25)));
+        x_riverButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.runOuterArm(0.1)));
+       // y_driverButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.runOuterArm(0.1)));
+
 
         /* Munipulator Button Commands */
         x_munipulatorButton.onTrue(new TurnTurretToRvsPos(m_TurretSubsystem));
