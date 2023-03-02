@@ -122,10 +122,10 @@ public class RobotContainer {
 
 
         /* Driver Button Commands */
-        //a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
-        b_driverButton.onTrue(new ArmTest(m_ArmSubsystem));
-        a_driverButton.onTrue(new InstantCommand(() -> m_GripperSubsytem.runGripperWheels(0.25)));
-        x_riverButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.runOuterArm(0.1)));
+        a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
+        //b_driverButton.whileTrue(new ArmTest(m_ArmSubsystem));
+        // a_driverButton.onTrue(new InstantCommand(() -> m_GripperSubsytem.runGripperWheels(0.25)));
+        // x_riverButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.runOuterArm(0.1)));
        // y_driverButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.runOuterArm(0.1)));
 
 

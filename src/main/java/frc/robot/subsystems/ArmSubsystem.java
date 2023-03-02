@@ -67,7 +67,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void runWrist(double commandedOutFraction){
-    
+    m_wrist.set(commandedOutFraction);
   }
 
   public void runOuterArm(double commandedOutFraction){
