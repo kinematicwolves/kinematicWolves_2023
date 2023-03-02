@@ -8,13 +8,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.ArmSubsystem;
 
-public class ArmTest extends CommandBase {
+public class runAutomatic extends CommandBase {
   private ArmSubsystem m_ArmSubsystem;
 
   /** Creates a new ArmTest. */
-  public ArmTest(ArmSubsystem armSubsystem) {
+  public runAutomatic(ArmSubsystem armSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_ArmSubsystem = armSubsystem; 
+    
   }
 
   // Called when the command is initially scheduled.
@@ -24,7 +25,7 @@ public class ArmTest extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_ArmSubsystem.setOuterTargetPosition(Constants.ArmProfile.OUTER_POSITION_2);
+    m_ArmSubsystem.runAutomatic();
   }
 
   // Called once the command ends or is interrupted.

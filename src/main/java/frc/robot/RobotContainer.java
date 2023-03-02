@@ -16,6 +16,7 @@ import frc.robot.commands.TurnTurretToFwdPos;
 import frc.robot.commands.TurnTurretToInitPos;
 import frc.robot.commands.TurnTurretToRvsPos;
 import frc.robot.commands.ZeroGyro;
+import frc.robot.commands.runAutomatic;
 import frc.robot.subsystems.LightingSubsystem;
 import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
@@ -81,7 +82,8 @@ public class RobotContainer {
     }
 
     private void setDefaultCommands(){
-      //  m_GripperSubsytem.setDefaultCommand(new CollectWithSensor(m_GripperSubsytem, m_AirSubsystem, m_LightingSubsystem));
+       m_GripperSubsytem.setDefaultCommand(new CollectWithSensor(m_GripperSubsytem, m_AirSubsystem, m_LightingSubsystem));
+       //m_ArmSubsystem.setDefaultCommand(new runAutomatic(m_ArmSubsystem));
     }
 
     /**
@@ -132,7 +134,7 @@ public class RobotContainer {
 
 /*  Things to add from Tomai.
 /*  Wrist inputs
-/*  Inner Arm
+/*  Outer Arm
 /*  Outer Arm
 /*  Add buttons for Arm Setpoints
 /*  Auto_Align
