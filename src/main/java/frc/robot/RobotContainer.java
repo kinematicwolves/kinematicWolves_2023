@@ -18,6 +18,7 @@ import frc.robot.commands.TurnTurretToFwdPos;
 import frc.robot.commands.TurnTurretToInitPos;
 import frc.robot.commands.TurnTurretToRvsPos;
 import frc.robot.commands.ZeroGyro;
+import frc.robot.commands.toggleLimelight;
 import frc.robot.subsystems.LightingSubsystem;
 import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
@@ -132,8 +133,9 @@ public class RobotContainer {
         // a_driverButton.onTrue(new InstantCommand(() -> m_GripperSubsytem.runGripperWheels(0.25)));
         // x_riverButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.runOuterArm(0.1)));
        // y_driverButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.runOuterArm(0.1)));
+        y_driverButton.onTrue(new toggleLimelight(m_VisionSubsystem));
+        // b_driverButton.onTrue(new AutoAlignment(m_VisionSubsystem, m_SwerveSubsytem, 0.2, 0.2));
 
-        b_driverButton.onTrue(new AutoAlignment(m_VisionSubsystem, m_SwerveSubsytem, 0.2, 0.2));
         /* Munipulator Button Commands */
         x_munipulatorButton.onTrue(new TurnTurretToRvsPos(m_TurretSubsystem));
         y_munipulatorButton.onTrue(new TurnTurretToInitPos(m_TurretSubsystem));

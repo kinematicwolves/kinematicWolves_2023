@@ -177,6 +177,8 @@ public class VisionSubsystem extends SubsystemBase {
     cameraModeControl.setNumber(Constants.LimelightProfile.VISION_PROCESSOR_ENTRY);
   }
 
+  
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
