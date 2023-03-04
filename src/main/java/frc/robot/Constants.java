@@ -153,9 +153,9 @@ public final class Constants {
     /* LED's Profile */
     public static final class LightProfile {
         /* CANdle ID's */
-        public static final int ARM_CANDLE_ID = 0; //FIXME
+        public static final int ARM_CANDLE_ID = 20; //FIXME
         public static final int CHASSIS_CANDLE_ID = 0; //FIXME
-        public static final int Arm_LED_COUNT = 308; //FIXME
+        public static final int Arm_LED_COUNT = 100; //FIXME
         public static final int CHASSIS_LED_COUNT = 100; //FIXME
     }
 }
