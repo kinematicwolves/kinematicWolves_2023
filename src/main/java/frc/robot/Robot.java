@@ -18,12 +18,12 @@ import frc.robot.Util.CTREConfigs;
 public class Robot extends TimedRobot {
   public static CTREConfigs ctreConfigs;
 
-
   private Command m_autonomousCommand;
   private Command m_disabledCommand;
   private Command m_telopLightingCommand;
 
   private RobotContainer m_robotContainer;
+  
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -93,6 +93,15 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
+    }
+    if (m_disabledCommand != null){
+      m_disabledCommand.cancel();
+      m_disabledCommand = null;
+    }
+
+    m_telopLightingCommand = m_robotContainer.getTeleopLightingCommand();
+    if (m_telopLightingCommand != null){
+      m_telopLightingCommand.schedule();
     }
   }
 

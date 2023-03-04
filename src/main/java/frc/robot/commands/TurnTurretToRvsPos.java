@@ -5,26 +5,29 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.LightingSubsystem;
+import frc.robot.Constants;
+import frc.robot.subsystems.TurretSubsystem;
 
-public class SetDisabledState extends CommandBase {
-  private LightingSubsystem m_LightingSubsystem;
+public class TurnTurretToRvsPos extends CommandBase {
+  private TurretSubsystem m_TurretSubsystem;
 
-  /** Creates a new SetDisabledState. */
-  public SetDisabledState(LightingSubsystem lightingSubsystem) {
+  /** Creates a new TurnTurretToRvsPos. */
+  public TurnTurretToRvsPos(TurretSubsystem turretSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_LightingSubsystem = lightingSubsystem;
+    m_TurretSubsystem = turretSubsystem;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    m_LightingSubsystem.setDisabledLightShow();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    if (m_TurretSubsystem.getTurretPositionDegrees() < Constants.TurretProfile.TURRET_REVERSE_POSITION) {
+      m_TurretSubsystem.setTurretMotorOutput(0.1);
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -33,6 +36,6 @@ public class SetDisabledState extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_TurretSubsystem.getTurretState() == "Reverse Turret State";
   }
 }
