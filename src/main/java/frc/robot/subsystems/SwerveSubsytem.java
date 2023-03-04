@@ -1,27 +1,28 @@
 package frc.robot.subsystems;
 
-import frc.robot.Constants;
-import frc.robot.Util.SwerveModule;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
-import edu.wpi.first.math.kinematics.SwerveModulePosition;
-
 import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.Util.SwerveModule;
 
 public class SwerveSubsytem extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
+
+    public boolean speedIsLimited = false;
 
     public SwerveSubsytem() {
         gyro = new Pigeon2(Constants.SwerveProfile.pigeonID);
@@ -64,6 +65,25 @@ public class SwerveSubsytem extends SubsystemBase {
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
         }
     } 
+
+    public boolean isSpeedLimited() {
+        return speedIsLimited;
+    }
+
+    public void limitDriveTrainSpeed(XboxController driverController) {
+        if (speedIsLimited) {
+            drive(new Translation2d(0.3 * driverController.getLeftY(), 0.3 * driverController.getLeftX()), 
+            0.3 * driverController.getRightX(), true, false);
+        }
+    }
+
+    public void enableSpeedLimit() {
+        speedIsLimited = true;   
+    }
+
+    public void disableSpeedLimit() {
+        speedIsLimited = false;
+    }
 
 
     /* Used by SwerveControllerCommand in Auto */

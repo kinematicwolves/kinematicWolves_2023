@@ -10,6 +10,7 @@ import frc.robot.commands.BlueAllianceLightshow;
 import frc.robot.commands.RedAllianceLightshow;
 import frc.robot.commands.SetDisabledState;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.commands.ToggleSpeedLimit;
 import frc.robot.commands.ZeroGyro;
 import frc.robot.subsystems.LightingSubsystem;
 import frc.robot.subsystems.SwerveSubsytem;
@@ -106,6 +107,7 @@ public class RobotContainer {
 
         /* Driver Button Commands */
         a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
+        lt_driverButton.whileTrue(new ToggleSpeedLimit(m_SwerveSubsytem));
 
         /* Munipulator Button Commands */
 
