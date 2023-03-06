@@ -15,7 +15,8 @@ public class AirSubsystem extends SubsystemBase {
   private final DoubleSolenoid m_gripperSolenoid = m_PneumaticHub.makeDoubleSolenoid(Constants.PneumaticProfile.GRIPPER_SOL_FWD, Constants.PneumaticProfile.GRIPPER_SOL_RVS);
 
   /** Creates a new AirSubsystem. */
-  public AirSubsystem() {}
+  public AirSubsystem() {
+  }
 
   public void openGriper() {
     m_gripperSolenoid.set(Value.kForward);
@@ -30,7 +31,7 @@ public class AirSubsystem extends SubsystemBase {
   }
 
   public void enableCompressor() {
-    m_PneumaticHub.enableCompressorAnalog(Constants.PneumaticProfile.MIN_AIR_PRESSURE, Constants.PneumaticProfile.MAX_AIR_PRESSURE);
+    m_PneumaticHub.enableCompressorAnalog(60, 120);
   }
 
   @Override

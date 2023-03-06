@@ -7,7 +7,11 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonFXPIDSetConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
@@ -38,9 +42,9 @@ public class ArmSubsystem extends SubsystemBase {
   private final WPI_TalonFX m_rightOuterArm = new WPI_TalonFX(Constants.ArmProfile.RIGHT_OUTER_ARM);
   private final WPI_TalonSRX m_leftInnerArm = new WPI_TalonSRX(Constants.ArmProfile.LEFT_INNER_ARM);
   private final WPI_TalonSRX m_rightInnerArm = new WPI_TalonSRX(Constants.ArmProfile.RIGHT_INNER_ARM);
-  private final CANSparkMax m_wrist = new CANSparkMax(Constants.ArmProfile.WRIST_MOTOR, MotorType.kBrushless);
-  private final RelativeEncoder m_wristEncoder = m_wrist.getEncoder(SparkMaxRelativeEncoder.Type.kHallSensor, 42);
-  private final SparkMaxPIDController m_pidcontroller = m_wrist.getPIDController();
+  //private final CANSparkMax m_wrist = new CANSparkMax(Constants.ArmProfile.WRIST_MOTOR, MotorType.kBrushless);
+  // private final RelativeEncoder m_wristEncoder = m_wrist.getEncoder(SparkMaxRelativeEncoder.Type.kHallSensor, 42);
+  // private final SparkMaxPIDController m_pidcontroller = m_wrist.getPIDController();
 
   /** Creates a new Arm. */
   public ArmSubsystem() {
@@ -54,31 +58,34 @@ public class ArmSubsystem extends SubsystemBase {
     50, 0.5),10);
     m_rightOuterArm.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 
     50, 0.5),10);
-    m_leftOuterArm.configForwardSoftLimitEnable(true, 10);
-    m_leftOuterArm.configReverseSoftLimitEnable(true, 10);
-    m_leftOuterArm.configForwardSoftLimitThreshold(0);
-    m_leftOuterArm.configReverseSoftLimitThreshold(5300);
-    m_rightOuterArm.configForwardSoftLimitEnable(true, 10);
-    m_rightOuterArm.configReverseSoftLimitEnable(true, 10);
-    m_rightOuterArm.configForwardSoftLimitThreshold(0);
-    m_rightOuterArm.configReverseSoftLimitThreshold(5300);
+    // m_leftOuterArm.configForwardSoftLimitEnable(true, 10);
+    // m_leftOuterArm.configReverseSoftLimitEnable(true, 10);
+    // m_leftOuterArm.configForwardSoftLimitThreshold(0);
+    // m_leftOuterArm.configReverseSoftLimitThreshold(5300);
+    // m_rightOuterArm.configForwardSoftLimitEnable(true, 10);
+    // m_rightOuterArm.configReverseSoftLimitEnable(true, 10);
+    // m_rightOuterArm.configForwardSoftLimitThreshold(0);
+    // m_rightOuterArm.configReverseSoftLimitThreshold(5300);
+
+    m_leftInnerArm.configFactoryDefault(10);
+    m_rightInnerArm.configFactoryDefault(10);
+    m_rightInnerArm.setInverted(false);
+    m_leftInnerArm.setInverted(true);
+    m_leftInnerArm.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 35, 
+    45, 0.5),10);
+    m_rightInnerArm.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 35, 
+    45, 0.5),10);
+    // m_leftInnerArm.configForwardSoftLimitEnable(true, 10);
+    // m_leftInnerArm.configReverseSoftLimitEnable(true, 10);
+    // m_leftInnerArm.configForwardSoftLimitThreshold(0);
+    // m_leftInnerArm.configReverseSoftLimitThreshold(5300);
+    // m_rightInnerArm.configForwardSoftLimitEnable(true, 10);
+    // m_rightInnerArm.configReverseSoftLimitEnable(true, 10);
+    // m_rightInnerArm.configForwardSoftLimitThreshold(0);
+    // m_rightInnerArm.configReverseSoftLimitThreshold(5300);
 
     m_setpoint = Constants.ArmProfile.OUTER_POSITION_2;
-  }
 
-  public void runWrist(double commandedOutFraction){
-    m_wrist.set(commandedOutFraction);
-  }
-
-  public void runOuterArm(double commandedOutFraction){
-    m_leftOuterArm.set(-1 * commandedOutFraction);
-    m_rightOuterArm.set(commandedOutFraction);
-  }
-  public void setOuterTargetPosition(double _setpoint) {
-    if (_setpoint != m_setpoint) {
-      m_setpoint = _setpoint;
-      updateOuterArmMotionProfile();
-    }
   }
 
   private void updateOuterArmMotionProfile() {
@@ -88,26 +95,45 @@ public class ArmSubsystem extends SubsystemBase {
     m_timer.reset();
   }
 
-  // public void runAutomatic() {
-  //   double elapsedTime = m_timer.get();
-  //   if (m_profile.isFinished(elapsedTime)) {
-  //     targetState = new TrapezoidProfile.State(m_setpoint, 0.0);
-  //   }
-  //   else {
-  //     targetState = m_profile.calculate(elapsedTime);
-  //   }
+  public void runAutomatic() {
+    double elapsedTime = m_timer.get();
+    if (m_profile.isFinished(elapsedTime)) {
+      targetState = new TrapezoidProfile.State(m_setpoint, 0.0);
+    }
+    else {
+      targetState = m_profile.calculate(elapsedTime);
+    }
 
-  //   feedforward = Constants.ArmProfile.kArmFeedforward.calculate(m_rightOuterArm.getSelectedSensorPosition()+Constants.ArmProfile.kArmZeroCosineOffset
-  //   ,targetState.velocity);
-  //   m_pidcontroller.setReference(targetState.position, CANSparkMax.ControlType.kPosition, 0, feedforward);
-  //   //m_rightOuterArm.
-  // }
+    feedforward = Constants.ArmProfile.kArmFeedforward.calculate(m_rightOuterArm.getSelectedSensorPosition()+Constants.ArmProfile.kArmZeroCosineOffset
+    ,targetState.velocity);
+
+    //m_pidcontroller.setReference(targetState.position, CANSparkMax.ControlType.kPosition, 0, feedforward);
+
+    m_rightOuterArm.set(TalonFXControlMode.Velocity, m_setpoint); 
+  }
+
+  public void runInnerArm(double commandedOutputFraction){
+    m_leftInnerArm.set(commandedOutputFraction);
+    m_rightInnerArm.set(commandedOutputFraction);
+  }
+
+  public void runOuterArm(double commandedOutFraction){
+    m_leftOuterArm.set(commandedOutFraction);
+    m_rightOuterArm.set(commandedOutFraction);
+  }
+
+  public void setOuterTargetPosition(double _setpoint) {
+    if (_setpoint != m_setpoint) {
+      m_setpoint = _setpoint;
+      updateOuterArmMotionProfile();
+    }
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("right_Outer_Arm", m_rightOuterArm.getSelectedSensorPosition());
     SmartDashboard.putNumber("right_Inner_Arm", m_rightInnerArm.getSelectedSensorPosition());
-    SmartDashboard.putNumber("wrist", m_wristEncoder.getPosition());
+    //SmartDashboard.putNumber("wrist", m_wristEncoder.getPosition());
   }
 }

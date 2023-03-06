@@ -36,12 +36,12 @@ public class CollectWithSensor extends CommandBase {
   @Override
   public void execute() {
     m_GripperSubsytem.collectInRange(m_AirSubsystem);
-    if (m_timer.get() < 3) {
-      m_LightingSubsystem.setArmCandleBlueTwinkleAnimation();
-    }
-    else {
-      m_LightingSubsystem.setArmCandleGreenTwinkleAnimation();
-    }
+    // if (m_timer.get() < 3) {
+    //   m_LightingSubsystem.setArmCandleBlueTwinkleAnimation();
+    // }
+    // else {
+    //   m_LightingSubsystem.setArmCandleGreenTwinkleAnimation();
+    // }
   }
 
   // Called once the command ends or is interrupted.

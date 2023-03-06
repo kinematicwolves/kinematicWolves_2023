@@ -16,6 +16,7 @@ import frc.robot.commands.TeleOpLightshow;
 import frc.robot.commands.SetDisabledState;
 import frc.robot.commands.CollectWithSensor;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.commands.ToggleCompressor;
 import frc.robot.commands.TurnTurretToFwdPos;
 import frc.robot.commands.TurnTurretToInitPos;
 import frc.robot.commands.TurnTurretToRvsPos;
@@ -87,6 +88,7 @@ public class RobotContainer {
     private void setDefaultCommands(){
        //m_GripperSubsytem.setDefaultCommand(new CollectWithSensor(m_GripperSubsytem, m_AirSubsystem, m_LightingSubsystem));
        //m_ArmSubsystem.setDefaultCommand(new runAutomatic(m_ArmSubsystem));
+       //m_AirSubsystem.setDefaultCommand(new ToggleCompressor(m_AirSubsystem));
     }
 
     /**
@@ -126,18 +128,20 @@ public class RobotContainer {
 
         /* Driver Button Commands */
         a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
-        //b_driverButton.whileTrue(new ArmTest(m_ArmSubsystem));
+        b_driverButton.whileTrue(new ArmTest(m_ArmSubsystem));
         // a_driverButton.onTrue(new InstantCommand(() -> m_GripperSubsytem.runGripperWheels(0.25)));
         // x_riverButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.runOuterArm(0.1)));
-       // y_driverButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.runOuterArm(0.1)));
+        // y_driverButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.runOuterArm(0.1)));
+        a_driverButton.onTrue(new ToggleCompressor(m_AirSubsystem));
+       
 
         b_driverButton.onTrue(new RedAllianceLightshow(m_LightingSubsystem));
         lt_driverButton.whileTrue(new ToggleSpeedLimit(m_SwerveSubsytem));
 
         /* Munipulator Button Commands */
-        x_munipulatorButton.onTrue(new TurnTurretToRvsPos(m_TurretSubsystem));
-        y_munipulatorButton.onTrue(new TurnTurretToInitPos(m_TurretSubsystem));
-        b_munipulatorButton.onTrue(new TurnTurretToFwdPos(m_TurretSubsystem));
+        // x_munipulatorButton.onTrue(new TurnTurretToRvsPos(m_TurretSubsystem));
+        // y_munipulatorButton.onTrue(new TurnTurretToInitPos(m_TurretSubsystem));
+        // b_munipulatorButton.onTrue(new TurnTurretToFwdPos(m_TurretSubsystem));
 
     }
 

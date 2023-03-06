@@ -187,7 +187,7 @@ public final class Constants {
     }
 
     public static final class PneumaticProfile {
-        public static final int PNEUMATIC_HUB_ID = 30; // FIXME
+        public static final int PNEUMATIC_HUB_ID = 30;
         /* Pnuematic Hub Ports */
         public static final int GRIPPER_SOL_FWD = 0; // FIXME
         public static final int GRIPPER_SOL_RVS = 0; // FIXME
