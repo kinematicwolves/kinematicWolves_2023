@@ -5,15 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.LightingSubsystem;
+import frc.robot.subsystems.ArmSubsystem;
 
-public class BlueAllianceLightshow extends CommandBase {
-  private LightingSubsystem m_LightingSubsystem;
+public class ArmTest extends CommandBase {
+  private ArmSubsystem m_ArmSubsystem;
 
-  /** Creates a new RedAllianceLightshow. */
-  public BlueAllianceLightshow(LightingSubsystem LightingSubsystem) {
+  /** Creates a new ArmTest. */
+  public ArmTest(ArmSubsystem armSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_LightingSubsystem = LightingSubsystem;
+    m_ArmSubsystem = armSubsystem; 
   }
 
   // Called when the command is initially scheduled.
@@ -23,13 +23,13 @@ public class BlueAllianceLightshow extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_LightingSubsystem.setCANdle1BlueTwinkleAnimation();
+    m_ArmSubsystem.runWrist(0.1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_LightingSubsystem.setDisabledLightShow();
+    m_ArmSubsystem.runWrist(0);;
   }
 
   // Returns true when the command should end.

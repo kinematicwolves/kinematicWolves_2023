@@ -19,38 +19,40 @@ import frc.robot.Constants;
 public class LightingSubsystem extends SubsystemBase {
   private final CANdle m_armCandle = new CANdle(Constants.LightProfile.ARM_CANDLE_ID);
   // private final CANdle m_chassisCandle = new CANdle(Constants.LightProfile.CHASSIS_CANDLE_ID);
+  // private final CANdle m_chassisCandle = new CANdle(Constants.LightProfile.CHASSIS_CANDLE_ID);
   private Animation m_ArmCandleAnimation = null;
+  // private Animation m_ChassisCandle2Animation = null;
   // private Animation m_ChassisCandle2Animation = null;
 
   /** Creates a new LightshowSubsystem. */
   public LightingSubsystem() {
     CANdleConfiguration cfg = new CANdleConfiguration();
-    cfg.brightnessScalar = 1;
+    cfg.brightnessScalar = 0.6;
     cfg.vBatOutputMode = VBatOutputMode.Modulated;
     m_armCandle.configAllSettings(cfg);
     m_armCandle.configLEDType(LEDStripType.GRB);
     // m_chassisCandle.configAllSettings(cfg);
     // m_chassisCandle.configLEDType(LEDStripType.GRB);
-    m_armCandle.configFactoryDefault();
+    m_ArmCandleAnimation = new RainbowAnimation(0.7, 0.8, Constants.LightProfile.Arm_LED_COUNT); 
   }
 
     /* CANdle 1 (ARM) Animations */
-  public void setCANdle1RainbowAnimation(){
+  public void setArmCandleRainbowAnimation(){
     m_ArmCandleAnimation = new RainbowAnimation(0.8, 0.88, Constants.LightProfile.Arm_LED_COUNT);
   }
-  public void setCANdle1PurpleTwinkleAnimation(){
+  public void setArmCandlePurpleTwinkleAnimation(){
     m_ArmCandleAnimation = new TwinkleAnimation(255, 0, 255, 69, 0.9, Constants.LightProfile.Arm_LED_COUNT, TwinklePercent.Percent100); 
   }
-  public void setCANdle1RedTwinkleAnimation(){
+  public void setArmCandleRedTwinkleAnimation(){
     m_ArmCandleAnimation = new TwinkleAnimation(225, 0, 1, 0, 0.9, Constants.LightProfile.Arm_LED_COUNT,TwinklePercent.Percent100);
   }
-  public void setCANdle1BlueTwinkleAnimation(){
+  public void setArmCandleBlueTwinkleAnimation(){
     m_ArmCandleAnimation = new TwinkleAnimation(0, 0, 225, 30, 0.9, Constants.LightProfile.Arm_LED_COUNT,TwinklePercent.Percent100);
   }
-  public void setCANdle1GreenTwinkleAnimation(){
+  public void setArmCandleGreenTwinkleAnimation(){
     m_ArmCandleAnimation = new TwinkleAnimation(0, 225, 0, 0, 0.9, Constants.LightProfile.Arm_LED_COUNT,TwinklePercent.Percent100); 
   }
-  public void setCANdle1BlackAnimation(){
+  public void setArmCandleBlackAnimation(){
     m_ArmCandleAnimation = new TwinkleAnimation(0, 0, 0, 0 , 0 , Constants.LightProfile.Arm_LED_COUNT,TwinklePercent.Percent100); 
   }
 
@@ -75,7 +77,7 @@ public class LightingSubsystem extends SubsystemBase {
   // }
 
   public void setDisabledLightShow(){
-    setCANdle1GreenTwinkleAnimation();
+    setArmCandleGreenTwinkleAnimation();
   }
 
 

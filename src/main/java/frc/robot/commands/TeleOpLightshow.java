@@ -7,11 +7,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LightingSubsystem;
 
-public class RedAllianceLightshow extends CommandBase {
+public class TeleOpLightshow extends CommandBase {
   private LightingSubsystem m_LightingSubsystem;
 
   /** Creates a new RedAllianceLightshow. */
-  public RedAllianceLightshow(LightingSubsystem LightingSubsystem) {
+  public TeleOpLightshow(LightingSubsystem LightingSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_LightingSubsystem = LightingSubsystem;
   }
@@ -23,7 +23,7 @@ public class RedAllianceLightshow extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_LightingSubsystem.setCANdle1RedTwinkleAnimation();
+    m_LightingSubsystem.setArmCandleGreenTwinkleAnimation();
   }
 
   // Called once the command ends or is interrupted.
