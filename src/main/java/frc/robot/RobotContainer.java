@@ -1,31 +1,25 @@
 package frc.robot;
 
-import javax.management.openmbean.OpenType;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ArmTest;
-import frc.robot.commands.TeleOpLightshow;
+import frc.robot.commands.AutonTest;
 import frc.robot.commands.SetDisabledState;
-import frc.robot.commands.CollectWithSensor;
+import frc.robot.commands.TeleOpLightshow;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.ToggleCompressor;
-import frc.robot.commands.TurnTurretToFwdPos;
-import frc.robot.commands.TurnTurretToInitPos;
-import frc.robot.commands.TurnTurretToRvsPos;
 import frc.robot.commands.ToggleSpeedLimit;
 import frc.robot.commands.ZeroGyro;
-import frc.robot.subsystems.LightingSubsystem;
 import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.GripperSubsytem;
+import frc.robot.subsystems.LightingSubsystem;
 import frc.robot.subsystems.SwerveSubsytem;
 import frc.robot.subsystems.TurretSubsystem;
 
@@ -59,6 +53,7 @@ public class RobotContainer {
     private final AirSubsystem m_AirSubsystem = new AirSubsystem();
     private final TurretSubsystem m_TurretSubsystem = new TurretSubsystem();
     private final ArmSubsystem m_ArmSubsystem = new ArmSubsystem();
+    private final Trigger m_Trigger = new Trigger();
 
     /* Sendable Choosers */
     SendableChooser<Command> m_LightsChooser = new SendableChooser<>(); 
@@ -135,7 +130,6 @@ public class RobotContainer {
         a_driverButton.onTrue(new ToggleCompressor(m_AirSubsystem));
        
 
-        b_driverButton.onTrue(new RedAllianceLightshow(m_LightingSubsystem));
         lt_driverButton.whileTrue(new ToggleSpeedLimit(m_SwerveSubsytem));
 
         /* Munipulator Button Commands */
@@ -164,7 +158,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return null;
+        return new AutonTest(m_SwerveSubsytem);
     }
 
     public Command getTeleopLightingCommand(){
