@@ -5,15 +5,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.AirSubsystem;
 
-public class ArmTest extends CommandBase {
-  private ArmSubsystem m_ArmSubsystem;
+public class ToggleCompressor extends CommandBase {
+  private AirSubsystem m_AirSubsystem;
 
-  /** Creates a new ArmTest. */
-  public ArmTest(ArmSubsystem armSubsystem) {
+  /** Creates a new ToggleCompressor. */
+  public ToggleCompressor(AirSubsystem airSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_ArmSubsystem = armSubsystem; 
+    m_AirSubsystem = airSubsystem;
+    addRequirements(airSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -23,14 +24,12 @@ public class ArmTest extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_ArmSubsystem.runOuterArm(-0.35);
+    m_AirSubsystem.enableCompressor();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_ArmSubsystem.runOuterArm(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

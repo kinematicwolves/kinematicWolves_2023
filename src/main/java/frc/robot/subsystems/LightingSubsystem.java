@@ -75,7 +75,7 @@ public class LightingSubsystem extends SubsystemBase {
   // }
 
   public void setDisabledLightShow(){
-    setArmCandleGreenTwinkleAnimation();
+    setArmCandleRainbowAnimation();
   }
 
 
