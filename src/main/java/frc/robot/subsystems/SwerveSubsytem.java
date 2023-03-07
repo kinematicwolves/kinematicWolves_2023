@@ -27,7 +27,7 @@ public class SwerveSubsytem extends SubsystemBase {
     public boolean speedIsLimited = false;
 
     public SwerveSubsytem() {
-        gyro = new Pigeon2(Constants.SwerveProfile.pigeonID);
+        gyro = new Pigeon2(Constants.SwerveProfile.pigeonID, "canivore1");
         gyro.configFactoryDefault();
         zeroGyro();
 
@@ -71,14 +71,14 @@ public class SwerveSubsytem extends SubsystemBase {
     public boolean isSpeedLimited() {
         return speedIsLimited;
     }
-
+/* 
     public void limitDriveTrainSpeed(XboxController driverController) {
         if (speedIsLimited) {
             drive(new Translation2d(0.3 * driverController.getLeftY(), 0.3 * driverController.getLeftX()), 
             0.3 * driverController.getRightX(), true, false);
         }
     }
-
+*/
     public void enableSpeedLimit() {
         speedIsLimited = true;   
     }

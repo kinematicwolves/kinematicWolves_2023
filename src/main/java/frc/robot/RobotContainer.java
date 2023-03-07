@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ArmTest;
 import frc.robot.commands.AutonTest;
 import frc.robot.commands.SetDisabledState;
@@ -45,7 +44,7 @@ public class RobotContainer {
     private final int translationAxis = XboxController.Axis.kLeftY.value;
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
     private final int rotationAxis = XboxController.Axis.kRightX.value;
-    private final boolean robotCentric = false;
+    private final boolean robotCentric = true;
     /* Subsystems */
     private final SwerveSubsytem m_SwerveSubsytem = new SwerveSubsytem();
     private final LightingSubsystem m_LightingSubsystem = new LightingSubsystem();
@@ -53,7 +52,6 @@ public class RobotContainer {
     private final AirSubsystem m_AirSubsystem = new AirSubsystem();
     private final TurretSubsystem m_TurretSubsystem = new TurretSubsystem();
     private final ArmSubsystem m_ArmSubsystem = new ArmSubsystem();
-    private final Trigger m_Trigger = new Trigger();
 
     /* Sendable Choosers */
     SendableChooser<Command> m_LightsChooser = new SendableChooser<>(); 
@@ -74,10 +72,6 @@ public class RobotContainer {
                 () -> robotCentric
             )
         );
-        
-        // A chooser for Lightshow commands
-        m_LightsChooser.setDefaultOption("Red Alliance Lighshow", new TeleOpLightshow(m_LightingSubsystem));
-        SmartDashboard.putData(m_LightsChooser);
     }
 
     private void setDefaultCommands(){
@@ -127,7 +121,7 @@ public class RobotContainer {
         // a_driverButton.onTrue(new InstantCommand(() -> m_GripperSubsytem.runGripperWheels(0.25)));
         // x_riverButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.runOuterArm(0.1)));
         // y_driverButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.runOuterArm(0.1)));
-        a_driverButton.onTrue(new ToggleCompressor(m_AirSubsystem));
+        //a_driverButton.onTrue(new ToggleCompressor(m_AirSubsystem));
        
 
         lt_driverButton.whileTrue(new ToggleSpeedLimit(m_SwerveSubsytem));
