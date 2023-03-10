@@ -5,18 +5,23 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import com.playingwithfusion.TimeOfFlight;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class GripperSubsytem extends SubsystemBase {
   private final WPI_VictorSPX m_leftFinger = new WPI_VictorSPX(Constants.GripperProfile.LEFT_FINGER);
   private final WPI_VictorSPX m_rightFinger = new WPI_VictorSPX(Constants.GripperProfile.RIGHT_FINGER);
-  private final TimeOfFlight m_distanceSensor = new TimeOfFlight(Constants.GripperProfile.DISTANCE_SENSOR);
+
+  private boolean gripperIsOpen = false;
 
   /** Creates a new GripperSubsytem. */
   public GripperSubsytem() {}
+
+  public boolean isGripperOpen() {
+    return gripperIsOpen;
+  }
 
   public void setGriperOpen(AirSubsystem airSubsystem) {
     airSubsystem.openGriper();
@@ -33,18 +38,9 @@ public class GripperSubsytem extends SubsystemBase {
     m_rightFinger.set(commandedOutFraction);
   }
 
-  public void collectInRange(AirSubsystem airSubsystem) {
-    // if (m_distanceSensor.getRange() < 10) {
-      setGripperClosed(airSubsystem, 0.1);
-    //}
-  }
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
-    // TimeOfFlightSensor
-    //  double rangeOfTarget = m_distanceSensor.getRange();
-    //  SmartDashboard.putNumber("Target_Distance_In_Millimeters", rangeOfTarget);
+    SmartDashboard.putBoolean("GRipperIsOpen", isGripperOpen());
   }
 }

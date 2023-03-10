@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -14,8 +15,13 @@ public class AirSubsystem extends SubsystemBase {
   private final PneumaticHub m_PneumaticHub = new PneumaticHub(Constants.PneumaticProfile.PNEUMATIC_HUB_ID);
   private final DoubleSolenoid m_gripperSolenoid = m_PneumaticHub.makeDoubleSolenoid(Constants.PneumaticProfile.GRIPPER_SOL_FWD, Constants.PneumaticProfile.GRIPPER_SOL_RVS);
 
+  private boolean compressorIsOn = false;
+
   /** Creates a new AirSubsystem. */
-  public AirSubsystem() {
+  public AirSubsystem() {}
+
+  public boolean isCompressorOn() {
+    return compressorIsOn;
   }
 
   public void openGriper() {
@@ -28,14 +34,17 @@ public class AirSubsystem extends SubsystemBase {
 
   public void disableCompressor() {
     m_PneumaticHub.disableCompressor();
+    compressorIsOn = false;
   }
 
   public void enableCompressor() {
     m_PneumaticHub.enableCompressorAnalog(60, 120);
+    compressorIsOn = true;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("Compressor_Is_On", isCompressorOn());
   }
 }

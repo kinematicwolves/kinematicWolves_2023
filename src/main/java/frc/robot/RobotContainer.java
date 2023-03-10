@@ -7,20 +7,33 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.ArmTest;
-import frc.robot.commands.AutonTest;
-import frc.robot.commands.SetDisabledState;
-import frc.robot.commands.TeleOpLightshow;
+import frc.robot.commands.ConeSignal;
+import frc.robot.commands.CubeSignal;
+import frc.robot.commands.IntakeToggle;
+import frc.robot.commands.SetArmToMid;
 import frc.robot.commands.TeleopSwerve;
-import frc.robot.commands.ToggleCompressor;
 import frc.robot.commands.ToggleSpeedLimit;
 import frc.robot.commands.ZeroGyro;
+import frc.robot.commands.toggleLimelight;
+import frc.robot.commands.Auton.OneConeAuton;
+import frc.robot.commands.LightshowCommands.SetDisabledState;
+import frc.robot.commands.LightshowCommands.TeleOpLightshow;
+import frc.robot.commands.LightshowCommands.TestingLightshow;
+import frc.robot.commands.TestCommands.RunInnerArm;
+import frc.robot.commands.TestCommands.RunOuterArm;
+import frc.robot.commands.TestCommands.RunWrist;
+import frc.robot.commands.TestCommands.SetArmToMidTest;
+import frc.robot.commands.TestCommands.ToggleCompressor;
+import frc.robot.commands.TurretCommands.TurnTurretToFwdPos;
+import frc.robot.commands.TurretCommands.TurnTurretToInitPos;
+import frc.robot.commands.TurretCommands.TurnTurretToRvsPos;
 import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.GripperSubsytem;
 import frc.robot.subsystems.LightingSubsystem;
 import frc.robot.subsystems.SwerveSubsytem;
 import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -31,14 +44,17 @@ import frc.robot.subsystems.TurretSubsystem;
 public class RobotContainer {
     /* Driver Controller Map
         * A = Zero Gyro
+        * B = Auto align with mid node
         */
     /* Munipulator Controller Map
         * 
         */
 
+    /* Joystick Controls */
     /* Controllers */
     private final Joystick driverController = new Joystick(Constants.ControllerProfile.DRIVER_CONTROLLER);
     private final Joystick munipulatorController = new Joystick(Constants.ControllerProfile.MUNIPULATOR_CONTROLLER);
+    private final Joystick technicianController = new Joystick(Constants.ControllerProfile.TECHNICIAM_CONTROLLER);
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -47,6 +63,7 @@ public class RobotContainer {
     private final boolean robotCentric = true;
     /* Subsystems */
     private final SwerveSubsytem m_SwerveSubsytem = new SwerveSubsytem();
+    private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
     private final LightingSubsystem m_LightingSubsystem = new LightingSubsystem();
     private final GripperSubsytem m_GripperSubsytem = new GripperSubsytem();
     private final AirSubsystem m_AirSubsystem = new AirSubsystem();
@@ -55,6 +72,7 @@ public class RobotContainer {
 
     /* Sendable Choosers */
     SendableChooser<Command> m_LightsChooser = new SendableChooser<>(); 
+    SendableChooser<Command> m_AutonChooser = new SendableChooser<>();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -72,6 +90,14 @@ public class RobotContainer {
                 () -> robotCentric
             )
         );
+        
+        // A chooser for Lightshow commands
+        m_LightsChooser.setDefaultOption("TeleOp Mode", new TeleOpLightshow(m_LightingSubsystem));
+        m_LightsChooser.addOption("Testing Mode", new TestingLightshow(m_LightingSubsystem));
+        SmartDashboard.putData(m_LightsChooser);
+
+        /* Chooser for Auton Commands */
+        m_AutonChooser.setDefaultOption("One Cone Auto", new OneConeAuton(m_SwerveSubsytem));
     }
 
     private void setDefaultCommands(){
@@ -90,7 +116,7 @@ public class RobotContainer {
         /* Button Box */
         JoystickButton a_driverButton = new JoystickButton(driverController, XboxController.Button.kA.value);
         JoystickButton b_driverButton = new JoystickButton(driverController, XboxController.Button.kB.value);
-        JoystickButton x_riverButton = new JoystickButton(driverController, XboxController.Button.kX.value);
+        JoystickButton x_driverButton = new JoystickButton(driverController, XboxController.Button.kX.value);
         JoystickButton y_driverButton = new JoystickButton(driverController, XboxController.Button.kY.value);
         JoystickButton rb_driverButton = new JoystickButton(driverController, XboxController.Button.kRightBumper.value);
         JoystickButton lb_driverButton = new JoystickButton(driverController, XboxController.Button.kRightBumper.value);
@@ -114,36 +140,44 @@ public class RobotContainer {
         JoystickButton rt_munipulatorButton = new JoystickButton(munipulatorController, XboxController.Axis.kRightTrigger.value);
         JoystickButton lt_munipulatorButton = new JoystickButton(munipulatorController, XboxController.Axis.kLeftTrigger.value);
 
+        JoystickButton a_technicianButton = new JoystickButton(technicianController, XboxController.Button.kA.value);
+        JoystickButton b_technicianButton = new JoystickButton(technicianController, XboxController.Button.kB.value);
+        JoystickButton x_technicianButton = new JoystickButton(technicianController, XboxController.Button.kX.value);
+        JoystickButton y_technicianButton = new JoystickButton(technicianController, XboxController.Button.kY.value);
+        JoystickButton rb_technicianButton = new JoystickButton(technicianController, XboxController.Button.kRightBumper.value);
+        JoystickButton lb_technicianButton = new JoystickButton(technicianController, XboxController.Button.kRightBumper.value);
+        JoystickButton start_technicianButton = new JoystickButton(technicianController, XboxController.Button.kStart.value);
+        JoystickButton back_technicianButton = new JoystickButton(technicianController, XboxController.Button.kBack.value);
+        JoystickButton rs_technicianButton = new JoystickButton(technicianController, XboxController.Button.kRightStick.value);
+        JoystickButton ls_technicianButton = new JoystickButton(technicianController, XboxController.Button.kLeftStick.value);
+        JoystickButton rt_technicianButton = new JoystickButton(technicianController, XboxController.Axis.kRightTrigger.value);
+        JoystickButton lt_technicianButton = new JoystickButton(technicianController, XboxController.Axis.kLeftTrigger.value);
+
+
 
         /* Driver Button Commands */
         a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
-        b_driverButton.whileTrue(new ArmTest(m_ArmSubsystem));
-        // a_driverButton.onTrue(new InstantCommand(() -> m_GripperSubsytem.runGripperWheels(0.25)));
-        // x_riverButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.runOuterArm(0.1)));
-        // y_driverButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.runOuterArm(0.1)));
-        //a_driverButton.onTrue(new ToggleCompressor(m_AirSubsystem));
-       
-
         lt_driverButton.whileTrue(new ToggleSpeedLimit(m_SwerveSubsytem));
+        y_driverButton.onTrue(new toggleLimelight(m_VisionSubsystem));
 
         /* Munipulator Button Commands */
-        // x_munipulatorButton.onTrue(new TurnTurretToRvsPos(m_TurretSubsystem));
-        // y_munipulatorButton.onTrue(new TurnTurretToInitPos(m_TurretSubsystem));
-        // b_munipulatorButton.onTrue(new TurnTurretToFwdPos(m_TurretSubsystem));
+        a_munipulatorButton.onTrue(new IntakeToggle(m_GripperSubsytem, m_AirSubsystem));
+        rb_munipulatorButton.whileTrue(new SetArmToMid(m_ArmSubsystem));
+        y_munipulatorButton.whileTrue(new TurnTurretToInitPos(m_TurretSubsystem));
+        x_munipulatorButton.whileTrue(new TurnTurretToRvsPos(m_TurretSubsystem));
+        b_munipulatorButton.whileTrue(new TurnTurretToFwdPos(m_TurretSubsystem));
+        start_munipulatorButton.onTrue(new ConeSignal(m_LightingSubsystem));
+        back_munipulatorButton.onTrue(new CubeSignal(m_LightingSubsystem));
+
+        /* Technician Button Commands */
+        a_technicianButton.onTrue(new ToggleCompressor(m_AirSubsystem, m_LightingSubsystem));
+        y_technicianButton.whileTrue(new RunInnerArm(m_ArmSubsystem, m_LightingSubsystem));
+        x_technicianButton.whileTrue(new RunOuterArm(m_ArmSubsystem, m_LightingSubsystem));
+        b_technicianButton.whileTrue(new RunWrist(m_ArmSubsystem, m_LightingSubsystem));
+        rb_technicianButton.whileTrue(new SetArmToMidTest(m_ArmSubsystem, m_LightingSubsystem));
+        lb_technicianButton.onTrue(new IntakeToggle(m_GripperSubsytem, m_AirSubsystem));
 
     }
-
-/*  Things to add from Tomai.
-/*  Wrist inputs
-/*  Outer Arm
-/*  Outer Arm
-/*  Add buttons for Arm Setpoints
-/*  Auto_Align
-/*  Turret rotation input by driver
-/*  Wrist cannot go past an encoder count where it hits the robot in initial position based off driver input
- *  Turret rotation not allowed when not in initial position
- *  
- */
 
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -152,13 +186,12 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new AutonTest(m_SwerveSubsytem);
+        return m_AutonChooser.getSelected();
     }
 
     public Command getTeleopLightingCommand(){
         // Alliance color selector for leds
-        Command teleOp = new TeleOpLightshow(m_LightingSubsystem);
-        return teleOp;
+        return m_LightsChooser.getSelected();
        }
 
     public Command getDisabledCommand(){

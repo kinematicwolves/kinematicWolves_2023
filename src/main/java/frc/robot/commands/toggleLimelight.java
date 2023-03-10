@@ -4,16 +4,17 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.vision.VisionPipeline;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 
-public class TurnTurretToInitPos extends CommandBase {
-  private TurretSubsystem m_turret;
-  /** Creates a new TurnToTurretPos0. */
-  public TurnTurretToInitPos(TurretSubsystem turret) {
+public class toggleLimelight extends CommandBase {
+  private VisionSubsystem m_VisionSubsystem;
+
+  /** Creates a new toggleLimelight. */
+  public toggleLimelight(VisionSubsystem visionSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    turret = m_turret; 
+    m_VisionSubsystem = visionSubsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -23,14 +24,11 @@ public class TurnTurretToInitPos extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_turret.getTurretPositionDegrees() > Constants.TurretProfile.TURRET_INITIAL_POSITION) {
-      m_turret.setTurretMotorOutput(0.1);
-    }
-    else if (m_turret.getTurretPositionDegrees() < Constants.TurretProfile.TURRET_INITIAL_POSITION) {
-      m_turret.setTurretMotorOutput(-0.1);
+    if (m_VisionSubsystem.isLimeLightOn()) {
+      m_VisionSubsystem.turnLimelightOff();
     }
     else {
-      m_turret.setTurretMotorOutput(0);
+      m_VisionSubsystem.turnLimelightOn();;
     }
   }
 
@@ -41,6 +39,6 @@ public class TurnTurretToInitPos extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_turret.getTurretState() == "Initial Turret State";
+    return false;
   }
 }

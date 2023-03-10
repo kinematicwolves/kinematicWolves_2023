@@ -23,6 +23,8 @@ public class SwerveSubsytem extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
+    private static final double alignWindow = 2;
+    private static final double distancealignWindow = 48;
 
     public boolean speedIsLimited = false;
 
@@ -38,7 +40,9 @@ public class SwerveSubsytem extends SubsystemBase {
             new SwerveModule(3, Constants.SwerveProfile.Mod3.constants)
         };
 
-        /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
+        /*
+         * By pausing init for a second before setting module offsets, we avoid a bug
+         * with inverting motors.
          * See https://github.com/Team364/BaseFalconSwerve/issues/8 for more info.
          */
         Timer.delay(1.0);
@@ -63,11 +67,10 @@ public class SwerveSubsytem extends SubsystemBase {
                                 );
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.SwerveProfile.maxSpeed);
 
-        for(SwerveModule mod : mSwerveMods){
+        for (SwerveModule mod : mSwerveMods) {
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
         }
-    } 
-
+    }
     public boolean isSpeedLimited() {
         return speedIsLimited;
     }
@@ -95,7 +98,7 @@ public class SwerveSubsytem extends SubsystemBase {
         for(SwerveModule mod : mSwerveMods){
             mod.setDesiredState(desiredStates[mod.moduleNumber], false);
         }
-    }    
+    }
 
     public Pose2d getPose() {
         return swerveOdometry.getPoseMeters();
@@ -105,23 +108,23 @@ public class SwerveSubsytem extends SubsystemBase {
         swerveOdometry.resetPosition(getYaw(), getModulePositions(), pose);
     }
 
-    public SwerveModuleState[] getModuleStates(){
+    public SwerveModuleState[] getModuleStates() {
         SwerveModuleState[] states = new SwerveModuleState[4];
-        for(SwerveModule mod : mSwerveMods){
+        for (SwerveModule mod : mSwerveMods) {
             states[mod.moduleNumber] = mod.getState();
         }
         return states;
     }
 
-    public SwerveModulePosition[] getModulePositions(){
+    public SwerveModulePosition[] getModulePositions() {
         SwerveModulePosition[] positions = new SwerveModulePosition[4];
-        for(SwerveModule mod : mSwerveMods){
+        for (SwerveModule mod : mSwerveMods) {
             positions[mod.moduleNumber] = mod.getPosition();
         }
         return positions;
     }
 
-    public void zeroGyro(){
+    public void zeroGyro() {
         gyro.setYaw(0);
     }
 
@@ -129,20 +132,61 @@ public class SwerveSubsytem extends SubsystemBase {
         return (Constants.SwerveProfile.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw());
     }
 
-    public void resetModulesToAbsolute(){
-        for(SwerveModule mod : mSwerveMods){
+    public void resetModulesToAbsolute() {
+        for (SwerveModule mod : mSwerveMods) {
             mod.resetToAbsolute();
         }
     }
 
-    @Override
-    public void periodic(){
-        swerveOdometry.update(getYaw(), getModulePositions());  
+    public boolean isLinedUp(VisionSubsystem visionSubsystem) {
+        var horizalAngle = visionSubsystem.getFilteredHorizontalAngle();
+        // degrees
+        return (horizalAngle < alignWindow) & (horizalAngle > (-1 * alignWindow));
+    }
 
-        for(SwerveModule mod : mSwerveMods){
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder (This_one_Jose) ", mod.getCanCoder().getDegrees());
+    public void strafeDrivetrainToTarget(double strafeSpeed, VisionSubsystem visionSubsystem) {
+        // This assumes the limelight has a target
+        var horizalAngle = visionSubsystem.getFilteredHorizontalAngle();
+        if (isLinedUp(visionSubsystem)) {
+            /* Lined up Horazontally */
+            ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, 0, getYaw());
+        } else if (horizalAngle < (-1 * alignWindow)) {
+            /* Strafe right */
+            ChassisSpeeds.fromFieldRelativeSpeeds(-1 * strafeSpeed, 0, 0, getYaw());
+        } else if (horizalAngle > alignWindow) {
+            /* Strafe left */
+            ChassisSpeeds.fromFieldRelativeSpeeds(strafeSpeed, 0, 0, getYaw());
+        }
+    }
+
+    public boolean isLinedUpInDistance(VisionSubsystem visionSubsystem) {
+        var distance = visionSubsystem.getFilteredDistance();
+        return (distance == alignWindow);
+    }
+
+    public void yTranslateDrivetrainToTarget(double yTranslationSpeed, VisionSubsystem visionSubsystem) {
+        var distance = visionSubsystem.getFilteredDistance();
+        if (isLinedUpInDistance(visionSubsystem) & isLinedUp(visionSubsystem)){
+            ChassisSpeeds.fromFieldRelativeSpeeds( 0, yTranslationSpeed, 0, getYaw());
+        }
+            else if (distance < (-1 * distancealignWindow)) {
+                ChassisSpeeds.fromFieldRelativeSpeeds(0, 1 * yTranslationSpeed, 0, getYaw());
+        }
+            else if (distance > distancealignWindow){
+                ChassisSpeeds.fromFieldRelativeSpeeds(0, yTranslationSpeed, 0, getYaw());
+            }
+    }
+
+    @Override
+    public void periodic() {
+        swerveOdometry.update(getYaw(), getModulePositions());
+
+        for (SwerveModule mod : mSwerveMods) {
+            /* Date print */
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder (This_one_Jose) ",
+                    mod.getCanCoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
             SmartDashboard.putNumber("Gyro Yaw", gyro.getYaw());
         }
     }
