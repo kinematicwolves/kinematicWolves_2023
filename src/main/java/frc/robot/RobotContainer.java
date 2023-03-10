@@ -14,6 +14,7 @@ import frc.robot.commands.SetArmToMid;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.ToggleSpeedLimit;
 import frc.robot.commands.ZeroGyro;
+import frc.robot.commands.toggleLimelight;
 import frc.robot.commands.Auton.OneConeAuton;
 import frc.robot.commands.LightshowCommands.SetDisabledState;
 import frc.robot.commands.LightshowCommands.TeleOpLightshow;
@@ -32,6 +33,7 @@ import frc.robot.subsystems.GripperSubsytem;
 import frc.robot.subsystems.LightingSubsystem;
 import frc.robot.subsystems.SwerveSubsytem;
 import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -42,11 +44,13 @@ import frc.robot.subsystems.TurretSubsystem;
 public class RobotContainer {
     /* Driver Controller Map
         * A = Zero Gyro
+        * B = Auto align with mid node
         */
     /* Munipulator Controller Map
         * 
         */
 
+    /* Joystick Controls */
     /* Controllers */
     private final Joystick driverController = new Joystick(Constants.ControllerProfile.DRIVER_CONTROLLER);
     private final Joystick munipulatorController = new Joystick(Constants.ControllerProfile.MUNIPULATOR_CONTROLLER);
@@ -59,6 +63,7 @@ public class RobotContainer {
     private final boolean robotCentric = false;
     /* Subsystems */
     private final SwerveSubsytem m_SwerveSubsytem = new SwerveSubsytem();
+    private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
     private final LightingSubsystem m_LightingSubsystem = new LightingSubsystem();
     private final GripperSubsytem m_GripperSubsytem = new GripperSubsytem();
     private final AirSubsystem m_AirSubsystem = new AirSubsystem();
@@ -153,6 +158,12 @@ public class RobotContainer {
         /* Driver Button Commands */
         a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
         lt_driverButton.whileTrue(new ToggleSpeedLimit(m_SwerveSubsytem));
+        //b_driverButton.whileTrue(new ArmTest(m_ArmSubsystem));
+        // a_driverButton.onTrue(new InstantCommand(() -> m_GripperSubsytem.runGripperWheels(0.25)));
+        // x_riverButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.runOuterArm(0.1)));
+       // y_driverButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.runOuterArm(0.1)));
+        y_driverButton.onTrue(new toggleLimelight(m_VisionSubsystem));
+        // b_driverButton.onTrue(new AutoAlignment(m_VisionSubsystem, m_SwerveSubsytem, 0.2, 0.2));
 
         /* Munipulator Button Commands */
         a_munipulatorButton.onTrue(new IntakeToggle(m_GripperSubsytem, m_AirSubsystem));

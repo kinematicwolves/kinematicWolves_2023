@@ -152,6 +152,19 @@ public final class Constants {
             new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
+    public static final class LimelightProfile {
+        /* Limelight mount constants */
+        public static final double LIMELIGHT_VERTICAL_ANGLE = 0; //FIXME
+        public static final double LIMELIGHT_HEIGHT = 0; //FIXME
+        public static final double TARGET_HEIGHT = 0; //FIXME
+        public static final double MIDNODE_HEIGHT = 0; //FIXME
+        /* Limelight pipelines */
+        public static final int REFLECTIVE_TAPE_PIPELINE = 0; 
+        public static final int APRIL_TAG_PIPELINE = 1; 
+        /* Camrea control entry's */
+        public static final int VISION_PROCESSOR_ENTRY = 0;
+        public static final int DRIVER_CAMERA_ENTRY = 1;
+    }
 
     /* Turret profile */
     public static final class TurretProfile {
