@@ -160,7 +160,7 @@ public final class Constants {
         public static final double MIDNODE_HEIGHT = 0; //FIXME
         /* Limelight pipelines */
         public static final int REFLECTIVE_TAPE_PIPELINE = 0; 
-        public static final int APRIL_TAG_PIPELINE = 1; 
+        public static final int DISBLED_PIPELINE = 1; 
         /* Camrea control entry's */
         public static final int VISION_PROCESSOR_ENTRY = 0;
         public static final int DRIVER_CAMERA_ENTRY = 1;
@@ -168,7 +168,7 @@ public final class Constants {
 
     /* Turret profile */
     public static final class TurretProfile {
-        public static final int TURRET_MOTOR = 16; // FIXME: change this in phoenix tuner    
+        public static final int TURRET_MOTOR = 16;  
         public static final double TURRET_FORWARD_POSITION = 1.0; //FIXMEGODPLEASE
         public static final double TURRET_REVERSE_POSITION = -1.0; //fixmepleasealso
         public static final double TURRET_INITIAL_POSITION = 0; 

@@ -158,12 +158,7 @@ public class RobotContainer {
         /* Driver Button Commands */
         a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
         lt_driverButton.whileTrue(new ToggleSpeedLimit(m_SwerveSubsytem));
-        //b_driverButton.whileTrue(new ArmTest(m_ArmSubsystem));
-        // a_driverButton.onTrue(new InstantCommand(() -> m_GripperSubsytem.runGripperWheels(0.25)));
-        // x_riverButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.runOuterArm(0.1)));
-       // y_driverButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.runOuterArm(0.1)));
         y_driverButton.onTrue(new toggleLimelight(m_VisionSubsystem));
-        // b_driverButton.onTrue(new AutoAlignment(m_VisionSubsystem, m_SwerveSubsytem, 0.2, 0.2));
 
         /* Munipulator Button Commands */
         a_munipulatorButton.onTrue(new IntakeToggle(m_GripperSubsytem, m_AirSubsystem));

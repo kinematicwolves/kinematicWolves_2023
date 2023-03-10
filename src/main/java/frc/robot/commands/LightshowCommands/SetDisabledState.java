@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LightingSubsystem;
 
 public class SetDisabledState extends CommandBase {
-  private LightingSubsystem m_LightingSubsystem;
+  private final LightingSubsystem m_LightingSubsystem;
 
   /** Creates a new SetDisabledState. */
   public SetDisabledState(LightingSubsystem lightingSubsystem) {
@@ -18,13 +18,13 @@ public class SetDisabledState extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    m_LightingSubsystem.setDisabledLightShow();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_LightingSubsystem.setDisabledLightShow();
+  }
 
   // Called once the command ends or is interrupted.
   @Override

@@ -79,9 +79,10 @@ public class VisionSubsystem extends SubsystemBase {
   private double filtered_v_angle;
   private double v_angle;
 
-  private double aprilTagDistance;
   
-  public VisionSubsystem() {}
+  public VisionSubsystem() {
+    setDriverCameraMode();
+  }
 
   // Limelight x
   public double getHorizontalAngle() {
@@ -143,10 +144,6 @@ public class VisionSubsystem extends SubsystemBase {
     return(filtered_distance);
   }
 
-  public double getAprilTagDistance() {
-    return aprilTagDistance;
-  }
-
   public void turnLimelightOn(){
     LEDModeEntry.setNumber(3);
     limeLightIsOn = true;
@@ -165,8 +162,8 @@ public class VisionSubsystem extends SubsystemBase {
     pipelineControls.setNumber(Constants.LimelightProfile.REFLECTIVE_TAPE_PIPELINE);
   }
 
-  public void setAprilTagPipeline() {
-    pipelineControls.setNumber(Constants.LimelightProfile.APRIL_TAG_PIPELINE);
+  public void setdisabledPipeline(){
+    pipelineControls.setNumber(Constants.LimelightProfile.DISBLED_PIPELINE);
   }
 
   public void setDriverCameraMode() {
@@ -176,8 +173,6 @@ public class VisionSubsystem extends SubsystemBase {
   public void setVisionProcessMode() {
     cameraModeControl.setNumber(Constants.LimelightProfile.VISION_PROCESSOR_ENTRY);
   }
-
-  
 
   @Override
   public void periodic() {

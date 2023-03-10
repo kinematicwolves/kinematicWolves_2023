@@ -166,7 +166,7 @@ public class SwerveSubsytem extends SubsystemBase {
 
     public void yTranslateDrivetrainToTarget(double yTranslationSpeed, VisionSubsystem visionSubsystem) {
         var distance = visionSubsystem.getFilteredDistance();
-        if (isLinedUpInDistance(visionSubsystem)){
+        if (isLinedUpInDistance(visionSubsystem) & isLinedUp(visionSubsystem)){
             ChassisSpeeds.fromFieldRelativeSpeeds( 0, yTranslationSpeed, 0, getYaw());
         }
             else if (distance < (-1 * distancealignWindow)) {
