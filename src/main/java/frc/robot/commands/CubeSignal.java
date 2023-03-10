@@ -5,16 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.AirSubsystem;
+import frc.robot.subsystems.LightingSubsystem;
 
-public class ToggleCompressor extends CommandBase {
-  private AirSubsystem m_AirSubsystem;
+public class CubeSignal extends CommandBase {
+  private final LightingSubsystem lightingSubsystem;
 
-  /** Creates a new ToggleCompressor. */
-  public ToggleCompressor(AirSubsystem airSubsystem) {
+  /** Creates a new CubeSignal. */
+  public CubeSignal(LightingSubsystem lightingSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_AirSubsystem = airSubsystem;
-    addRequirements(airSubsystem);
+    this.lightingSubsystem = lightingSubsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -24,7 +23,12 @@ public class ToggleCompressor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_AirSubsystem.enableCompressor();
+    if (lightingSubsystem.isCubeSignalOn()){
+      lightingSubsystem.setArmCandleGreenTwinkleAnimation();
+    }
+    else {
+      lightingSubsystem.cubeSignal();
+    }
   }
 
   // Called once the command ends or is interrupted.

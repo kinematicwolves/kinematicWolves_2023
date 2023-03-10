@@ -2,18 +2,17 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.TurretCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.LightingSubsystem;
+import frc.robot.subsystems.TurretSubsystem;
 
-public class TeleOpLightshow extends CommandBase {
-  private LightingSubsystem m_LightingSubsystem;
-
-  /** Creates a new RedAllianceLightshow. */
-  public TeleOpLightshow(LightingSubsystem LightingSubsystem) {
+public class TurnTurretToInitPos extends CommandBase {
+  private TurretSubsystem m_turret;
+  /** Creates a new TurnToTurretPos0. */
+  public TurnTurretToInitPos(TurretSubsystem turret) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_LightingSubsystem = LightingSubsystem;
+    turret = m_turret; 
   }
 
   // Called when the command is initially scheduled.
@@ -23,13 +22,13 @@ public class TeleOpLightshow extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_LightingSubsystem.setArmCandleGreenTwinkleAnimation();
+    m_turret.moveTurretToZeroPos();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_LightingSubsystem.setDisabledLightShow();
+    m_turret.setTurretMotorOutput(0);
   }
 
   // Returns true when the command should end.

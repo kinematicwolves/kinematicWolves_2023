@@ -17,64 +17,78 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class LightingSubsystem extends SubsystemBase {
-  private final CANdle m_armCandle = new CANdle(Constants.LightProfile.ARM_CANDLE_ID);
-  // private final CANdle m_chassisCandle = new CANdle(Constants.LightProfile.CHASSIS_CANDLE_ID);
-  // private final CANdle m_chassisCandle = new CANdle(Constants.LightProfile.CHASSIS_CANDLE_ID);
-  private Animation m_ArmCandleAnimation = null;
-  // private Animation m_ChassisCandle2Animation = null;
-  // private Animation m_ChassisCandle2Animation = null;
+  private final CANdle m_armCandle1 = new CANdle(Constants.LightProfile.ARM_CANDLE_ID);
+  private final CANdle m_armCandle2 = new CANdle(Constants.LightProfile.ARM_CANDLE_ID);
+  private Animation m_ArmCandle1Animation = null;
+  private Animation m_ArmCandle2Animation = null;
+
+  private boolean coneSignalOn = false;
+  private boolean cubeSignalOn = false;
 
   /** Creates a new LightshowSubsystem. */
   public LightingSubsystem() {
     CANdleConfiguration cfg = new CANdleConfiguration();
     cfg.brightnessScalar = 0.6;
     cfg.vBatOutputMode = VBatOutputMode.Modulated;
-    m_armCandle.configAllSettings(cfg);
-    m_armCandle.configLEDType(LEDStripType.GRB);
-    // m_chassisCandle.configAllSettings(cfg);
-    // m_chassisCandle.configLEDType(LEDStripType.GRB);
-    m_ArmCandleAnimation = new RainbowAnimation(0.7, 0.8, Constants.LightProfile.Arm_LED_COUNT); 
+    m_armCandle1.configAllSettings(cfg);
+    m_armCandle1.configLEDType(LEDStripType.GRB);
+    m_armCandle2.configAllSettings(cfg);
+    m_armCandle2.configLEDType(LEDStripType.GRB);
+  }
+
+  public boolean isConeSignalOn(){
+    return coneSignalOn;
+  }
+
+  public boolean isCubeSignalOn(){
+    return cubeSignalOn;
+  }
+
+  public void coneSignal(){
+    coneSignalOn = true;
+    setArmCandleYellowTwinkleAnimation();
+  }
+
+  public void cubeSignal(){
+    cubeSignalOn = true;
+    setArmCandlePurpleTwinkleAnimation();
   }
 
     /* CANdle 1 (ARM) Animations */
   public void setArmCandleRainbowAnimation(){
-    m_ArmCandleAnimation = new RainbowAnimation(0.8, 0.88, Constants.LightProfile.Arm_LED_COUNT);
+    m_ArmCandle1Animation = new RainbowAnimation(0.7, 0.80, Constants.LightProfile.Arm_LED_COUNT);
+    m_ArmCandle2Animation = new RainbowAnimation(0.8, 0.88, Constants.LightProfile.CHASSIS_LED_COUNT);
   }
   public void setArmCandlePurpleTwinkleAnimation(){
-    m_ArmCandleAnimation = new TwinkleAnimation(255, 0, 255, 69, 0.9, Constants.LightProfile.Arm_LED_COUNT, TwinklePercent.Percent100); 
+    m_ArmCandle1Animation = new TwinkleAnimation(255, 0, 255, 69, 0.9, Constants.LightProfile.Arm_LED_COUNT, TwinklePercent.Percent100); 
+    m_ArmCandle2Animation = new TwinkleAnimation(255, 0, 255, 69, 0.9, Constants.LightProfile.CHASSIS_LED_COUNT, TwinklePercent.Percent100); 
   }
-  public void setArmCandleRedTwinkleAnimation(){
-    m_ArmCandleAnimation = new TwinkleAnimation(225, 0, 1, 0, 0.9, Constants.LightProfile.Arm_LED_COUNT,TwinklePercent.Percent100);
-  }
-  public void setArmCandleBlueTwinkleAnimation(){
-    m_ArmCandleAnimation = new TwinkleAnimation(0, 0, 225, 30, 0.9, Constants.LightProfile.Arm_LED_COUNT,TwinklePercent.Percent100);
+  public void setArmCandleYellowTwinkleAnimation(){
+    m_ArmCandle1Animation = new TwinkleAnimation(210, 225, 0 , 100, 0.9, Constants.LightProfile.Arm_LED_COUNT, TwinklePercent.Percent100);
+    m_ArmCandle2Animation = new TwinkleAnimation(210, 225, 0 , 100, 0.9, Constants.LightProfile.Arm_LED_COUNT, TwinklePercent.Percent100);
   }
   public void setArmCandleGreenTwinkleAnimation(){
-    m_ArmCandleAnimation = new TwinkleAnimation(0, 225, 0, 0, 0.9, Constants.LightProfile.Arm_LED_COUNT,TwinklePercent.Percent100); 
+    m_ArmCandle1Animation = new TwinkleAnimation(0, 225, 0, 10, 0.9, Constants.LightProfile.Arm_LED_COUNT,TwinklePercent.Percent100); 
+    m_ArmCandle2Animation = new TwinkleAnimation(0, 225, 0, 0, 0.9, Constants.LightProfile.CHASSIS_LED_COUNT,TwinklePercent.Percent100); 
+    coneSignalOn = false;
+    cubeSignalOn = false;
+  }
+  public void setArmCandleWhiteTwinkleAnimation(){
+    m_ArmCandle1Animation = new TwinkleAnimation(0, 0, 15, 225, 0.9, Constants.LightProfile.Arm_LED_COUNT,TwinklePercent.Percent100);
+    m_ArmCandle2Animation = new TwinkleAnimation(0, 0, 15, 225, 0.9, Constants.LightProfile.CHASSIS_LED_COUNT,TwinklePercent.Percent100);
   }
   public void setArmCandleBlackAnimation(){
-    m_ArmCandleAnimation = new TwinkleAnimation(0, 0, 0, 0 , 0 , Constants.LightProfile.Arm_LED_COUNT,TwinklePercent.Percent100); 
+    m_ArmCandle1Animation = new TwinkleAnimation(0, 0, 0, 0 , 0, Constants.LightProfile.Arm_LED_COUNT,TwinklePercent.Percent100); 
+    m_ArmCandle2Animation = new TwinkleAnimation(0, 0, 0, 0 , 0, Constants.LightProfile.CHASSIS_LED_COUNT,TwinklePercent.Percent100); 
   }
-
-    /* CANdle 2 Animations */
-  // public void setCANdle2RainbowAnimation(){
-  //   m_ChassisCandle2Animation = new RainbowAnimation(0.8, 0.88, Constants.LightProfile.CHASSIS_LED_COUNT);
-  // }
-  // public void setCANdle2PurpleTwinkleAnimation(){
-  //   m_ChassisCandle2Animation = new TwinkleAnimation(255, 0, 255, 69, 0.9, Constants.LightProfile.CHASSIS_LED_COUNT, TwinklePercent.Percent100); 
-  // }
-  // public void setCANdle2RedTwinkleAnimation(){
-  //   m_ChassisCandle2Animation = new TwinkleAnimation(225, 0, 1, 0, 0.9, Constants.LightProfile.CHASSIS_LED_COUNT,TwinklePercent.Percent100);
-  // }
-  // public void setCANdle2BlueTwinkleAnimation(){
-  //   m_ChassisCandle2Animation = new TwinkleAnimation(0, 0, 225, 30, 0.9, Constants.LightProfile.CHASSIS_LED_COUNT,TwinklePercent.Percent100);
-  // }
-  // public void setCANdle2GreenTwinkleAnimation(){
-  //   m_ChassisCandle2Animation = new TwinkleAnimation(0, 225, 0, 0, 0.9, Constants.LightProfile.CHASSIS_LED_COUNT,TwinklePercent.Percent100); 
-  // }
-  // public void setCANdle2BlackAnimation(){
-  //   m_ChassisCandle2Animation = new TwinkleAnimation(0, 0, 0, 0 , 0 , Constants.LightProfile.CHASSIS_LED_COUNT,TwinklePercent.Percent100); 
-  // }
+  public void setArmCandleOrangeTwinkleAnimation(){
+    m_ArmCandle1Animation = new TwinkleAnimation(225, 165, 0, 15 , 0.9, Constants.LightProfile.Arm_LED_COUNT,TwinklePercent.Percent100); 
+    m_ArmCandle1Animation = new TwinkleAnimation(225, 165, 0, 15 , 0.9, Constants.LightProfile.CHASSIS_LED_COUNT,TwinklePercent.Percent100); 
+  }
+  public void setArmCandleRedTwinkleAnimation(){
+    m_ArmCandle1Animation = new TwinkleAnimation(225, 0, 0, 20, 0.9, Constants.LightProfile.CHASSIS_LED_COUNT,TwinklePercent.Percent100);
+    m_ArmCandle2Animation = new TwinkleAnimation(225, 0, 0, 20, 0.9, Constants.LightProfile.CHASSIS_LED_COUNT,TwinklePercent.Percent100);  
+  }
 
   public void setDisabledLightShow(){
     setArmCandleRainbowAnimation();
@@ -84,11 +98,11 @@ public class LightingSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if (m_ArmCandleAnimation != null){
-      m_armCandle.animate(m_ArmCandleAnimation);
+    if (m_ArmCandle1Animation != null){
+      m_armCandle1.animate(m_ArmCandle1Animation);
     }
-    // else if (m_ChassisCandle2Animation != null) {
-    //   m_chassisCandle.animate(m_ChassisCandle2Animation);
-    // }
+    else if (m_ArmCandle2Animation != null) {
+      m_armCandle2.animate(m_ArmCandle2Animation);
+    }
   }
 }

@@ -12,16 +12,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-import frc.robot.Util.Lib.Conversions;
-
 public class TurretSubsystem extends SubsystemBase {
   private final WPI_TalonFX m_turretMotor = new WPI_TalonFX(Constants.TurretProfile.TURRET_MOTOR);
-
-private String turretState = "Initial_Position";
-private static final double gearRatio = 10/140;
-
-  //variables 
- // private String TurretStates = "TurretStateInitial";
 
   /** Creates a new Turret. */
   public TurretSubsystem() {
@@ -29,61 +21,50 @@ private static final double gearRatio = 10/140;
     m_turretMotor.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToZero, 10);
     m_turretMotor.setSelectedSensorPosition(0);
     m_turretMotor.setInverted(TalonFXInvertType.Clockwise);
-
-    //Digital Limits
-    m_turretMotor.configReverseSoftLimitThreshold(Conversions.falconToDegrees(Constants.TurretProfile.TURRET_REVERSE_POSITION, gearRatio));
-    m_turretMotor.configForwardSoftLimitThreshold(Conversions.falconToDegrees(Constants.TurretProfile.TURRET_FORWARD_POSITION, gearRatio));
-
   }
-
-  public void monitorTurretStates(){
-    if (getTurretPositionDegrees() == Constants.TurretProfile.TURRET_INITIAL_POSITION){
-      turretState = "Initial_Position";
+  
+  public void moveTurretToZeroPos() {
+    double turretEncoderPos = m_turretMotor.getSelectedSensorPosition();
+    if (turretEncoderPos == 0) { // Zero encoder position
+      setTurretMotorOutput(0);
     }
-    else if (getTurretPositionDegrees() == Constants.TurretProfile.TURRET_FORWARD_POSITION){
-      turretState = "Foward Position";
+    else if (turretEncoderPos > 0) {
+      setTurretMotorOutput(0.2);
     }
-    else if (getTurretPositionDegrees() == Constants.TurretProfile.TURRET_REVERSE_POSITION){
-      turretState = "Reverse Position";
-    } 
+    else if (turretEncoderPos > 0) {
+      setTurretMotorOutput(0.2);
+    }
   }
 
-  public boolean turretPositionInit(){
-    return getTurretState() == "Initial Turret State"; 
+  public void moveTurretToFwdPos() {
+    double turretEncoderPos = m_turretMotor.getSelectedSensorPosition();
+    if (turretEncoderPos == 1) { // Fwd encoder position
+      setTurretMotorOutput(0);
+    }
+    else if (turretEncoderPos < 1) {
+      setTurretMotorOutput(0.1);
+    }
   }
 
-  public boolean turretPositonFwd(){
-    return getTurretState() == "Foward Turret State";
-  }
-
-  public boolean turretPositionRvs(){
-    return getTurretState() == "Reverse Turret State";
-  }
-
-  public String getTurretState(){
-    return turretState;
+  public void moveTurretToRvsPos() {
+    double turretEncoderPos = m_turretMotor.getSelectedSensorPosition();
+    if (turretEncoderPos == -1) { // Rvs encoder pos
+      setTurretMotorOutput(0);
+    }
+    else if (turretEncoderPos > -1) {
+      setTurretMotorOutput(0.1);
+    }
   }
 
   public void setTurretMotorOutput(double commandedOutput){
     m_turretMotor.set(commandedOutput);
   }
-
-  public double getTurretPositionDegrees() {
-    return converTurretPositionToDegrees(m_turretMotor.getSelectedSensorPosition());
-  }
-
-  public double converTurretPositionToDegrees(double positionDegrees) {
-    return Conversions.falconToDegrees(positionDegrees, gearRatio);
-  }
   
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    monitorTurretStates();
-    // Prints Turret position in Degrees and its state (SmartDash Board)
-    double currentPosition = m_turretMotor.getSelectedSensorPosition();
-    SmartDashboard.putNumber("Turret_Position_Degrees", currentPosition);
-    SmartDashboard.putString("Turret_State", getTurretState());
+    double turretEncoder = m_turretMotor.getSelectedSensorPosition();
+    SmartDashboard.putNumber("Turret_Encoder_Count", turretEncoder);
     }
   }
 

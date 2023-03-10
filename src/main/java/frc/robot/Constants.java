@@ -2,7 +2,6 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
-import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -17,6 +16,7 @@ public final class Constants {
         public static final double stickDeadband = 0.2;
         public static final int DRIVER_CONTROLLER = 0;
         public static final int MUNIPULATOR_CONTROLLER = 1;
+        public static final int TECHNICIAM_CONTROLLER = 2;
     }
 
     public static final class SwerveProfile {
@@ -172,18 +172,8 @@ public final class Constants {
 
     public static final class GripperProfile {
         /* Gripper ID's */
-        public static final int LEFT_FINGER = 25; //FIXME
-        public static final int RIGHT_FINGER = 29; //FIXME
-        public static final int DISTANCE_SENSOR = 0; //FIXME
-       // public static final int DISTANCE_SENSOR = 0; //FIXME
-        /* Current limits for Neo 550's 
-         * Stall Limit - the current limit in amps at 0 rpm
-         * Free Limit - the current limit at free speed (11000 for neo 550's)
-         * Limit RPM - less than this value will be set to the stall limit, rpm  values greater than limit rpm will scale linearly to free limit 
-        */
-        public static final int GRIPPER_CURRENT_STALL_LIMIT = 10;
-        public static final int GRIPPER_CURRENT_FREE_LIMIT = 11000;
-        public static final int GRIPPER_CURRENT_LIMIT_RPM = 2;
+        public static final int LEFT_FINGER = 25; 
+        public static final int RIGHT_FINGER = 29; 
     }
 
     public static final class PneumaticProfile {
@@ -198,44 +188,11 @@ public final class Constants {
 
     public static final class ArmProfile {
         /* Arm ID's */
-        public static final int LEFT_OUTER_ARM = 15;//15
-        public static final int RIGHT_OUTER_ARM = 18; //18
-        public static final int LEFT_INNER_ARM = 14; //14
-        public static final int RIGHT_INNER_ARM = 17; //17
-        public static final int WRIST_MOTOR = 28; 
-        /* Arm Gear Ratios (gearbox + sprocket)*/
-        public static final double OUTER_ARM_GEAR_RATIO = 28/1 * 44/15;
-        public static final double INNER_ARM_GEAR_RATIO = 90/1 * 44/15;
-        public static final double WRIST_GEAR_RATIO = 25/1;
-        /* Defult Power Outputs */
-        public static final double INNER_ARM_DEFAULT_OUTPUT = 0;
-
-        //multiply SM value by this number and get arm position in radians
-        public static final double kOuterPositionFactor = OUTER_ARM_GEAR_RATIO * 2.0 * Math.PI; 
-        public static final double kOuterVelocityFactor = OUTER_ARM_GEAR_RATIO * 2.0 * Math.PI / 60.0;
-        public static final double kArmFreeSpeed = 6380 * kOuterVelocityFactor;
-        
-        //radians to add to converted arm position to get real-world arm position (starts at ~30deg angle)
-        public static final double kArmZeroCosineOffset = - Math.PI / 6; 
-        public static final ArmFeedforward kArmFeedforward = new ArmFeedforward(0.0, 0.4, 12.0/kArmFreeSpeed, 0.0);
-
-        public static final TrapezoidProfile.Constraints OUTER_ARM_MOTION_CONSTRAINT = new TrapezoidProfile.Constraints(2.0, 2.0);
-
-        public static final int INNER_POSITION_0 = 0;
-        public static final int OUTER_POSITION_0 = 0;
-        public static final int WRIST_POSITION_0 = 0;
-
-        public static final int INNER_POSITION_1 = 31592;
-        public static final int OUTER_POSITION_1 = 1000;
-        public static final int WRIST_POSITION_1 = 0; //FIXME
-
-        public static final int INNER_POSITION_2 = 526;
-        public static final int OUTER_POSITION_2 = 2110;
-        public static final int WRIST_POSITION_2 = 0; //FIXME
-
-        public static final int INNER_POSITION_3 = 19625;
-        public static final int OUTER_POSITION_3 = -3638;
-        public static final int WRIST_POSITION_3 = 0; //FIXME
+        public static final int LEFT_OUTER_ARM = 15;
+        public static final int RIGHT_OUTER_ARM = 18; 
+        public static final int LEFT_INNER_ARM = 14; 
+        public static final int RIGHT_INNER_ARM = 17; 
+        public static final int WRIST_MOTOR = 28;
     }
 
     /* Falcon counts per rotation */
