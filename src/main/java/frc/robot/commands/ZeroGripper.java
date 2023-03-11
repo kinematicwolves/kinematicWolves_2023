@@ -2,41 +2,32 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.TestCommands;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.LightingSubsystem;
 
-public class RunWrist extends CommandBase {
+public class ZeroGripper extends CommandBase {
   private final ArmSubsystem m_ArmSubsystem;
-  private final LightingSubsystem m_LightingSubsystem;
-
-  /** Creates a new RunWrist. */
-  public RunWrist(ArmSubsystem armSubsystem, LightingSubsystem lightingSubsystem) {
+  /** Creates a new ZeroGripper. */
+  public ZeroGripper(ArmSubsystem armSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_LightingSubsystem = lightingSubsystem;
     m_ArmSubsystem = armSubsystem;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-   // m_LightingSubsystem.setArmCandleRedTwinkleAnimation();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_ArmSubsystem.runWrist(-0.3);
+    m_ArmSubsystem.ZeroWrist();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_ArmSubsystem.runWrist(0);
-    //m_LightingSubsystem.setArmCandleOrangeTwinkleAnimation();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

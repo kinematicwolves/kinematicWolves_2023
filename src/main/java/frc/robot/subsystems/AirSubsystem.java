@@ -26,10 +26,12 @@ public class AirSubsystem extends SubsystemBase {
 
   public void openGriper() {
     m_gripperSolenoid.set(Value.kForward);
+    compressorIsOn = true;
   }
 
   public void closeGriper() {
     m_gripperSolenoid.set(Value.kReverse);
+    compressorIsOn = false;
   }
 
   public void disableCompressor() {

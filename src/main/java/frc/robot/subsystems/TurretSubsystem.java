@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class TurretSubsystem extends SubsystemBase {
-  private final WPI_TalonFX m_turretMotor = new WPI_TalonFX(Constants.TurretProfile.TURRET_MOTOR);
+  private final WPI_TalonFX m_turretMotor = new WPI_TalonFX(Constants.TurretProfile.TURRET_MOTOR, "canivore1") ;
 
   /** Creates a new Turret. */
   public TurretSubsystem() {

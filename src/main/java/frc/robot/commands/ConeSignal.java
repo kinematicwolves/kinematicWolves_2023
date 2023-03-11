@@ -23,7 +23,7 @@ public class ConeSignal extends CommandBase {
   @Override
   public void execute() {
     if (m_LightingSubsystem.isConeSignalOn()){
-      m_LightingSubsystem.setArmCandleGreenTwinkleAnimation();
+      m_LightingSubsystem.setTeleOpLightShow();
     }
     else {
       m_LightingSubsystem.coneSignal();

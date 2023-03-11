@@ -16,7 +16,7 @@ public class OneConeAuton extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutoSwerve(0, 0, 0, 0, m_SwerveSubsytem)
+      new AutoSwerve(0.2, 0, 0, 3, m_SwerveSubsytem)
     );
   }
 }

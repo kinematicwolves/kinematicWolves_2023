@@ -30,10 +30,10 @@ public class TeleOpLightshow extends CommandBase {
   @Override
   public void execute() {
     if (m_timer.get() > 125){
-      m_LightingSubsystem.setArmCandleWhiteTwinkleAnimation();
+      m_LightingSubsystem.setTeleOpLightShow();
     }
     else {
-      m_LightingSubsystem.setArmCandleGreenTwinkleAnimation();
+      m_LightingSubsystem.setTeleOpLightShow();
     }
   }
 

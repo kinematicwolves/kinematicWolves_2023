@@ -5,35 +5,26 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.AirSubsystem;
-import frc.robot.subsystems.GripperSubsytem;
+import frc.robot.subsystems.ArmSubsystem;
 
-public class IntakeToggle extends CommandBase {
-  private final GripperSubsytem m_GripperSubsytem;
-  private final AirSubsystem m_AirSubsystem;
+public class ZeroArmCloseLoop extends CommandBase {
+  private final ArmSubsystem m_ArmSubsystem;
 
-
-  /** Creates a new GripperControl. */
-  public IntakeToggle(GripperSubsytem gripperSubsytem, AirSubsystem airSubsystem) {
+  /** Creates a new ZeroArmCloseLoop. */
+  public ZeroArmCloseLoop(ArmSubsystem armSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_GripperSubsytem = gripperSubsytem;
-    m_AirSubsystem = airSubsystem;
+    m_ArmSubsystem = armSubsystem;
+    addRequirements(armSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_GripperSubsytem.isGripperOpen()) {
-      m_GripperSubsytem.setGripperClosed(m_AirSubsystem, 0.1);
-    }
-    else {
-      m_GripperSubsytem.setGriperOpen(m_AirSubsystem);
-    }
+    m_ArmSubsystem.zeroArm();
   }
 
   // Called once the command ends or is interrupted.

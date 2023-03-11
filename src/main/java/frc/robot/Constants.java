@@ -101,7 +101,7 @@ public final class Constants {
             public static final int driveMotorID = 1;
             public static final int angleMotorID = 2;
             public static final int canCoderID = 3;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(71);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(90);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -111,7 +111,7 @@ public final class Constants {
             public static final int driveMotorID = 4;
             public static final int angleMotorID = 5;
             public static final int canCoderID = 6;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(71);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(68);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -178,7 +178,7 @@ public final class Constants {
     public static final class LightProfile {
         /* CANdle ID's */
         public static final int ARM_CANDLE_ID = 20; //FIXME
-        public static final int CHASSIS_CANDLE_ID = 0; //FIXME
+        public static final int CHASSIS_CANDLE_ID = 50; //FIXME
         public static final int Arm_LED_COUNT = 300; //FIXME
         public static final int CHASSIS_LED_COUNT = 0; //FIXME
     }
@@ -192,8 +192,8 @@ public final class Constants {
     public static final class PneumaticProfile {
         public static final int PNEUMATIC_HUB_ID = 30;
         /* Pnuematic Hub Ports */
-        public static final int GRIPPER_SOL_FWD = 0; // FIXME
-        public static final int GRIPPER_SOL_RVS = 0; // FIXME
+        public static final int GRIPPER_SOL_FWD = 1; 
+        public static final int GRIPPER_SOL_RVS = 0; 
         /* Air Pressure */
         public static final int MIN_AIR_PRESSURE = 60;
         public static final int MAX_AIR_PRESSURE = 120;

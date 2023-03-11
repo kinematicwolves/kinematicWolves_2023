@@ -25,11 +25,13 @@ public class GripperSubsytem extends SubsystemBase {
 
   public void setGriperOpen(AirSubsystem airSubsystem) {
     airSubsystem.openGriper();
+    gripperIsOpen = true;
     runGripperWheels(0);
   }
 
   public void setGripperClosed(AirSubsystem airSubsystem, double wheelSpeeds) {
     airSubsystem.closeGriper();
+    gripperIsOpen = false;
     runGripperWheels(wheelSpeeds);
   }
 

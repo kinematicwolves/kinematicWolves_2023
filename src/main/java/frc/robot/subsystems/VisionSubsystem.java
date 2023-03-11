@@ -25,9 +25,6 @@ public class VisionSubsystem extends SubsystemBase {
   private NetworkTableEntry ta = table.getEntry("ta"); // Target area
   private NetworkTableEntry tv = table.getEntry("tv"); // target valid? boolean
 
-  // April tag data entry's
-  private NetworkTableEntry botPos = table.getEntry("botPos");
-
   // LED Mode table
   private NetworkTableEntry LEDModeEntry = table.getEntry("ledMode");
   public boolean limeLightIsOn = false; 
@@ -180,10 +177,10 @@ public class VisionSubsystem extends SubsystemBase {
     distance = calculateDistance();
     filtered_distance = filter_d.calculate(distance);
   
-  // Un-comment this if you need limelight data
-    SmartDashboard.putNumber("/nLimelight capture status: ", getCaptureStatus());
-    SmartDashboard.putNumber("LimelightFilteredDistance (inches)", filtered_distance);
-    SmartDashboard.putNumber("LimelightFilteredHorizontalAngle", filtered_h_angle);
-    SmartDashboard.putNumber("LimelightFilteredVerticalAngle", filtered_v_angle);
+  // // Un-comment this if you need limelight data
+  //   SmartDashboard.putNumber("/nLimelight capture status: ", getCaptureStatus());
+  //   SmartDashboard.putNumber("LimelightFilteredDistance (inches)", filtered_distance);
+  //   SmartDashboard.putNumber("LimelightFilteredHorizontalAngle", filtered_h_angle);
+  //   SmartDashboard.putNumber("LimelightFilteredVerticalAngle", filtered_v_angle);
   }
 }

@@ -21,20 +21,20 @@ public class RunInnerArm extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_LightingSubsystem.setArmCandleRedTwinkleAnimation();
+    //m_LightingSubsystem.setArmCandleRedTwinkleAnimation();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_ArmSubsystem.runInnerArm(0.3);
+    m_ArmSubsystem.runInnerArm(0.4);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_ArmSubsystem.runInnerArm(0);
-    m_LightingSubsystem.setArmCandleOrangeTwinkleAnimation();
+    //m_LightingSubsystem.setArmCandleOrangeTwinkleAnimation();
   }
 
   // Returns true when the command should end.

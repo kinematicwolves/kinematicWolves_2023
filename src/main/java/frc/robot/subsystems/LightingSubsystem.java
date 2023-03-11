@@ -67,13 +67,13 @@ public class LightingSubsystem extends SubsystemBase {
     m_ArmCandle1Animation = new TwinkleAnimation(210, 225, 0 , 100, 0.9, Constants.LightProfile.Arm_LED_COUNT, TwinklePercent.Percent100);
     m_ArmCandle2Animation = new TwinkleAnimation(210, 225, 0 , 100, 0.9, Constants.LightProfile.Arm_LED_COUNT, TwinklePercent.Percent100);
   }
-  public void setArmCandleGreenTwinkleAnimation(){
+  public void setTeleOpLightShow(){
     m_ArmCandle1Animation = new TwinkleAnimation(0, 225, 0, 10, 0.9, Constants.LightProfile.Arm_LED_COUNT,TwinklePercent.Percent100); 
     m_ArmCandle2Animation = new TwinkleAnimation(0, 225, 0, 0, 0.9, Constants.LightProfile.CHASSIS_LED_COUNT,TwinklePercent.Percent100); 
     coneSignalOn = false;
     cubeSignalOn = false;
   }
-  public void setArmCandleWhiteTwinkleAnimation(){
+  public void setEndgameLightshow(){
     m_ArmCandle1Animation = new TwinkleAnimation(0, 0, 15, 225, 0.9, Constants.LightProfile.Arm_LED_COUNT,TwinklePercent.Percent100);
     m_ArmCandle2Animation = new TwinkleAnimation(0, 0, 15, 225, 0.9, Constants.LightProfile.CHASSIS_LED_COUNT,TwinklePercent.Percent100);
   }

@@ -6,13 +6,15 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ConeSignal;
 import frc.robot.commands.CubeSignal;
-import frc.robot.commands.IntakeToggle;
+import frc.robot.commands.IntakeControl;
 import frc.robot.commands.SetArmToMid;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.ToggleSpeedLimit;
+import frc.robot.commands.ZeroArmCloseLoop;
 import frc.robot.commands.ZeroGyro;
 import frc.robot.commands.toggleLimelight;
 import frc.robot.commands.Auton.OneConeAuton;
@@ -101,9 +103,8 @@ public class RobotContainer {
     }
 
     private void setDefaultCommands(){
-       //m_GripperSubsytem.setDefaultCommand(new CollectWithSensor(m_GripperSubsytem, m_AirSubsystem, m_LightingSubsystem));
-       //m_ArmSubsystem.setDefaultCommand(new runAutomatic(m_ArmSubsystem));
-       //m_AirSubsystem.setDefaultCommand(new ToggleCompressor(m_AirSubsystem));
+        m_ArmSubsystem.setDefaultCommand(new ZeroArmCloseLoop(m_ArmSubsystem));
+     //   m_ArmSubsystem.setDefaultCommand();
     }
 
     /**
@@ -132,7 +133,7 @@ public class RobotContainer {
         JoystickButton x_munipulatorButton = new JoystickButton(munipulatorController, XboxController.Button.kX.value);
         JoystickButton y_munipulatorButton = new JoystickButton(munipulatorController, XboxController.Button.kY.value);
         JoystickButton rb_munipulatorButton = new JoystickButton(munipulatorController, XboxController.Button.kRightBumper.value);
-        JoystickButton lb_munipulatorButton = new JoystickButton(munipulatorController, XboxController.Button.kRightBumper.value);
+        JoystickButton lb_munipulatorButton = new JoystickButton(munipulatorController, XboxController.Button.kLeftBumper.value);
         JoystickButton start_munipulatorButton = new JoystickButton(munipulatorController, XboxController.Button.kStart.value);
         JoystickButton back_munipulatorButton = new JoystickButton(munipulatorController, XboxController.Button.kBack.value);
         JoystickButton rs_munipulatorButton = new JoystickButton(munipulatorController, XboxController.Button.kRightStick.value);
@@ -158,16 +159,16 @@ public class RobotContainer {
         /* Driver Button Commands */
         a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
         lt_driverButton.whileTrue(new ToggleSpeedLimit(m_SwerveSubsytem));
-        y_driverButton.onTrue(new toggleLimelight(m_VisionSubsystem));
 
         /* Munipulator Button Commands */
-        a_munipulatorButton.onTrue(new IntakeToggle(m_GripperSubsytem, m_AirSubsystem));
+        a_munipulatorButton.onTrue(new IntakeControl(m_GripperSubsytem, m_AirSubsystem));
         rb_munipulatorButton.whileTrue(new SetArmToMid(m_ArmSubsystem));
         y_munipulatorButton.whileTrue(new TurnTurretToInitPos(m_TurretSubsystem));
         x_munipulatorButton.whileTrue(new TurnTurretToRvsPos(m_TurretSubsystem));
         b_munipulatorButton.whileTrue(new TurnTurretToFwdPos(m_TurretSubsystem));
         start_munipulatorButton.onTrue(new ConeSignal(m_LightingSubsystem));
         back_munipulatorButton.onTrue(new CubeSignal(m_LightingSubsystem));
+        lb_munipulatorButton.whileTrue(new RunWrist(m_ArmSubsystem, m_LightingSubsystem));
 
         /* Technician Button Commands */
         a_technicianButton.onTrue(new ToggleCompressor(m_AirSubsystem, m_LightingSubsystem));
@@ -175,7 +176,7 @@ public class RobotContainer {
         x_technicianButton.whileTrue(new RunOuterArm(m_ArmSubsystem, m_LightingSubsystem));
         b_technicianButton.whileTrue(new RunWrist(m_ArmSubsystem, m_LightingSubsystem));
         rb_technicianButton.whileTrue(new SetArmToMidTest(m_ArmSubsystem, m_LightingSubsystem));
-        lb_technicianButton.onTrue(new IntakeToggle(m_GripperSubsytem, m_AirSubsystem));
+        lb_technicianButton.whileTrue(new IntakeControl(m_GripperSubsytem, m_AirSubsystem));
 
     }
 

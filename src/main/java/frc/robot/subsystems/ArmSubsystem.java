@@ -37,67 +37,96 @@ public class ArmSubsystem extends SubsystemBase {
     /* Inner Arm Profile */
     m_leftInnerArm.configFactoryDefault(10);
     m_rightInnerArm.configFactoryDefault(10);
-    m_rightInnerArm.setInverted(false);
-    m_leftInnerArm.setInverted(true);
-    m_leftInnerArm.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 35, 
-    45, 0.5),10);
-    m_rightInnerArm.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 35, 
-    45, 0.5),10);
+    m_rightInnerArm.setInverted(true);
+    m_leftInnerArm.setInverted(false);
+    // m_leftInnerArm.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 35, 
+    // 45, 0.5),10);
+    // m_rightInnerArm.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 35, 
+    // 45, 0.5),10);
 
     /* Wrist Profile */
   }
 
-  public void zeroArm() {
+  public void armSafteyZero() {
     double outerEncoderCounts = m_rightOuterArm.getSelectedSensorPosition();
     double innerEncoderCounts = m_rightInnerArm.getSelectedSensorPosition();
     double wristEncoderCounts = m_wrist.getSelectedSensorPosition();
-
-    if (outerEncoderCounts <= 0) { // zero count
-      runOuterArm(0);
-    }
-    else if (outerEncoderCounts > 0) {
-      runOuterArm(-0.1);
-    } 
-    if (innerEncoderCounts <= 0) {
-    runInnerArm(0);
-    }
-    else if (outerEncoderCounts <= 0 & innerEncoderCounts > 0) {
-      runInnerArm(0.1);
-    }
-    if (wristEncoderCounts <= 0) {
-      runWrist(0);
-    }
-    else if (outerEncoderCounts <= 0 & wristEncoderCounts > 0) {
-      runWrist(0.1);
-    }
   }
+  //   if (outerEncoderCounts < 0) { // Saftey encoder position
+  //     runOuterArm(0);
+  //   }
+  //   else if (outerEncoderCounts > 0) {
+  //     runOuterArm(-0.1);
+  //   }
+  //   if (innerEncoderCounts < 0) {
+  //     runInnerArm(0);
+  //   }
+  //   else if (innerEncoderCounts > 0) {
+  //     runInnerArm(-0.1);
+  //   }
+  //   if (wristEncoderCounts < 0) {
+  //     runWrist(0);
+  //   }
+  //   else if (wristEncoderCounts > 0) {
+  //     runWrist(-0.1);
+  //   }
+  // }
+
+  public void zeroArm() {
+    // double outerEncoderCounts = m_rightOuterArm.getSelectedSensorPosition();
+    // double innerEncoderCounts = m_rightInnerArm.getSelectedSensorPosition();
+    // double wristEncoderCounts = m_wrist.getSelectedSensorPosition();
+
+    // if (outerEncoderCounts <= 0) { // zero count
+    //   runOuterArm(0);
+    // }
+    // else if (outerEncoderCounts > 0) {
+    //   runOuterArm(-0.1);
+    // } 
+    // if (innerEncoderCounts <= 0) {
+    // runInnerArm(0);
+    // }
+    // else if (outerEncoderCounts <= 0 & innerEncoderCounts > 0) {
+    //   runInnerArm(0.1);
+    // }
+    // if (wristEncoderCounts <= 0) {
+    //   runWrist(0);
+    // }
+    // else if (innerEncoderCounts <= 0 & wristEncoderCounts > 0) {
+    //   runWrist(0.1);
+    // }
+  }
+
   public void setArmToMidNode() {
     double outerEncoderCounts = m_rightOuterArm.getSelectedSensorPosition();
     double innerEncoderCounts = m_rightInnerArm.getSelectedSensorPosition();
     double wristEncoderCounts = m_wrist.getSelectedSensorPosition();
 
-    if (outerEncoderCounts == 0) { // Is at target position
-      runOuterArm(0);
+    if (innerEncoderCounts <= -1600) { // Is at target position
+      runInnerArm(0.165);
     }
-    else if (outerEncoderCounts < 0) { // Is before target position
-      runOuterArm(0.05);
+    else if (innerEncoderCounts > -1600) { // Is before target position
+      runInnerArm(0.48);
     }
-    else if (outerEncoderCounts > 0) { // Is past target position
-      runOuterArm(-0.1);
-    }
+  }
 
-    if (innerEncoderCounts >= 0) {
-      runInnerArm(0);
+  public void setWristToMidNode() {
+    var wristEncoderCounts = m_wrist.getSelectedSensorPosition();
+    if (wristEncoderCounts <= -700) {
+      runWrist(-0.09);
     }
-    else if (outerEncoderCounts == 0 & innerEncoderCounts < 0) {
-      runInnerArm(0.3);
+    else if (wristEncoderCounts > -700) {
+      runWrist(0.25);
     }
+  }
 
-    if (wristEncoderCounts >= 0) {
+  public void ZeroWrist() {
+    var wristEncoderCounts = m_wrist.getSelectedSensorPosition();
+    if (wristEncoderCounts <= 10) {
       runWrist(0);
     }
-    else if (innerEncoderCounts == 0 & wristEncoderCounts < 0) {
-      runWrist(0.1);
+    else if (wristEncoderCounts <= 10) {
+      runWrist(0.25);
     }
   }
 

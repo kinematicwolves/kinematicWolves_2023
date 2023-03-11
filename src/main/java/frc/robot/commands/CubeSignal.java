@@ -24,7 +24,7 @@ public class CubeSignal extends CommandBase {
   @Override
   public void execute() {
     if (lightingSubsystem.isCubeSignalOn()){
-      lightingSubsystem.setArmCandleGreenTwinkleAnimation();
+      lightingSubsystem.setTeleOpLightShow();
     }
     else {
       lightingSubsystem.cubeSignal();
