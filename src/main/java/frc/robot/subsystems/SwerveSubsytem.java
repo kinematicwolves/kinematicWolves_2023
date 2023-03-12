@@ -42,6 +42,8 @@ public class SwerveSubsytem extends SubsystemBase {
 
         };
 
+        mSwerveMods[3].mDriveMotor.setInverted(true);
+
         /*
          * By pausing init for a second before setting module offsets, we avoid a bug
          * with inverting motors.

@@ -1,19 +1,20 @@
 package frc.robot.commands.Auton;
 
+import java.util.List;
+
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.PathPoint;
 
-/*
-import com.pathplanner.lib.PathConstraints;
-import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.PathPlannerTrajectory;*/
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -21,33 +22,30 @@ import frc.robot.Constants;
 import frc.robot.subsystems.SwerveSubsytem;
 
 
-public class InsideAuton extends SequentialCommandGroup {
+public class plsgodwork extends SequentialCommandGroup {
 
     private SwerveSubsytem m_drivetrain;
 
     public static final Rotation2d rotationOffset = Rotation2d.fromDegrees(180);
 
-    public InsideAuton(SwerveSubsytem drivetrain)
+    public plsgodwork(SwerveSubsytem drivetrain)
     {
         //Assign local variables to parameters
         m_drivetrain = drivetrain;
 
         //Move the robot - backwards?????
         
-        /*
+        
         TrajectoryConfig config =
             new TrajectoryConfig(
                     Constants.AutoConstants.kMaxSpeedMetersPerSecond,
                     Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-                .setKinematics(Constants.Swerve.swerveKinematics);
-
-        // An example trajectory to follow.  All units in meters.
+                .setKinematics(Constants.SwerveProfile.swerveKinematics);
        
-        // This will load the file "Example Path.path" and generate it with a max velocity of 4 m/s and a max acceleration of 3 m/s^2
-        PathPlannerTrajectory examplePath = PathPlanner.loadPath("Test Path", new PathConstraints(4, 3));
+        PathPlannerTrajectory hudadkPathPlannerTrajectory = PathPlanner.loadPath("jacob", new PathConstraints(.5, .5));
 
         config.setReversed(true);
-        Trajectory exampleTrajectory =
+        Trajectory t_autobalance =
             TrajectoryGenerator.generateTrajectory(
                 // Start at the origin facing the +X direction
                 new Pose2d(0, 0, Rotation2d.fromDegrees(0)), //0
@@ -65,51 +63,27 @@ public class InsideAuton extends SequentialCommandGroup {
 
         SwerveControllerCommand swerveControllerCommand =
             new SwerveControllerCommand(
-                exampleTrajectory,
+                hudadkPathPlannerTrajectory,
                 m_drivetrain::getPose,
-                Constants.Swerve.swerveKinematics,
+                Constants.SwerveProfile.swerveKinematics,
                 new PIDController(Constants.AutoConstants.kPXController, 0, 0),
                 new PIDController(Constants.AutoConstants.kPYController, 0, 0),
                 thetaController,
                 m_drivetrain::setModuleStates,
-                m_drivetrain);*/
+                m_drivetrain);
 
 
-            PathPlannerTrajectory traj1 = PathPlanner.generatePath(
-        new PathConstraints(2, 2), 
-        new PathPoint(new Translation2d(0.0, 0.0), Rotation2d.fromDegrees(0)), // position, heading
-        new PathPoint(new Translation2d(7, 0), Rotation2d.fromDegrees(0))); // position, heading
+        //     PathPlannerTrajectory uh_hudadkPathPlannerTrajectory = PathPlanner.generatePath(
+        // new PathConstraints(2, 2), 
+        // new PathPoint(new Translation2d(0.0, 0.0), Rotation2d.fromDegrees(0)), // position, heading
+        // new PathPoint(new Translation2d(0, 1), Rotation2d.fromDegrees(0))); // position, heading
 
 
         //seems to work when you reverse the coordinate 
         //Todo: Create a second case here. 
 
-        var thetaController =
-        new ProfiledPIDController(
-            Constants.AutoConstants.kPThetaController, 0, 0, Constants.AutoConstants.kThetaControllerConstraints);
-        thetaController.enableContinuousInput(-Math.PI, Math.PI);
-
-        SwerveControllerCommand swerveControllerCommand =
-            new SwerveControllerCommand(
-                traj1,
-                drivetrain::getPose,
-                Constants.SwerveProfile.swerveKinematics,
-                new PIDController(Constants.AutoConstants.kPXController, 0, 0),
-                new PIDController(Constants.AutoConstants.kPYController, 0, 0),
-                thetaController,
-                drivetrain::setModuleStates,
-                drivetrain);
-
-
-         addCommands(
-            //new Instants(() -> )
-           new InstantCommand(() -> m_drivetrain.resetOdometry(traj1.getInitialPose())),//exampleTrajectory
-
-            //Todo add a second command to finish the rotation
-            new InstantCommand(() -> m_drivetrain.resetOdometry(traj1.getInitialPose())),//exampleTrajectory
-            swerveControllerCommand,
-            new InstantCommand(() -> m_drivetrain.deadCat())
-        );
+ 
+        
 
     }
     

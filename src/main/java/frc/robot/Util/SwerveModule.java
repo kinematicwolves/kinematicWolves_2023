@@ -21,7 +21,7 @@ public class SwerveModule {
     private Rotation2d lastAngle;
 
     private TalonFX mAngleMotor;
-    private TalonFX mDriveMotor;
+    public TalonFX mDriveMotor;
     private CANCoder angleEncoder;
 
     SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.SwerveProfile.driveKS, Constants.SwerveProfile.driveKV, Constants.SwerveProfile.driveKA);
