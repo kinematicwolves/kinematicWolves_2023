@@ -32,14 +32,15 @@ public class AutoSwerve extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Time.reset();
-    Time.start();
+    // Time.reset();
+    // Time.start();
+    //m_timer+=20;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Time.get() < m_timer) {
+    if (m_timer < m_timer) {
       m_SwerveSubsytem.drive(new Translation2d(xTranslationSpeed, yTranslationSpeed), rotationSpeed, false, false);
     }
     else {

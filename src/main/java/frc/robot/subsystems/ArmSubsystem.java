@@ -102,33 +102,33 @@ public class ArmSubsystem extends SubsystemBase {
     double innerEncoderCounts = m_rightInnerArm.getSelectedSensorPosition();
     double wristEncoderCounts = m_wrist.getSelectedSensorPosition();
 
-    if (innerEncoderCounts <= -1600) { // Is at target position
-      runInnerArm(0.165);
+    if (innerEncoderCounts <= -1780) { // Is at target position
+      runInnerArm(-0.16);
     }
-    else if (innerEncoderCounts > -1600) { // Is before target position
-      runInnerArm(0.48);
+    else if (innerEncoderCounts > -1780) { // Is before target position
+      runInnerArm(-0.55);
     }
   }
 
   public void setWristToMidNode() {
     var wristEncoderCounts = m_wrist.getSelectedSensorPosition();
-    if (wristEncoderCounts <= -700) {
-      runWrist(-0.09);
+    if (wristEncoderCounts <= -950) {
+      runWrist(-0.13);
     }
-    else if (wristEncoderCounts > -700) {
-      runWrist(0.25);
+    else if (wristEncoderCounts > -950) {
+      runWrist(0.28);
     }
   }
 
-  public void ZeroWrist() {
-    var wristEncoderCounts = m_wrist.getSelectedSensorPosition();
-    if (wristEncoderCounts <= 10) {
-      runWrist(0);
-    }
-    else if (wristEncoderCounts <= 10) {
-      runWrist(0.25);
-    }
-  }
+  // public void ZeroWrist() {
+  //   var wristEncoderCounts = m_wrist.getSelectedSensorPosition();
+  //   if (wristEncoderCounts <= 10) {
+  //     runWrist(0);
+  //   }
+  //   else if (wristEncoderCounts <= 10) {
+  //     runWrist(0.25);
+  //   }
+  // }
 
   public void runOuterArm(double commandedOutFraction){
     m_leftOuterArm.set(commandedOutFraction);

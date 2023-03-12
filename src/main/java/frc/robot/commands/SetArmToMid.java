@@ -29,8 +29,8 @@ public class SetArmToMid extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    armSubsystem.runInnerArm(0.165);
-    armSubsystem.runWrist(-0.05);
+    armSubsystem.runInnerArm(-0.1);
+    armSubsystem.runWrist(-0.08);
   }
 
   // Returns true when the command should end.

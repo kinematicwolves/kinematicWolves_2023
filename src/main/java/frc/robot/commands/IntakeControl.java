@@ -31,7 +31,7 @@ public class IntakeControl extends CommandBase {
   public void execute() {
    //m_AirSubsystem.closeGriper();
     if (m_GripperSubsytem.isGripperOpen()) {
-      m_GripperSubsytem.setGripperClosed(m_AirSubsystem, -0.1);
+      m_GripperSubsytem.setGripperClosed(m_AirSubsystem, -0.3);
     }
      else {
      m_GripperSubsytem.setGriperOpen(m_AirSubsystem);

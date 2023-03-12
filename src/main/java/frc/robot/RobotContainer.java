@@ -1,5 +1,8 @@
 package frc.robot;
 
+import java.net.InetSocketAddress;
+
+import edu.wpi.first.util.sendable.SendableBuilder.BackendKind;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -12,11 +15,14 @@ import frc.robot.commands.ConeSignal;
 import frc.robot.commands.CubeSignal;
 import frc.robot.commands.IntakeControl;
 import frc.robot.commands.SetArmToMid;
+import frc.robot.commands.ShootGripper;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.ToggleSpeedLimit;
 import frc.robot.commands.ZeroArmCloseLoop;
 import frc.robot.commands.ZeroGyro;
 import frc.robot.commands.toggleLimelight;
+import frc.robot.commands.Auton.BalanceAuton;
+import frc.robot.commands.Auton.InsideAuton;
 import frc.robot.commands.Auton.OneConeAuton;
 import frc.robot.commands.LightshowCommands.SetDisabledState;
 import frc.robot.commands.LightshowCommands.TeleOpLightshow;
@@ -62,7 +68,7 @@ public class RobotContainer {
     private final int translationAxis = XboxController.Axis.kLeftY.value;
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
     private final int rotationAxis = XboxController.Axis.kRightX.value;
-    private final boolean robotCentric = true;
+    private final boolean robotCentric = false;
     /* Subsystems */
     private final SwerveSubsytem m_SwerveSubsytem = new SwerveSubsytem();
     private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
@@ -89,7 +95,7 @@ public class RobotContainer {
                 () -> driverController.getRawAxis(translationAxis), 
                 () -> driverController.getRawAxis(strafeAxis), 
                 () -> driverController.getRawAxis(rotationAxis), 
-                () -> robotCentric
+                () -> true
             )
         );
         
@@ -99,7 +105,9 @@ public class RobotContainer {
         SmartDashboard.putData(m_LightsChooser);
 
         /* Chooser for Auton Commands */
-        m_AutonChooser.setDefaultOption("One Cone Auto", new OneConeAuton(m_SwerveSubsytem));
+        m_AutonChooser.setDefaultOption("Inside", new InsideAuton(m_SwerveSubsytem));
+        m_AutonChooser.addOption("deadcat", new BalanceAuton(m_SwerveSubsytem, m_ArmSubsystem));
+        SmartDashboard.putData(m_AutonChooser);
     }
 
     private void setDefaultCommands(){
@@ -157,18 +165,15 @@ public class RobotContainer {
 
 
         /* Driver Button Commands */
-        a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
+      //  a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
         lt_driverButton.whileTrue(new ToggleSpeedLimit(m_SwerveSubsytem));
 
         /* Munipulator Button Commands */
         a_munipulatorButton.onTrue(new IntakeControl(m_GripperSubsytem, m_AirSubsystem));
         rb_munipulatorButton.whileTrue(new SetArmToMid(m_ArmSubsystem));
-        y_munipulatorButton.whileTrue(new TurnTurretToInitPos(m_TurretSubsystem));
-        x_munipulatorButton.whileTrue(new TurnTurretToRvsPos(m_TurretSubsystem));
-        b_munipulatorButton.whileTrue(new TurnTurretToFwdPos(m_TurretSubsystem));
-        start_munipulatorButton.onTrue(new ConeSignal(m_LightingSubsystem));
-        back_munipulatorButton.onTrue(new CubeSignal(m_LightingSubsystem));
+        x_munipulatorButton.whileTrue(new RunInnerArm(m_ArmSubsystem, m_LightingSubsystem));
         lb_munipulatorButton.whileTrue(new RunWrist(m_ArmSubsystem, m_LightingSubsystem));
+        y_munipulatorButton.whileTrue(new ShootGripper(m_GripperSubsytem));
 
         /* Technician Button Commands */
         a_technicianButton.onTrue(new ToggleCompressor(m_AirSubsystem, m_LightingSubsystem));
@@ -187,7 +192,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return m_AutonChooser.getSelected();
+            return null;
     }
 
     public Command getTeleopLightingCommand(){

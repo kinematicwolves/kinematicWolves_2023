@@ -18,7 +18,7 @@ import frc.robot.Constants;
 
 public class LightingSubsystem extends SubsystemBase {
   private final CANdle m_armCandle1 = new CANdle(Constants.LightProfile.ARM_CANDLE_ID);
-  private final CANdle m_armCandle2 = new CANdle(Constants.LightProfile.ARM_CANDLE_ID);
+  private final CANdle m_armCandle2 = new CANdle(Constants.LightProfile.CHASSIS_CANDLE_ID);
   private Animation m_ArmCandle1Animation = null;
   private Animation m_ArmCandle2Animation = null;
 
@@ -101,7 +101,7 @@ public class LightingSubsystem extends SubsystemBase {
     if (m_ArmCandle1Animation != null){
       m_armCandle1.animate(m_ArmCandle1Animation);
     }
-    else if (m_ArmCandle2Animation != null) {
+    if (m_ArmCandle2Animation != null) {
       m_armCandle2.animate(m_ArmCandle2Animation);
     }
   }
