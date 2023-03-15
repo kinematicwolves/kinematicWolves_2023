@@ -12,8 +12,8 @@ import frc.robot.commands.SetArmToMid;
 import frc.robot.commands.ShootGripper;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.ToggleSpeedLimit;
-import frc.robot.commands.Auton.BalanceAuton;
-import frc.robot.commands.Auton.InsideAuton;
+import frc.robot.commands.Auton.BalanceAuto;
+import frc.robot.commands.Auton.OutsidePosAuto;
 import frc.robot.commands.LightshowCommands.SetDisabledState;
 import frc.robot.commands.LightshowCommands.TeleOpLightshow;
 import frc.robot.commands.LightshowCommands.TestingLightshow;
@@ -94,8 +94,8 @@ public class RobotContainer {
         SmartDashboard.putData(m_LightsChooser);
 
         /* Chooser for Auton Commands */
-        m_AutonChooser.setDefaultOption("Inside", new InsideAuton(m_SwerveSubsytem));
-        m_AutonChooser.addOption("deadcat", new BalanceAuton(m_SwerveSubsytem, m_ArmSubsystem));
+        m_AutonChooser.setDefaultOption("Outside Auto", new OutsidePosAuto(m_SwerveSubsytem));
+        m_AutonChooser.addOption("Balance Auto", new BalanceAuto(m_SwerveSubsytem));
         SmartDashboard.putData(m_AutonChooser);
     }
 
