@@ -63,8 +63,8 @@ public class OutsidePosAuto extends SequentialCommandGroup {
 
             //Todo add a second command to finish the rotation
             new InstantCommand(() -> m_drivetrain.resetOdometry(traj1.getInitialPose())),//exampleTrajectory
-            swerveControllerCommand,
-            new InstantCommand(() -> m_drivetrain.deadCat())
+            swerveControllerCommand
+            //new InstantCommand(() -> m_drivetrain.deadCat())
         );
 
     }

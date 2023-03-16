@@ -32,9 +32,9 @@ public class BalanceAuto extends SequentialCommandGroup {
         //Assign local variables to parameters
         m_drivetrain = drivetrain;
             PathPlannerTrajectory traj1 = PathPlanner.generatePath(
-        new PathConstraints(2, 2), 
+        new PathConstraints(1, 2), 
         new PathPoint(new Translation2d(0.0, 0.0), Rotation2d.fromDegrees(0)), // position, heading
-        new PathPoint(new Translation2d(7, 0), Rotation2d.fromDegrees(0))); // position, heading
+        new PathPoint(new Translation2d(3.5, 0), Rotation2d.fromDegrees(0))); // position, heading
 
 
         //seems to work when you reverse the coordinate 
@@ -63,8 +63,8 @@ public class BalanceAuto extends SequentialCommandGroup {
 
             //Todo add a second command to finish the rotation
             new InstantCommand(() -> m_drivetrain.resetOdometry(traj1.getInitialPose())),//exampleTrajectory
-            swerveControllerCommand,
-            new InstantCommand(() -> m_drivetrain.deadCat())
+            swerveControllerCommand
+           // new InstantCommand(() -> m_drivetrain.deadCat())
         );
 
     }
