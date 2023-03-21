@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import java.util.function.Consumer;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -162,46 +161,6 @@ public class SwerveSubsytem extends SubsystemBase {
             mod.resetToAbsolute();
         }
     }
-
-    public boolean isLinedUp(VisionSubsystem visionSubsystem) {
-        var horizalAngle = visionSubsystem.getFilteredHorizontalAngle();
-        // degrees
-        return (horizalAngle < alignWindow) & (horizalAngle > (-1 * alignWindow));
-    }
-
-    public void strafeDrivetrainToTarget(double strafeSpeed, VisionSubsystem visionSubsystem) {
-        // This assumes the limelight has a target
-        var horizalAngle = visionSubsystem.getFilteredHorizontalAngle();
-        if (isLinedUp(visionSubsystem)) {
-            /* Lined up Horazontally */
-            ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, 0, getYaw());
-        } else if (horizalAngle < (-1 * alignWindow)) {
-            /* Strafe right */
-            ChassisSpeeds.fromFieldRelativeSpeeds(-1 * strafeSpeed, 0, 0, getYaw());
-        } else if (horizalAngle > alignWindow) {
-            /* Strafe left */
-            ChassisSpeeds.fromFieldRelativeSpeeds(strafeSpeed, 0, 0, getYaw());
-        }
-    }
-
-    public boolean isLinedUpInDistance(VisionSubsystem visionSubsystem) {
-        var distance = visionSubsystem.getFilteredDistance();
-        return (distance == alignWindow);
-    }
-
-    public void yTranslateDrivetrainToTarget(double yTranslationSpeed, VisionSubsystem visionSubsystem) {
-        var distance = visionSubsystem.getFilteredDistance();
-        if (isLinedUpInDistance(visionSubsystem) & isLinedUp(visionSubsystem)){
-            ChassisSpeeds.fromFieldRelativeSpeeds( 0, yTranslationSpeed, 0, getYaw());
-        }
-            else if (distance < (-1 * distancealignWindow)) {
-                ChassisSpeeds.fromFieldRelativeSpeeds(0, 1 * yTranslationSpeed, 0, getYaw());
-        }
-            else if (distance > distancealignWindow){
-                ChassisSpeeds.fromFieldRelativeSpeeds(0, yTranslationSpeed, 0, getYaw());
-            }
-    }
-
     @Override
     public void periodic() {
         swerveOdometry.update(getYaw(), getModulePositions());
@@ -212,7 +171,8 @@ public class SwerveSubsytem extends SubsystemBase {
                     mod.getCanCoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
-            SmartDashboard.putNumber("Gyro Yaw", gyro.getYaw());
+            SmartDashboard.putNumber("Gyro Pitch", gyro.getPitch());
+            SmartDashboard.putNumber("Gyro Roll", gyro.getRoll());
         }
     }
 

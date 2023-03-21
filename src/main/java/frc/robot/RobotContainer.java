@@ -7,25 +7,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.IntakeControl;
-import frc.robot.commands.SetArmToMid;
-import frc.robot.commands.ShootGripper;
 import frc.robot.commands.TeleopSwerve;
-import frc.robot.commands.ToggleSpeedLimit;
-import frc.robot.commands.Auton.BalanceAuto;
+import frc.robot.commands.Auton.Balance;
 import frc.robot.commands.Auton.OutsidePosAuto;
 import frc.robot.commands.LightshowCommands.SetDisabledState;
 import frc.robot.commands.LightshowCommands.TeleOpLightshow;
 import frc.robot.commands.LightshowCommands.TestingLightshow;
-import frc.robot.commands.TestCommands.RunInnerArm;
-import frc.robot.commands.TestCommands.RunWrist;
-import frc.robot.subsystems.AirSubsystem;
-import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.GripperSubsytem;
+// import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.LightingSubsystem;
 import frc.robot.subsystems.SwerveSubsytem;
-import frc.robot.subsystems.TurretSubsystem;
-import frc.robot.subsystems.VisionSubsystem;
+// import frc.robot.subsystems.TurretSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -60,12 +51,11 @@ public class RobotContainer {
     private final boolean robotCentric = false;
     /* Subsystems */
     private final SwerveSubsytem m_SwerveSubsytem = new SwerveSubsytem();
-    private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
     private final LightingSubsystem m_LightingSubsystem = new LightingSubsystem();
-    private final GripperSubsytem m_GripperSubsytem = new GripperSubsytem();
-    private final AirSubsystem m_AirSubsystem = new AirSubsystem();
-    private final TurretSubsystem m_TurretSubsystem = new TurretSubsystem();
-    private final ArmSubsystem m_ArmSubsystem = new ArmSubsystem();
+
+//     private final AirSubsystem m_AirSubsystem = new AirSubsystem();
+//     private final TurretSubsystem m_TurretSubsystem = new TurretSubsystem();
+//     private final ArmSubsystem m_ArmSubsystem = new ArmSubsystem();
 
     /* Sendable Choosers */
     SendableChooser<Command> m_LightsChooser = new SendableChooser<>();
@@ -78,6 +68,7 @@ public class RobotContainer {
         // Configure the button bindings
         configureButtonBindings();
         // Set Default Commands
+
         setDefaultCommands();
 
         m_SwerveSubsytem.setDefaultCommand(
@@ -90,12 +81,11 @@ public class RobotContainer {
 
         // A chooser for Lightshow commands
         m_LightsChooser.setDefaultOption("TeleOp Mode", new TeleOpLightshow(m_LightingSubsystem));
-        m_LightsChooser.addOption("Testing Mode", new TestingLightshow(m_LightingSubsystem));
         SmartDashboard.putData(m_LightsChooser);
 
         /* Chooser for Auton Commands */
         m_AutonChooser.setDefaultOption("Outside Auto", new OutsidePosAuto(m_SwerveSubsytem));
-        m_AutonChooser.addOption("Balance Auto", new BalanceAuto(m_SwerveSubsytem));
+        m_AutonChooser.addOption("Balance Auto", new Balance(m_SwerveSubsytem));
         SmartDashboard.putData(m_AutonChooser);
     }
 
@@ -170,15 +160,17 @@ public class RobotContainer {
 
         /* Driver Button Commands */
         // a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
-        lt_driverButton.whileTrue(new ToggleSpeedLimit(m_SwerveSubsytem));
+        //lt_driverButton.whileTrue(new ToggleSpeedLimit(m_SwerveSubsytem));
+        //a_driverButton.onTrue(new OutOfCommunity(m_SwerveSubsytem, m_LightingSubsystem));
 
         /* Munipulator Button Commands */
-        a_munipulatorButton.onTrue(new IntakeControl(m_GripperSubsytem, m_AirSubsystem));
-        rb_munipulatorButton.whileTrue(new SetArmToMid(m_ArmSubsystem));
+        // a_munipulatorButton.onTrue(new IntakeControl(m_GripperSubsytem, m_AirSubsystem));
+        // rb_munipulatorButton.whileTrue(new SetArmToMid(m_ArmSubsystem));
+        // b_munipulatorButton.whileTrue(new ZeroArm(m_ArmSubsystem));
 
-        x_munipulatorButton.whileTrue(new RunInnerArm(m_ArmSubsystem, m_LightingSubsystem));
-        lb_munipulatorButton.whileTrue(new RunWrist(m_ArmSubsystem, m_LightingSubsystem));
-        y_munipulatorButton.whileTrue(new ShootGripper(m_GripperSubsytem));
+        // x_technicianButton.whileTrue(new RunInnerArm(m_ArmSubsystem, m_LightingSubsystem));
+        // lb_munipulatorButton.whileTrue(new RunWrist(m_ArmSubsystem, m_LightingSubsystem));
+        // y_munipulatorButton.whileTrue(new ShootGripper(m_GripperSubsytem));
     }
 
     /**
@@ -193,12 +185,12 @@ public class RobotContainer {
 
     public Command getTeleopLightingCommand() {
         // Alliance color selector for leds
-        return m_LightsChooser.getSelected();
+        return m_LightsChooser.getSelected();        
     }
 
     public Command getDisabledCommand() {
         // Command to reset robot to initial state
         Command disabled = new SetDisabledState(m_LightingSubsystem);
-        return disabled;
+        return disabled;        
     }
 }

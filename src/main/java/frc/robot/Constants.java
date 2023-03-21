@@ -62,8 +62,8 @@ public final class Constants {
 
         /* These values are used by the drive falcon to ramp in open loop and closed loop driving.
          * We found a small open loop ramp (0.25) helps with tread wear, tipping, etc */
-        public static final double openLoopRamp = 0.4;
-        public static final double closedLoopRamp = 0.4;
+        public static final double openLoopRamp = 0.28;
+        public static final double closedLoopRamp = 0.35;
 
         /* Angle Motor PID Values */
         public static final double angleKP = chosenModule.angleKP;
@@ -75,7 +75,7 @@ public final class Constants {
         public static final double driveKP = 0.05; //TODO: This must be tuned to specific robot
         public static final double driveKI = 0.0;
         public static final double driveKD = 0.0;
-        public static final double driveKF = 0.0;
+        public static final double driveKF = 0;
 
         /* Drive Motor Characterization Values 
          * Divide SYSID values by 12 to convert from volts to percent output for CTRE */
@@ -85,11 +85,11 @@ public final class Constants {
 
         /* Swerve Profiling Values */
         /** Meters per Second */
-        public static final double maxSpeed = 4.5; // 3.2 
+        public static final double maxSpeed = 5; // 3.2 
         /*Open Loop Throttle */
-        public static final double maxOpenLoopThrottle = 1.0;
+        public static final double maxOpenLoopThrottle = 9.6;
         /** Radians per Second */
-        public static final double maxAngularVelocity = 12.0; 
+        public static final double maxAngularVelocity = 16.5; 
 
         /* Neutral Modes */
         public static final NeutralMode angleNeutralMode = NeutralMode.Coast;
@@ -101,7 +101,7 @@ public final class Constants {
             public static final int driveMotorID = 1;
             public static final int angleMotorID = 2;
             public static final int canCoderID = 3;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(94);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(91);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -122,7 +122,7 @@ public final class Constants {
             public static final int driveMotorID = 7;
             public static final int angleMotorID = 8;
             public static final int canCoderID = 9;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(80);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(83.4);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -169,7 +169,7 @@ public final class Constants {
 
     /* Turret profile */
     public static final class TurretProfile {
-        public static final int TURRET_MOTOR = 16;  
+        // public static final int TURRET_MOTOR = 16;  
         public static final double TURRET_FORWARD_POSITION = 1.0; //FIXMEGODPLEASE
         public static final double TURRET_REVERSE_POSITION = -1.0; //fixmepleasealso
         public static final double TURRET_INITIAL_POSITION = 0; 
@@ -180,14 +180,14 @@ public final class Constants {
         /* CANdle ID's */
         public static final int ARM_CANDLE_ID = 20; //FIXME
         public static final int CHASSIS_CANDLE_ID = 50; //FIXME
-        public static final int Arm_LED_COUNT = 300; //FIXME
+        public static final int Arm_LED_COUNT = 150; //FIXME
         public static final int CHASSIS_LED_COUNT = 300; //FIXME
     }
 
     public static final class GripperProfile {
         /* Gripper ID's */
-        public static final int LEFT_FINGER = 25; 
-        public static final int RIGHT_FINGER = 29; 
+        // public static final int LEFT_FINGER = 25; 
+        // public static final int RIGHT_FINGER = 29; 
     }
 
     public static final class PneumaticProfile {
@@ -202,11 +202,11 @@ public final class Constants {
 
     public static final class ArmProfile {
         /* Arm ID's */
-        public static final int LEFT_OUTER_ARM = 15;
-        public static final int RIGHT_OUTER_ARM = 18; 
-        public static final int LEFT_INNER_ARM = 14; 
-        public static final int RIGHT_INNER_ARM = 17; 
-        public static   final int WRIST_MOTOR = 28;
+        // public static final int LEFT_OUTER_ARM = 15;
+        // public static final int RIGHT_OUTER_ARM = 18; 
+        // public static final int LEFT_INNER_ARM = 14; 
+        // public static final int RIGHT_INNER_ARM = 17; 
+        // public static   final int WRIST_MOTOR = 28;
 
         public static final int kCurrentLimit = 40;
     }

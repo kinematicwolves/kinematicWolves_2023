@@ -18,7 +18,9 @@ public class AirSubsystem extends SubsystemBase {
   private boolean compressorIsOn = false;
 
   /** Creates a new AirSubsystem. */
-  public AirSubsystem() {}
+  public AirSubsystem() {
+    disableCompressor();
+  }
 
   public boolean isCompressorOn() {
     return compressorIsOn;
