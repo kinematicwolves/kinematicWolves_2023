@@ -7,11 +7,11 @@ package frc.robot.commands.LightshowCommands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LightingSubsystem;
 
-public class TestingLightshow extends CommandBase {
+public class TechnicianLightshow extends CommandBase {
   private LightingSubsystem m_LightingSubsystem;
 
   /** Creates a new TestingLightshow. */
-  public TestingLightshow(LightingSubsystem lightingSubsystem) {
+  public TechnicianLightshow(LightingSubsystem lightingSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.\
     m_LightingSubsystem = lightingSubsystem;
   }

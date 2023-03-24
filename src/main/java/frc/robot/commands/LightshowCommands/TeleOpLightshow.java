@@ -29,7 +29,7 @@ public class TeleOpLightshow extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_timer.get() > 125){
+    if (m_timer.get() > 105){
       m_LightingSubsystem.setArmCandleRedTwinkleAnimation();
     }
     else {

@@ -153,12 +153,8 @@ public final class Constants {
             new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
+
     public static final class LimelightProfile {
-        /* Limelight mount constants */
-        public static final double LIMELIGHT_VERTICAL_ANGLE = 0; //FIXME
-        public static final double LIMELIGHT_HEIGHT = 0; //FIXME
-        public static final double TARGET_HEIGHT = 0; //FIXME
-        public static final double MIDNODE_HEIGHT = 0; //FIXME
         /* Limelight pipelines */
         public static final int REFLECTIVE_TAPE_PIPELINE = 0; 
         public static final int DISBLED_PIPELINE = 1; 
@@ -167,28 +163,15 @@ public final class Constants {
         public static final int DRIVER_CAMERA_ENTRY = 1;
     }
 
-    /* Turret profile */
-    public static final class TurretProfile {
-        // public static final int TURRET_MOTOR = 16;  
-        public static final double TURRET_FORWARD_POSITION = 1.0; //FIXMEGODPLEASE
-        public static final double TURRET_REVERSE_POSITION = -1.0; //fixmepleasealso
-        public static final double TURRET_INITIAL_POSITION = 0; 
-    }
-
     /* LED's Profile */
     public static final class LightProfile {
-        /* CANdle ID's */
-        public static final int ARM_CANDLE_ID = 20; //FIXME
-        public static final int CHASSIS_CANDLE_ID = 50; //FIXME
-        public static final int Arm_LED_COUNT = 150; //FIXME
-        public static final int CHASSIS_LED_COUNT = 300; //FIXME
+        public static final int ARM_CANDLE_ID = 20;
+        public static final int CHASSIS_CANDLE_ID = 50;
+        public static final int Arm_LED_COUNT = 150;
+        public static final int CHASSIS_LED_COUNT = 300;
     }
 
-    public static final class GripperProfile {
-        /* Gripper ID's */
-        // public static final int LEFT_FINGER = 25; 
-        // public static final int RIGHT_FINGER = 29; 
-    }
+    public static final class GripperProfile {}
 
     public static final class PneumaticProfile {
         public static final int PNEUMATIC_HUB_ID = 30;
@@ -200,17 +183,5 @@ public final class Constants {
         public static final int MAX_AIR_PRESSURE = 120;
     }
 
-    public static final class ArmProfile {
-        /* Arm ID's */
-        // public static final int LEFT_OUTER_ARM = 15;
-        // public static final int RIGHT_OUTER_ARM = 18; 
-        // public static final int LEFT_INNER_ARM = 14; 
-        // public static final int RIGHT_INNER_ARM = 17; 
-        // public static   final int WRIST_MOTOR = 28;
-
-        public static final int kCurrentLimit = 40;
-    }
-
-    /* Falcon counts per rotation */
-    public static final int FALCON_ENCODER_COUNTS = 2048;
+    public static final class ArmProfile {}
 }

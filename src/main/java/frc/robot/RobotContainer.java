@@ -7,12 +7,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.ArmControl;
+import frc.robot.commands.GripperControl;
 import frc.robot.commands.TeleopSwerve;
-import frc.robot.commands.Auton.Balance;
 import frc.robot.commands.Auton.OutsidePosAuto;
 import frc.robot.commands.LightshowCommands.SetDisabledState;
 import frc.robot.commands.LightshowCommands.TeleOpLightshow;
-import frc.robot.commands.LightshowCommands.TestingLightshow;
+import frc.robot.subsystems.AirSubsystem;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.GripperSubsystem;
 // import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.LightingSubsystem;
 import frc.robot.subsystems.SwerveSubsytem;
@@ -28,17 +31,7 @@ import frc.robot.subsystems.SwerveSubsytem;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-    /*
-     * Driver Controller Map
-     * A = Zero Gyro
-     * B = Auto align with mid node
-     */
-    /*
-     * Munipulator Controller Map
-     * 
-     */
 
-    /* Joystick Controls */
     /* Controllers */
     private final Joystick driverController = new Joystick(Constants.ControllerProfile.DRIVER_CONTROLLER);
     private final Joystick munipulatorController = new Joystick(Constants.ControllerProfile.MUNIPULATOR_CONTROLLER);
@@ -48,14 +41,13 @@ public class RobotContainer {
     private final int translationAxis = XboxController.Axis.kLeftY.value;
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
     private final int rotationAxis = XboxController.Axis.kRightX.value;
-    private final boolean robotCentric = false;
+
     /* Subsystems */
     private final SwerveSubsytem m_SwerveSubsytem = new SwerveSubsytem();
+    private final GripperSubsystem m_GripperSubsystem = new GripperSubsystem();
+    private final ArmSubsystem m_ArmSubsystem = new ArmSubsystem();
+    private final AirSubsystem m_AirSubsystem = new AirSubsystem();
     private final LightingSubsystem m_LightingSubsystem = new LightingSubsystem();
-
-//     private final AirSubsystem m_AirSubsystem = new AirSubsystem();
-//     private final TurretSubsystem m_TurretSubsystem = new TurretSubsystem();
-//     private final ArmSubsystem m_ArmSubsystem = new ArmSubsystem();
 
     /* Sendable Choosers */
     SendableChooser<Command> m_LightsChooser = new SendableChooser<>();
@@ -85,13 +77,11 @@ public class RobotContainer {
 
         /* Chooser for Auton Commands */
         m_AutonChooser.setDefaultOption("Outside Auto", new OutsidePosAuto(m_SwerveSubsytem));
-        m_AutonChooser.addOption("Balance Auto", new Balance(m_SwerveSubsytem));
+        //m_AutonChooser.addOption("Balance Auto", new Balance(m_SwerveSubsytem));
         SmartDashboard.putData(m_AutonChooser);
     }
 
-    private void setDefaultCommands() {
-        // m_ArmSubsystem.setDefaultCommand();
-    }
+    private void setDefaultCommands() {}
 
     /**
      * Use this method to define your button->command mappings. Buttons can be
@@ -103,23 +93,39 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         /* Button Box */
-        JoystickButton a_driverButton = new JoystickButton(driverController, XboxController.Button.kA.value);
-        JoystickButton b_driverButton = new JoystickButton(driverController, XboxController.Button.kB.value);
-        JoystickButton x_driverButton = new JoystickButton(driverController, XboxController.Button.kX.value);
-        JoystickButton y_driverButton = new JoystickButton(driverController, XboxController.Button.kY.value);
-        JoystickButton rb_driverButton = new JoystickButton(driverController, XboxController.Button.kRightBumper.value);
-        JoystickButton lb_driverButton = new JoystickButton(driverController, XboxController.Button.kRightBumper.value);
-        JoystickButton start_driverButton = new JoystickButton(driverController, XboxController.Button.kStart.value);
-        JoystickButton back_driverButton = new JoystickButton(driverController, XboxController.Button.kBack.value);
-        JoystickButton rs_driverButton = new JoystickButton(driverController, XboxController.Button.kRightStick.value);
-        JoystickButton ls_driverButton = new JoystickButton(driverController, XboxController.Button.kLeftStick.value);
-        JoystickButton rt_driverButton = new JoystickButton(driverController, XboxController.Axis.kRightTrigger.value);
-        JoystickButton lt_driverButton = new JoystickButton(driverController, XboxController.Axis.kLeftTrigger.value);
+        JoystickButton a_driverButton = new JoystickButton(driverController, 
+                XboxController.Button.kA.value);
+        JoystickButton b_driverButton = new JoystickButton(driverController, 
+                XboxController.Button.kB.value);
+        JoystickButton x_driverButton = new JoystickButton(driverController, 
+                XboxController.Button.kX.value);
+        JoystickButton y_driverButton = new JoystickButton(driverController, 
+                XboxController.Button.kY.value);
+        JoystickButton rb_driverButton = new JoystickButton(driverController, 
+                XboxController.Button.kRightBumper.value);
+        JoystickButton lb_driverButton = new JoystickButton(driverController,  
+                XboxController.Button.kRightBumper.value);
+        JoystickButton start_driverButton = new JoystickButton(driverController, 
+                XboxController.Button.kStart.value);
+        JoystickButton back_driverButton = new JoystickButton(driverController, 
+                XboxController.Button.kBack.value);
+        JoystickButton rs_driverButton = new JoystickButton(driverController, 
+                XboxController.Button.kRightStick.value);
+        JoystickButton ls_driverButton = new JoystickButton(driverController, 
+                XboxController.Button.kLeftStick.value);
+        JoystickButton rt_driverButton = new JoystickButton(driverController, 
+                XboxController.Axis.kRightTrigger.value);
+        JoystickButton lt_driverButton = new JoystickButton(driverController, 
+                XboxController.Axis.kLeftTrigger.value);
 
-        JoystickButton a_munipulatorButton = new JoystickButton(munipulatorController, XboxController.Button.kA.value);
-        JoystickButton b_munipulatorButton = new JoystickButton(munipulatorController, XboxController.Button.kB.value);
-        JoystickButton x_munipulatorButton = new JoystickButton(munipulatorController, XboxController.Button.kX.value);
-        JoystickButton y_munipulatorButton = new JoystickButton(munipulatorController, XboxController.Button.kY.value);
+        JoystickButton a_munipulatorButton = new JoystickButton(munipulatorController, 
+                XboxController.Button.kA.value);
+        JoystickButton b_munipulatorButton = new JoystickButton(munipulatorController, 
+                XboxController.Button.kB.value);
+        JoystickButton x_munipulatorButton = new JoystickButton(munipulatorController, 
+                XboxController.Button.kX.value);
+        JoystickButton y_munipulatorButton = new JoystickButton(munipulatorController,
+                XboxController.Button.kY.value);
         JoystickButton rb_munipulatorButton = new JoystickButton(munipulatorController,
                 XboxController.Button.kRightBumper.value);
         JoystickButton lb_munipulatorButton = new JoystickButton(munipulatorController,
@@ -137,10 +143,14 @@ public class RobotContainer {
         JoystickButton lt_munipulatorButton = new JoystickButton(munipulatorController,
                 XboxController.Axis.kLeftTrigger.value);
 
-        JoystickButton a_technicianButton = new JoystickButton(technicianController, XboxController.Button.kA.value);
-        JoystickButton b_technicianButton = new JoystickButton(technicianController, XboxController.Button.kB.value);
-        JoystickButton x_technicianButton = new JoystickButton(technicianController, XboxController.Button.kX.value);
-        JoystickButton y_technicianButton = new JoystickButton(technicianController, XboxController.Button.kY.value);
+        JoystickButton a_technicianButton = new JoystickButton(technicianController, 
+                XboxController.Button.kA.value);
+        JoystickButton b_technicianButton = new JoystickButton(technicianController, 
+                XboxController.Button.kB.value);
+        JoystickButton x_technicianButton = new JoystickButton(technicianController, 
+                XboxController.Button.kX.value);
+        JoystickButton y_technicianButton = new JoystickButton(technicianController, 
+                XboxController.Button.kY.value);
         JoystickButton rb_technicianButton = new JoystickButton(technicianController,
                 XboxController.Button.kRightBumper.value);
         JoystickButton lb_technicianButton = new JoystickButton(technicianController,
@@ -159,18 +169,13 @@ public class RobotContainer {
                 XboxController.Axis.kLeftTrigger.value);
 
         /* Driver Button Commands */
-        // a_driverButton.onTrue(new ZeroGyro(m_SwerveSubsytem));
-        //lt_driverButton.whileTrue(new ToggleSpeedLimit(m_SwerveSubsytem));
-        //a_driverButton.onTrue(new OutOfCommunity(m_SwerveSubsytem, m_LightingSubsystem));
 
         /* Munipulator Button Commands */
-        // a_munipulatorButton.onTrue(new IntakeControl(m_GripperSubsytem, m_AirSubsystem));
-        // rb_munipulatorButton.whileTrue(new SetArmToMid(m_ArmSubsystem));
-        // b_munipulatorButton.whileTrue(new ZeroArm(m_ArmSubsystem));
+        a_munipulatorButton.onTrue(new GripperControl(m_GripperSubsystem, m_AirSubsystem));
+        y_munipulatorButton.onTrue(new ArmControl(m_ArmSubsystem, m_AirSubsystem));
 
-        // x_technicianButton.whileTrue(new RunInnerArm(m_ArmSubsystem, m_LightingSubsystem));
-        // lb_munipulatorButton.whileTrue(new RunWrist(m_ArmSubsystem, m_LightingSubsystem));
-        // y_munipulatorButton.whileTrue(new ShootGripper(m_GripperSubsytem));
+        /* Technician Command */
+        
     }
 
     /**

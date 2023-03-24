@@ -22,9 +22,6 @@ public class SwerveSubsytem extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
-    private static final double alignWindow = 2;
-    private static final double distancealignWindow = 48;
-
 
     public boolean speedIsLimited = false;
 
@@ -57,16 +54,12 @@ public class SwerveSubsytem extends SubsystemBase {
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
         SwerveModuleState[] swerveModuleStates =
             Constants.SwerveProfile.swerveKinematics.toSwerveModuleStates(
-                true ? ChassisSpeeds.fromFieldRelativeSpeeds(
+                ChassisSpeeds.fromFieldRelativeSpeeds(
                                     translation.getX(), 
                                     translation.getY(), 
                                     rotation, 
                                     getYaw()
                                 )
-                                : new ChassisSpeeds(
-                                    translation.getX(), 
-                                    translation.getY(), 
-                                    rotation)
                                 );
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.SwerveProfile.maxSpeed);
         SmartDashboard.putNumber("Swerve Yaw", gyro.getYaw());
@@ -97,14 +90,7 @@ public class SwerveSubsytem extends SubsystemBase {
     public boolean isSpeedLimited() {
         return speedIsLimited;
     }
-/* 
-    public void limitDriveTrainSpeed(XboxController driverController) {
-        if (speedIsLimited) {
-            drive(new Translation2d(0.3 * driverController.getLeftY(), 0.3 * driverController.getLeftX()), 
-            0.3 * driverController.getRightX(), true, false);
-        }
-    }
-*/
+
     public void enableSpeedLimit() {
         speedIsLimited = true;   
     }
@@ -112,7 +98,6 @@ public class SwerveSubsytem extends SubsystemBase {
     public void disableSpeedLimit() {
         speedIsLimited = false;
     }
-
 
     /* Used by SwerveControllerCommand in Auto */
     public void setModuleStates(SwerveModuleState[] desiredStates) {
@@ -152,7 +137,6 @@ public class SwerveSubsytem extends SubsystemBase {
     }
 
     public Rotation2d getYaw() {
-        // return (Constants.SwerveProfile.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw());
         return Rotation2d.fromDegrees(gyro.getYaw());
     }
 
@@ -161,6 +145,7 @@ public class SwerveSubsytem extends SubsystemBase {
             mod.resetToAbsolute();
         }
     }
+
     @Override
     public void periodic() {
         swerveOdometry.update(getYaw(), getModulePositions());
