@@ -12,7 +12,7 @@ import frc.robot.commands.GripperControl;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.Auton.OutsidePosAuto;
 import frc.robot.commands.LightshowCommands.SetDisabledState;
-import frc.robot.commands.LightshowCommands.TeleOpLightshow;
+import frc.robot.commands.LightshowCommands.RedAllianceLightShow;
 import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.GripperSubsystem;
@@ -72,7 +72,7 @@ public class RobotContainer {
                         () -> true));
 
         // A chooser for Lightshow commands
-        m_LightsChooser.setDefaultOption("TeleOp Mode", new TeleOpLightshow(m_LightingSubsystem));
+        m_LightsChooser.setDefaultOption("TeleOp Mode", new RedAllianceLightShow(m_LightingSubsystem));
         SmartDashboard.putData(m_LightsChooser);
 
         /* Chooser for Auton Commands */

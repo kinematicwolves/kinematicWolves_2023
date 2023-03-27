@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class LightingSubsystem extends SubsystemBase {
-  private final CANdle m_armCandle1 = new CANdle(Constants.LightProfile.ARM_CANDLE_ID, "canivore1");
+  private final CANdle m_underGlow = new CANdle(Constants.LightProfile.UNDERGLOW_ID, "canivore1");
   private Animation m_ArmCandle1Animation = null;
 
   private boolean coneSignalOn = false;
@@ -28,8 +28,8 @@ public class LightingSubsystem extends SubsystemBase {
     CANdleConfiguration cfg = new CANdleConfiguration();
     cfg.brightnessScalar = 0.6;
     cfg.vBatOutputMode = VBatOutputMode.Modulated;
-    m_armCandle1.configAllSettings(cfg);
-    m_armCandle1.configLEDType(LEDStripType.GRB);
+    m_underGlow.configAllSettings(cfg);
+    m_underGlow.configLEDType(LEDStripType.GRB);
 
   }
 
@@ -52,39 +52,39 @@ public class LightingSubsystem extends SubsystemBase {
   }
 
   public void setRainbowAnimation(){
-    m_ArmCandle1Animation = new RainbowAnimation(0.8, 0.5, Constants.LightProfile.Arm_LED_COUNT);
+    m_ArmCandle1Animation = new RainbowAnimation(0.7, 0.5, Constants.LightProfile.UNDERGLOW_LED_COUNT);
   }
 
-  public void setCubeLedSignal(){ // Purple
-    m_ArmCandle1Animation = new TwinkleAnimation(255, 0, 255, 69, 0.9, Constants.LightProfile.Arm_LED_COUNT, TwinklePercent.Percent100); 
+  public void setRedAllianceLightshow() {
+    m_ArmCandle1Animation = new TwinkleAnimation(255, 0, 0, 100, 1, Constants.LightProfile.UNDERGLOW_LED_COUNT, TwinklePercent.Percent100); 
   }
 
-  public void setConeLedSignal(){ // Yellow
-    m_ArmCandle1Animation = new TwinkleAnimation(210, 225, 0 , 100, 0.9, Constants.LightProfile.Arm_LED_COUNT, TwinklePercent.Percent100);
+  public void setBlueAllianceLightShow() {
+    m_ArmCandle1Animation = new TwinkleAnimation(0, 0, 225, 100, 1, Constants.LightProfile.UNDERGLOW_LED_COUNT, TwinklePercent.Percent100);
+  }
+
+  public void setEndgameLightshow(){ // White
+    m_ArmCandle1Animation = new TwinkleAnimation(0, 0, 15, 225, 0.9, Constants.LightProfile.UNDERGLOW_LED_COUNT,TwinklePercent.Percent100);
   }
 
   public void setTeleOpLightShow(){ // Green
-    m_ArmCandle1Animation = new TwinkleAnimation(0, 225, 0, 10, 0.9, Constants.LightProfile.Arm_LED_COUNT,TwinklePercent.Percent100); 
+    m_ArmCandle1Animation = new TwinkleAnimation(0, 225, 0, 10, 0.9, Constants.LightProfile.UNDERGLOW_LED_COUNT,TwinklePercent.Percent100); 
     coneSignalOn = false;
     cubeSignalOn = false;
   }
 
-  public void setEndgameLightshow(){ // White
-    m_ArmCandle1Animation = new TwinkleAnimation(0, 0, 15, 225, 0.9, Constants.LightProfile.Arm_LED_COUNT,TwinklePercent.Percent100);
+  public void setCubeLedSignal(){ // Purple
+    m_ArmCandle1Animation = new TwinkleAnimation(255, 0, 255, 69, 0.9, Constants.LightProfile.UNDERGLOW_LED_COUNT, TwinklePercent.Percent100); 
   }
 
-  public void setArmCandleBlackAnimation(){
-    m_ArmCandle1Animation = new TwinkleAnimation(0, 0, 0, 0 , 0, Constants.LightProfile.Arm_LED_COUNT,TwinklePercent.Percent100); 
+  public void setConeLedSignal(){ // Yellow
+    m_ArmCandle1Animation = new TwinkleAnimation(210, 225, 0 , 100, 0.9, Constants.LightProfile.UNDERGLOW_LED_COUNT, TwinklePercent.Percent100);
   }
 
   public void setArmCandleOrangeTwinkleAnimation(){
-    m_ArmCandle1Animation = new TwinkleAnimation(225, 50, 0, 15 , 0.9, Constants.LightProfile.Arm_LED_COUNT,TwinklePercent.Percent100); 
+    m_ArmCandle1Animation = new TwinkleAnimation(225, 50, 0, 15 , 0.9, Constants.LightProfile.UNDERGLOW_LED_COUNT,TwinklePercent.Percent100); 
   }
-
-  public void setArmCandleRedTwinkleAnimation(){
-    m_ArmCandle1Animation = new TwinkleAnimation(225, 0, 0, 20, 0.9, Constants.LightProfile.CHASSIS_LED_COUNT,TwinklePercent.Percent100);
-  }
-
+  
   public void setDisabledLightShow(){
     setRainbowAnimation();
   }
@@ -93,7 +93,7 @@ public class LightingSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     if (m_ArmCandle1Animation != null){
-      m_armCandle1.animate(m_ArmCandle1Animation);
+      m_underGlow.animate(m_ArmCandle1Animation);
     }
   }
 }

@@ -165,10 +165,8 @@ public final class Constants {
 
     /* LED's Profile */
     public static final class LightProfile {
-        public static final int ARM_CANDLE_ID = 20;
-        public static final int CHASSIS_CANDLE_ID = 50;
-        public static final int Arm_LED_COUNT = 150;
-        public static final int CHASSIS_LED_COUNT = 300;
+        public static final int UNDERGLOW_ID = 20;
+        public static final int UNDERGLOW_LED_COUNT = 150;
     }
 
     public static final class GripperProfile {}
@@ -176,8 +174,10 @@ public final class Constants {
     public static final class PneumaticProfile {
         public static final int PNEUMATIC_HUB_ID = 30;
         /* Pnuematic Hub Ports */
-        public static final int GRIPPER_SOL_FWD = 7; 
-        public static final int GRIPPER_SOL_RVS = 6; 
+        public static final int GRIPPER_SOL_FWD = 1;
+        public static final int GRIPPER_SOL_RVS = 2;
+        public static final int ARM_SOL_FWD = 3; //FIXME
+        public static final int ARM_SOL_RVS = 4; //FIXME
         /* Air Pressure */
         public static final int MIN_AIR_PRESSURE = 60;
         public static final int MAX_AIR_PRESSURE = 120;

@@ -8,13 +8,13 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LightingSubsystem;
 
-public class TeleOpLightshow extends CommandBase {
+public class RedAllianceLightShow extends CommandBase {
   private LightingSubsystem m_LightingSubsystem;
 
   private Timer m_timer = new Timer();
 
   /** Creates a new RedAllianceLightshow. */
-  public TeleOpLightshow(LightingSubsystem LightingSubsystem) {
+  public RedAllianceLightShow(LightingSubsystem LightingSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_LightingSubsystem = LightingSubsystem;
   }
@@ -30,10 +30,10 @@ public class TeleOpLightshow extends CommandBase {
   @Override
   public void execute() {
     if (m_timer.get() > 105){
-      m_LightingSubsystem.setArmCandleRedTwinkleAnimation();
+      m_LightingSubsystem.setEndgameLightshow();
     }
     else {
-      m_LightingSubsystem.setArmCandleRedTwinkleAnimation();
+      m_LightingSubsystem.setRedAllianceLightshow();
     }
   }
 
