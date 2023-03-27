@@ -165,10 +165,8 @@ public final class Constants {
 
     /* LED's Profile */
     public static final class LightProfile {
-        public static final int ARM_CANDLE_ID = 20;
-        public static final int CHASSIS_CANDLE_ID = 50;
-        public static final int Arm_LED_COUNT = 150;
-        public static final int CHASSIS_LED_COUNT = 300;
+        public static final int UNDERGLOW_ID = 20;
+        public static final int UNDERGLOW_LED_COUNT = 150;
     }
 
     public static final class GripperProfile {
