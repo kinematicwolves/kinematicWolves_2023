@@ -171,17 +171,20 @@ public final class Constants {
         public static final int CHASSIS_LED_COUNT = 300;
     }
 
-    public static final class GripperProfile {}
+    public static final class GripperProfile {
+        public static final int FINGER_ONE_ID = 0; //FIXME 
+        public static final int FINGER_TWO_ID = 0; //FIXME
+    }
 
     public static final class PneumaticProfile {
         public static final int PNEUMATIC_HUB_ID = 30;
         /* Pnuematic Hub Ports */
-        public static final int GRIPPER_SOL_FWD = 7; 
-        public static final int GRIPPER_SOL_RVS = 6; 
+        public static final int ARM_SOL_FWD = 0;
+        public static final int ARM_SOL_RVS = 1;
+        public static final int GRIPPER_SOL_FWD = 2; 
+        public static final int GRIPPER_SOL_RVS = 3; 
         /* Air Pressure */
         public static final int MIN_AIR_PRESSURE = 60;
         public static final int MAX_AIR_PRESSURE = 120;
     }
-
-    public static final class ArmProfile {}
 }

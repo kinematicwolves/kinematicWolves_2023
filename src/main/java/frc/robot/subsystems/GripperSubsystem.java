@@ -4,15 +4,23 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class GripperSubsystem extends SubsystemBase {
+  private WPI_VictorSPX m_Finger1 = new WPI_VictorSPX(Constants.GripperProfile.FINGER_ONE_ID);
+  private WPI_VictorSPX m_Finger2 = new WPI_VictorSPX(Constants.GripperProfile.FINGER_TWO_ID);
 
   private boolean gripperIsOpen = false;
 
   /** Creates a new GripperSubsystem. */
-  public GripperSubsystem() {}
+  public GripperSubsystem() {
+    m_Finger1.setInverted(false);
+    m_Finger2.setInverted(true);
+  }
 
   public boolean isGripperOpen() {
     return gripperIsOpen;
@@ -20,12 +28,19 @@ public class GripperSubsystem extends SubsystemBase {
 
   public void setGripperOpen(AirSubsystem airSubsystem) {
     airSubsystem.openGriper();
+    runGripperWheels(0);
     gripperIsOpen = true;
   }
 
   public void setGripperClosed(AirSubsystem airSubsystem) {
     airSubsystem.closeGriper();
+    runGripperWheels(0.1);
     gripperIsOpen = false;
+  }
+
+  private void runGripperWheels(double commandedOutputFraction) {
+    m_Finger1.set(commandedOutputFraction);
+    m_Finger2.set(commandedOutputFraction);
   }
 
   @Override
