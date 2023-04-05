@@ -12,14 +12,13 @@ import frc.robot.commands.GripperControl;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.Auton.OutsidePosAuto;
 import frc.robot.commands.LightshowCommands.SetDisabledState;
+import frc.robot.commands.LightshowCommands.TechnicianLightshow;
 import frc.robot.commands.LightshowCommands.RedAllianceLightShow;
 import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.GripperSubsystem;
-// import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.LightingSubsystem;
 import frc.robot.subsystems.SwerveSubsytem;
-// import frc.robot.subsystems.TurretSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -73,6 +72,7 @@ public class RobotContainer {
 
         // A chooser for Lightshow commands
         m_LightsChooser.setDefaultOption("TeleOp Mode", new RedAllianceLightShow(m_LightingSubsystem));
+        m_LightsChooser.addOption("test mode", new TechnicianLightshow(m_LightingSubsystem));
         SmartDashboard.putData(m_LightsChooser);
 
         /* Chooser for Auton Commands */
