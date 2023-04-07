@@ -16,10 +16,10 @@ import frc.robot.commands.LightshowCommands.RedAllianceLightShow;
 import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.GripperSubsystem;
-// import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.LightingSubsystem;
 import frc.robot.subsystems.SwerveSubsytem;
-// import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.commands.CompressorTest;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -173,7 +173,7 @@ public class RobotContainer {
         /* Munipulator Button Commands */
         a_munipulatorButton.onTrue(new GripperControl(m_GripperSubsystem, m_AirSubsystem));
         y_munipulatorButton.onTrue(new ArmControl(m_ArmSubsystem, m_AirSubsystem));
-
+        x_munipulatorButton.onTrue(new CompressorTest(m_AirSubsystem));
         /* Technician Command */
         
     }

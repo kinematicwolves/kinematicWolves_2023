@@ -52,7 +52,7 @@ public class LightingSubsystem extends SubsystemBase {
   }
 
   public void setRainbowAnimation(){
-    m_ArmCandle1Animation = new RainbowAnimation(0.7, 0.5, Constants.LightProfile.UNDERGLOW_LED_COUNT);
+    m_ArmCandle1Animation = new RainbowAnimation(1, 0.1, Constants.LightProfile.UNDERGLOW_LED_COUNT);
   }
 
   public void setRedAllianceLightshow() {
@@ -68,7 +68,7 @@ public class LightingSubsystem extends SubsystemBase {
   }
 
   public void setTeleOpLightShow(){ // Green
-    m_ArmCandle1Animation = new TwinkleAnimation(0, 225, 0, 10, 0.9, Constants.LightProfile.UNDERGLOW_LED_COUNT,TwinklePercent.Percent100); 
+    m_ArmCandle1Animation = new RainbowAnimation(1, 1, Constants.LightProfile.UNDERGLOW_LED_COUNT);
     coneSignalOn = false;
     cubeSignalOn = false;
   }
