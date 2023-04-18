@@ -1,6 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -11,15 +10,14 @@ import frc.robot.commands.ArmControl;
 import frc.robot.commands.GripperControl;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.Auton.OutsidePosAuto;
-import frc.robot.commands.LightshowCommands.SetDisabledState;
 import frc.robot.commands.LightshowCommands.RedAllianceLightShow;
+import frc.robot.commands.LightshowCommands.SetDisabledState;
+import frc.robot.commands.LightshowCommands.TechnicianLightshow;
 import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.GripperSubsystem;
 import frc.robot.subsystems.LightingSubsystem;
 import frc.robot.subsystems.SwerveSubsytem;
-import frc.robot.commands.CompressorTest;
-
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -59,10 +57,8 @@ public class RobotContainer {
     public RobotContainer() {
         // Configure the button bindings
         configureButtonBindings();
-        // Set Default Commands
 
-        setDefaultCommands();
-
+        // SwerveDrive default command
         m_SwerveSubsytem.setDefaultCommand(
                 new TeleopSwerve(
                         m_SwerveSubsytem,
@@ -73,24 +69,14 @@ public class RobotContainer {
 
         // A chooser for Lightshow commands
         m_LightsChooser.setDefaultOption("TeleOp Mode", new RedAllianceLightShow(m_LightingSubsystem));
+        m_LightsChooser.addOption("test mode", new TechnicianLightshow(m_LightingSubsystem));
         SmartDashboard.putData(m_LightsChooser);
 
         /* Chooser for Auton Commands */
         m_AutonChooser.setDefaultOption("Outside Auto", new OutsidePosAuto(m_SwerveSubsytem));
-        //m_AutonChooser.addOption("Balance Auto", new Balance(m_SwerveSubsytem));
         SmartDashboard.putData(m_AutonChooser);
     }
-
-    private void setDefaultCommands() {}
-
-    /**
-     * Use this method to define your button->command mappings. Buttons can be
-     * created by
-     * instantiating a {@link GenericHID} or one of its subclasses ({@link
-     * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
-     * it to a {@link
-     * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-     */
+    
     private void configureButtonBindings() {
         /* Button Box */
         JoystickButton a_driverButton = new JoystickButton(driverController, 
@@ -173,16 +159,11 @@ public class RobotContainer {
         /* Munipulator Button Commands */
         a_munipulatorButton.onTrue(new GripperControl(m_GripperSubsystem, m_AirSubsystem));
         y_munipulatorButton.onTrue(new ArmControl(m_ArmSubsystem, m_AirSubsystem));
-        x_munipulatorButton.onTrue(new CompressorTest(m_AirSubsystem));
+        
         /* Technician Command */
         
     }
 
-    /**
-     * Use this to pass the autonomous command to the main {@link Robot} class.
-     *
-     * @return the command to run in autonomous
-     */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
         return m_AutonChooser.getSelected();

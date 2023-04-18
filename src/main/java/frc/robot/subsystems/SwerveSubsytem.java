@@ -40,11 +40,6 @@ public class SwerveSubsytem extends SubsystemBase {
 
         mSwerveMods[3].mDriveMotor.setInverted(true);
 
-        /*
-         * By pausing init for a second before setting module offsets, we avoid a bug
-         * with inverting motors.
-         * See https://github.com/Team364/BaseFalconSwerve/issues/8 for more info.
-         */
         Timer.delay(1.0);
         resetModulesToAbsolute();
 

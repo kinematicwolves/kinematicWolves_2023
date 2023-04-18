@@ -5,16 +5,10 @@ import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.PathPoint;
 
-/*
-import com.pathplanner.lib.PathConstraints;
-import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.PathPlannerTrajectory;*/
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -25,7 +19,6 @@ import frc.robot.subsystems.SwerveSubsytem;
 public class OutsidePosAuto extends SequentialCommandGroup {
 
     private SwerveSubsytem m_drivetrain;
-    private Timer m_timer;
 // add startup dead timer (does nothing for like the first second except lock out)
     public static final Rotation2d rotationOffset = Rotation2d.fromDegrees(180);
 
