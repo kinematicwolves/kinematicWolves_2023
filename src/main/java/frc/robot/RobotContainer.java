@@ -151,7 +151,6 @@ public class RobotContainer {
         /* Munipulator Button Commands */
         a_munipulatorButton.onTrue(new GripperControl(m_GripperSubsystem, m_AirSubsystem));
         y_munipulatorButton.onTrue(new ArmControl(m_ArmSubsystem, m_AirSubsystem));
-
         /* Technician Command */
         
     }
