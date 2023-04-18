@@ -29,12 +29,8 @@ public class RedAllianceLightShow extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_timer.get() > 105){
-      m_LightingSubsystem.setEndgameLightshow();
-    }
-    else {
-      m_LightingSubsystem.setRedAllianceLightshow();
-    }
+      m_LightingSubsystem.setTeleOpLightShow();
+    
   }
 
   // Called once the command ends or is interrupted.

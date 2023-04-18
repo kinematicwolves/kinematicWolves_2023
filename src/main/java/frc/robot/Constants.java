@@ -122,7 +122,7 @@ public final class Constants {
             public static final int driveMotorID = 7;
             public static final int angleMotorID = 8;
             public static final int canCoderID = 9;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(83.4);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(79);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -166,22 +166,23 @@ public final class Constants {
     /* LED's Profile */
     public static final class LightProfile {
         public static final int UNDERGLOW_ID = 20;
-        public static final int UNDERGLOW_LED_COUNT = 150;
+        public static final int UNDERGLOW_LED_COUNT = 160;
     }
 
-    public static final class GripperProfile {}
+    public static final class GripperProfile {
+        public static final int FINGER_ONE_ID = 25; //FIXME 
+        public static final int FINGER_TWO_ID = 29; //FIXME
+    }
 
     public static final class PneumaticProfile {
         public static final int PNEUMATIC_HUB_ID = 30;
         /* Pnuematic Hub Ports */
-        public static final int GRIPPER_SOL_FWD = 1;
-        public static final int GRIPPER_SOL_RVS = 2;
-        public static final int ARM_SOL_FWD = 3; //FIXME
-        public static final int ARM_SOL_RVS = 4; //FIXME
+        public static final int ARM_SOL_FWD = 14;
+        public static final int ARM_SOL_RVS = 15;
+        public static final int GRIPPER_SOL_FWD = 1; 
+        public static final int GRIPPER_SOL_RVS = 0; 
         /* Air Pressure */
         public static final int MIN_AIR_PRESSURE = 60;
         public static final int MAX_AIR_PRESSURE = 120;
     }
-
-    public static final class ArmProfile {}
 }

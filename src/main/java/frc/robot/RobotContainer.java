@@ -19,7 +19,15 @@ import frc.robot.subsystems.GripperSubsystem;
 import frc.robot.subsystems.LightingSubsystem;
 import frc.robot.subsystems.SwerveSubsytem;
 
-
+/**
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
+ * subsystems, commands, and button mappings) should be declared here.
+ */
 public class RobotContainer {
 
     /* Controllers */
@@ -151,6 +159,7 @@ public class RobotContainer {
         /* Munipulator Button Commands */
         a_munipulatorButton.onTrue(new GripperControl(m_GripperSubsystem, m_AirSubsystem));
         y_munipulatorButton.onTrue(new ArmControl(m_ArmSubsystem, m_AirSubsystem));
+        
         /* Technician Command */
         
     }
