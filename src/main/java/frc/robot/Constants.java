@@ -13,7 +13,7 @@ import frc.robot.Util.Lib.util.SwerveModuleConstants;
 public final class Constants {
     
     public static final class ControllerProfile {
-        public static final double stickDeadband = 0.2;
+        public static final double stickDeadband = 0.25;
         public static final int DRIVER_CONTROLLER = 0;
         public static final int MUNIPULATOR_CONTROLLER = 1;
         public static final int TECHNICIAM_CONTROLLER = 2;
@@ -62,7 +62,7 @@ public final class Constants {
 
         /* These values are used by the drive falcon to ramp in open loop and closed loop driving.
          * We found a small open loop ramp (0.25) helps with tread wear, tipping, etc */
-        public static final double openLoopRamp = 0.28;
+        public static final double openLoopRamp = 0.25;
         public static final double closedLoopRamp = 0.35;
 
         /* Angle Motor PID Values */
