@@ -155,10 +155,10 @@ public class RobotContainer {
                 XboxController.Axis.kLeftTrigger.value);
 
         /* Driver Button Commands */
+        a_driverButton.onTrue(new GripperControl(m_GripperSubsystem, m_AirSubsystem));
+        y_driverButton.onTrue(new ArmControl(m_ArmSubsystem, m_AirSubsystem));
 
         /* Munipulator Button Commands */
-        a_munipulatorButton.onTrue(new GripperControl(m_GripperSubsystem, m_AirSubsystem));
-        y_munipulatorButton.onTrue(new ArmControl(m_ArmSubsystem, m_AirSubsystem));
         
         /* Technician Command */
         

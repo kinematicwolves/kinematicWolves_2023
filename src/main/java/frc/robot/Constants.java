@@ -87,9 +87,9 @@ public final class Constants {
         /** Meters per Second */
         public static final double maxSpeed = 1; // 3.2 
         /*Open Loop Throttle */
-        public static final double maxOpenLoopThrottle = 1;
+        public static final double maxOpenLoopThrottle = 0.5;
         /** Radians per Second */
-        public static final double maxAngularVelocity = 1; 
+        public static final double maxAngularVelocity = 0.55; 
 
         /* Neutral Modes */
         public static final NeutralMode angleNeutralMode = NeutralMode.Coast;
