@@ -10,9 +10,10 @@ import frc.robot.commands.ArmControl;
 import frc.robot.commands.GripperControl;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.Auton.OutsidePosAuto;
-import frc.robot.commands.LightshowCommands.RedAllianceLightShow;
 import frc.robot.commands.LightshowCommands.SetDisabledState;
 import frc.robot.commands.LightshowCommands.TechnicianLightshow;
+import frc.robot.commands.LightshowCommands.TeleOpLightshow;
+import frc.robot.commands.TechnicianCommands.TeleopSwerveTest;
 import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.GripperSubsystem;
@@ -39,6 +40,11 @@ public class RobotContainer {
     private final int translationAxis = XboxController.Axis.kLeftY.value;
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
     private final int rotationAxis = XboxController.Axis.kRightX.value;
+
+    /* Technician Drive */
+    private final int technicianTranslationAxis = XboxController.Axis.kLeftY.value;
+    private final int technicianStrafeAxis = XboxController.Axis.kLeftX.value;
+    private final int technicianRotationAxis = XboxController.Axis.kRightX.value;
 
     /* Subsystems */
     private final SwerveSubsytem m_SwerveSubsytem = new SwerveSubsytem();
@@ -67,13 +73,22 @@ public class RobotContainer {
                         () -> driverController.getRawAxis(rotationAxis),
                         () -> true));
 
+        // Tehcnition drive default command
+        m_SwerveSubsytem.setDefaultCommand(
+                new TeleopSwerveTest(
+                        m_SwerveSubsytem,
+                        () -> technicianController.getRawAxis(technicianTranslationAxis),
+                        () -> technicianController.getRawAxis(technicianStrafeAxis),
+                        () -> technicianController.getRawAxis(technicianRotationAxis),
+                        () -> true));
+
         // A chooser for Lightshow commands
-        m_LightsChooser.setDefaultOption("TeleOp Mode", new RedAllianceLightShow(m_LightingSubsystem));
-        m_LightsChooser.addOption("test mode", new TechnicianLightshow(m_LightingSubsystem));
+        m_LightsChooser.setDefaultOption("TeleOp Mode", new TeleOpLightshow(m_LightingSubsystem));
+        m_LightsChooser.addOption("Test mode", new TechnicianLightshow(m_LightingSubsystem));
         SmartDashboard.putData(m_LightsChooser);
 
         /* Chooser for Auton Commands */
-        m_AutonChooser.setDefaultOption("Outside Auto", new OutsidePosAuto(m_SwerveSubsytem));
+        m_AutonChooser.setDefaultOption("Taxi Auto", new OutsidePosAuto(m_SwerveSubsytem));
         SmartDashboard.putData(m_AutonChooser);
     }
     

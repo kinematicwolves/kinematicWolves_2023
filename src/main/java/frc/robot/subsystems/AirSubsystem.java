@@ -28,6 +28,15 @@ public class AirSubsystem extends SubsystemBase {
     return compressorIsOn;
   }
 
+  public void enableCompressor() {
+    m_PneumaticHub.enableCompressorAnalog(60, 120);
+    compressorIsOn = true;
+  }
+
+  public void disableCompressor() {
+    m_PneumaticHub.disableCompressor();
+    compressorIsOn = false;
+  }
   public void deployArm() {
     m_armSolenoid.set(Value.kForward);
   }
@@ -44,19 +53,9 @@ public class AirSubsystem extends SubsystemBase {
     m_gripperSolenoid.set(Value.kReverse);
   }
 
-  public void enableCompressor() {
-    m_PneumaticHub.enableCompressorAnalog(60, 120);
-    compressorIsOn = true;
-  }
-
-  public void disableCompressor() {
-    m_PneumaticHub.disableCompressor();
-    compressorIsOn = false;
-  }
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putBoolean("compressor_Is_On", isCompressorOn());
+    SmartDashboard.putBoolean("Compressor_Is_On", isCompressorOn());
   }
 }

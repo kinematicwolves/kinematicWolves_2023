@@ -23,7 +23,7 @@ public class TechnicianLightshow extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_LightingSubsystem.setArmCandleOrangeTwinkleAnimation();
+    m_LightingSubsystem.setTehcnicianLightshow();
   }
 
   // Called once the command ends or is interrupted.

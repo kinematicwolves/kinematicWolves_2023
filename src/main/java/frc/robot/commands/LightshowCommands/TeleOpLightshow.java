@@ -4,37 +4,27 @@
 
 package frc.robot.commands.LightshowCommands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LightingSubsystem;
 
-public class BlueAllianceLightShow extends CommandBase {
-  private LightingSubsystem m_LightingSubsystem;
+public class TeleOpLightshow extends CommandBase {
 
-  private Timer m_timer = new Timer();
+  private final LightingSubsystem m_LightingSubsystem;
 
-  /** Creates a new RedAllianceLightshow. */
-  public BlueAllianceLightShow(LightingSubsystem LightingSubsystem) {
+  /** Creates a new TeleOpLightshow. */
+  public TeleOpLightshow(LightingSubsystem lightingSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_LightingSubsystem = LightingSubsystem;
+    m_LightingSubsystem = lightingSubsystem;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    m_timer.reset();
-    m_timer.start();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_timer.get() > 105){
-      m_LightingSubsystem.setEndgameLightshow();
-    }
-    else {
-      m_LightingSubsystem.setBlueAllianceLightShow();
-    }
+    m_LightingSubsystem.setTeleOpLightShow();
   }
 
   // Called once the command ends or is interrupted.

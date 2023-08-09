@@ -20,9 +20,6 @@ public class LightingSubsystem extends SubsystemBase {
   private final CANdle m_underGlow = new CANdle(Constants.LightProfile.UNDERGLOW_ID, "canivore1");
   private Animation m_ArmCandle1Animation = null;
 
-  private boolean coneSignalOn = false;
-  private boolean cubeSignalOn = false;
-
   /** Creates a new LightshowSubsystem. */
   public LightingSubsystem() {
     CANdleConfiguration cfg = new CANdleConfiguration();
@@ -30,25 +27,6 @@ public class LightingSubsystem extends SubsystemBase {
     cfg.vBatOutputMode = VBatOutputMode.Modulated;
     m_underGlow.configAllSettings(cfg);
     m_underGlow.configLEDType(LEDStripType.GRB);
-
-  }
-
-  public boolean isConeSignalOn(){
-    return coneSignalOn;
-  }
-
-  public boolean isCubeSignalOn(){
-    return cubeSignalOn;
-  }
-
-  public void coneSignal(){
-    coneSignalOn = true;
-    setConeLedSignal();
-  }
-
-  public void cubeSignal(){
-    cubeSignalOn = true;
-    setCubeLedSignal();
   }
 
   public void setRainbowAnimation(){
@@ -59,7 +37,7 @@ public class LightingSubsystem extends SubsystemBase {
     m_ArmCandle1Animation = new TwinkleAnimation(255, 0, 0, 100, 1, Constants.LightProfile.UNDERGLOW_LED_COUNT, TwinklePercent.Percent100); 
   }
 
-  public void setBlueAllianceLightShow() {
+  public void setBlueAllianceLightshow() {
     m_ArmCandle1Animation = new TwinkleAnimation(0, 0, 225, 100, 1, Constants.LightProfile.UNDERGLOW_LED_COUNT, TwinklePercent.Percent100);
   }
 
@@ -69,20 +47,14 @@ public class LightingSubsystem extends SubsystemBase {
 
   public void setTeleOpLightShow(){ // Green
     m_ArmCandle1Animation = new RainbowAnimation(1, 1, Constants.LightProfile.UNDERGLOW_LED_COUNT);
-    coneSignalOn = false;
-    cubeSignalOn = false;
   }
 
   public void setCubeLedSignal(){ // Purple
     m_ArmCandle1Animation = new TwinkleAnimation(255, 0, 255, 69, 0.9, Constants.LightProfile.UNDERGLOW_LED_COUNT, TwinklePercent.Percent100); 
   }
 
-  public void setConeLedSignal(){ // Yellow
-    m_ArmCandle1Animation = new TwinkleAnimation(210, 225, 0 , 100, 0.9, Constants.LightProfile.UNDERGLOW_LED_COUNT, TwinklePercent.Percent100);
-  }
-
-  public void setArmCandleOrangeTwinkleAnimation(){
-    m_ArmCandle1Animation = new TwinkleAnimation(225, 50, 0, 15 , 0.9, Constants.LightProfile.UNDERGLOW_LED_COUNT,TwinklePercent.Percent100); 
+  public void setTehcnicianLightshow(){ // Orange
+    m_ArmCandle1Animation = new TwinkleAnimation(225, 165, 0, 100 , 0.9, Constants.LightProfile.UNDERGLOW_LED_COUNT,TwinklePercent.Percent100); 
   }
   
   public void setDisabledLightShow(){

@@ -9,23 +9,23 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmSubsystem extends SubsystemBase {
 
-  private boolean gripperIsOpen = false;
+  private boolean armIsDeployed = false;
 
   /** Creates a new ArmSubsystem. */
   public ArmSubsystem() {}
 
   public boolean isArmDeployed() {
-    return gripperIsOpen;
+    return armIsDeployed;
   }
 
   public void setArmDeployed(AirSubsystem airSubsystem) {
     airSubsystem.deployArm();
-    gripperIsOpen = true;
+    armIsDeployed = true;
   }
 
   public void setArmUndeployed(AirSubsystem airSubsystem) {
     airSubsystem.undeployArm();
-    gripperIsOpen = false;
+    armIsDeployed = false;
   }
 
   @Override
