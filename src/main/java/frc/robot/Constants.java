@@ -154,20 +154,6 @@ public final class Constants {
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
 
-    public static final class LimelightProfile {
-        /* Limelight pipelines */
-        public static final double LIMELIGHT_VERTICAL_ANGLE = 0; //FIXME
-        public static final double LIMELIGHT_HEIGHT = 0; //FIXME
-        public static final double TARGET_HEIGHT = 0; //FIXME
-        public static final double MIDNODE_HEIGHT = 0; //FIXME
-        /* Limelight pipelines */
-        public static final int REFLECTIVE_TAPE_PIPELINE = 0; 
-        public static final int APRIL_TAG_PIPELINE = 1; 
-        /* Camrea control entry's */
-        public static final int VISION_PROCESSOR_ENTRY = 0;
-        public static final int DRIVER_CAMERA_ENTRY = 1;
-    }
-
     /* LED's Profile */
     public static final class LightProfile {
         public static final int UNDERGLOW_ID = 20;
@@ -175,20 +161,17 @@ public final class Constants {
     }
 
     public static final class GripperProfile {
-        public static final int FINGER_ONE_ID = 25; //FIXME 
-        public static final int FINGER_TWO_ID = 29; //FIXME
+        public static final int FINGER_ONE_ID = 25;
+        public static final int FINGER_TWO_ID = 29;
     }
 
     public static final class PneumaticProfile {
         public static final int PNEUMATIC_HUB_ID = 30;
         /* Pnuematic Hub Ports */
-        public static final int ARM_SOL_FWD = 14;
-        public static final int ARM_SOL_RVS = 15;
-        public static final int GRIPPER_SOL_FWD = 1; 
-        public static final int GRIPPER_SOL_RVS = 0; 
-        /* Air Pressure */
-        public static final int MIN_AIR_PRESSURE = 60;
-        public static final int MAX_AIR_PRESSURE = 120;
+        public static final int ARM_SOL_FWD = 4;
+        public static final int ARM_SOL_RVS = 5;
+        public static final int GRIPPER_SOL_FWD = 6; 
+        public static final int GRIPPER_SOL_RVS = 7;
     }
 }
 

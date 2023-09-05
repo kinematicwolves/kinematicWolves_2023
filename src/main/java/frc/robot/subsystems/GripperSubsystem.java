@@ -38,6 +38,7 @@ public class GripperSubsystem extends SubsystemBase {
 
   public void setGripperOpen(AirSubsystem airSubsystem) {
     airSubsystem.openGriper();
+    runFingerMotors(0);
     gripperIsOpen = true;
   }
 

@@ -22,14 +22,16 @@ public class AirSubsystem extends SubsystemBase {
   private boolean compressorIsOn = false;
 
   /** Creates a new AirSubsystem. */
-  public AirSubsystem() {}
+  public AirSubsystem() {
+    enableCompressor();
+  }
 
   public boolean isCompressorOn() {
     return compressorIsOn;
   }
 
   public void enableCompressor() {
-    m_PneumaticHub.enableCompressorAnalog(60, 120);
+    m_PneumaticHub.enableCompressorDigital();
     compressorIsOn = true;
   }
 
@@ -37,6 +39,7 @@ public class AirSubsystem extends SubsystemBase {
     m_PneumaticHub.disableCompressor();
     compressorIsOn = false;
   }
+  
   public void deployArm() {
     m_armSolenoid.set(Value.kForward);
   }

@@ -18,7 +18,7 @@ import frc.robot.Constants;
 
 public class LightingSubsystem extends SubsystemBase {
   private final CANdle m_underGlow = new CANdle(Constants.LightProfile.UNDERGLOW_ID, "canivore1");
-  private Animation m_ArmCandle1Animation = null;
+  private Animation m_Candle1Animation = null;
 
   /** Creates a new LightshowSubsystem. */
   public LightingSubsystem() {
@@ -29,43 +29,31 @@ public class LightingSubsystem extends SubsystemBase {
     m_underGlow.configLEDType(LEDStripType.GRB);
   }
 
-  public void setRainbowAnimation(){
-    m_ArmCandle1Animation = new RainbowAnimation(1, 0.1, Constants.LightProfile.UNDERGLOW_LED_COUNT);
-  }
-
-  public void setRedAllianceLightshow() {
-    m_ArmCandle1Animation = new TwinkleAnimation(255, 0, 0, 100, 1, Constants.LightProfile.UNDERGLOW_LED_COUNT, TwinklePercent.Percent100); 
-  }
-
-  public void setBlueAllianceLightshow() {
-    m_ArmCandle1Animation = new TwinkleAnimation(0, 0, 225, 100, 1, Constants.LightProfile.UNDERGLOW_LED_COUNT, TwinklePercent.Percent100);
-  }
-
   public void setEndgameLightshow(){ // White
-    m_ArmCandle1Animation = new TwinkleAnimation(0, 0, 15, 225, 0.9, Constants.LightProfile.UNDERGLOW_LED_COUNT,TwinklePercent.Percent100);
+    m_Candle1Animation = new TwinkleAnimation(0, 0, 15, 225, 0.9, Constants.LightProfile.UNDERGLOW_LED_COUNT,TwinklePercent.Percent100);
   }
 
   public void setTeleOpLightShow(){ // Green
-    m_ArmCandle1Animation = new RainbowAnimation(1, 1, Constants.LightProfile.UNDERGLOW_LED_COUNT);
+    m_Candle1Animation = new RainbowAnimation(1, 1, Constants.LightProfile.UNDERGLOW_LED_COUNT);
   }
 
   public void setCubeLedSignal(){ // Purple
-    m_ArmCandle1Animation = new TwinkleAnimation(255, 0, 255, 69, 0.9, Constants.LightProfile.UNDERGLOW_LED_COUNT, TwinklePercent.Percent100); 
+    m_Candle1Animation = new TwinkleAnimation(255, 0, 255, 69, 0.9, Constants.LightProfile.UNDERGLOW_LED_COUNT, TwinklePercent.Percent100); 
   }
 
   public void setTehcnicianLightshow(){ // Orange
-    m_ArmCandle1Animation = new TwinkleAnimation(225, 165, 0, 100 , 0.9, Constants.LightProfile.UNDERGLOW_LED_COUNT,TwinklePercent.Percent100); 
+    m_Candle1Animation = new TwinkleAnimation(225, 165, 0, 100 , 0.9, Constants.LightProfile.UNDERGLOW_LED_COUNT,TwinklePercent.Percent100); 
   }
   
   public void setDisabledLightShow(){
-    setRainbowAnimation();
+    m_Candle1Animation = new RainbowAnimation(1, 0.1, Constants.LightProfile.UNDERGLOW_LED_COUNT);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if (m_ArmCandle1Animation != null){
-      m_underGlow.animate(m_ArmCandle1Animation);
+    if (m_Candle1Animation != null){
+      m_underGlow.animate(m_Candle1Animation);
     }
   }
 }

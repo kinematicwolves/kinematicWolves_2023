@@ -30,7 +30,7 @@ public class GripperControl extends CommandBase {
       m_GripperSubsystem.setGripperClosed(m_AirSubsystem);
     }
     else {
-      m_GripperSubsystem.setGripperClosed(m_AirSubsystem);
+      m_GripperSubsystem.setGripperOpen(m_AirSubsystem);
     }
   }
 

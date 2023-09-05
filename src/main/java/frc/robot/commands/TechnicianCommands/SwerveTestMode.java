@@ -10,13 +10,13 @@ import frc.robot.Constants;
 import frc.robot.subsystems.SwerveSubsytem;
 
 
-public class TeleopSwerveTest extends CommandBase {    
+public class SwerveTestMode extends CommandBase {    
     private SwerveSubsytem s_Swerve;    
     private DoubleSupplier translationSup;
     private DoubleSupplier strafeSup;
     private DoubleSupplier rotationSup;
 
-    public TeleopSwerveTest(SwerveSubsytem s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup) {
+    public SwerveTestMode(SwerveSubsytem s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup) {
         this.s_Swerve = s_Swerve;
         addRequirements(s_Swerve);
 
@@ -28,9 +28,9 @@ public class TeleopSwerveTest extends CommandBase {
     @Override
     public void execute() {
         /* Get Values, Deadband */
-        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble() * 0.5, Constants.ControllerProfile.stickDeadband);
-        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble() * 0.5, Constants.ControllerProfile.stickDeadband);
-        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble() * 0.5, Constants.ControllerProfile.stickDeadband);
+        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble() * 0.1, Constants.ControllerProfile.stickDeadband);
+        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble() * 0.1, Constants.ControllerProfile.stickDeadband);
+        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble() * 0.1, Constants.ControllerProfile.stickDeadband);
 
         /* Drive */
         s_Swerve.drive(
