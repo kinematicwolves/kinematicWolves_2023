@@ -169,8 +169,8 @@ public final class Constants {
         /* Pnuematic Hub Ports */
         public static final int ARM_SOL_FWD = 6;
         public static final int ARM_SOL_RVS = 7;
-        public static final int GRIPPER_SOL_FWD = 4; //6 & 7
-        public static final int GRIPPER_SOL_RVS = 5;
+        public static final int GRIPPER_SOL_FWD = 5; 
+        public static final int GRIPPER_SOL_RVS = 4;
     }
 }
 

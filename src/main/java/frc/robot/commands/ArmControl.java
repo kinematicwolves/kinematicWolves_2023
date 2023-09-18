@@ -7,16 +7,19 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.GripperSubsystem;
 
 public class ArmControl extends CommandBase {
   private final ArmSubsystem m_ArmSubsystem;
   private final AirSubsystem m_AirSubsystem;
+  private final GripperSubsystem m_GripperSubsystem;
   
   /** Creates a new ArmControl. */
-  public ArmControl(ArmSubsystem armSubsystem, AirSubsystem airSubsystem) {
+  public ArmControl(ArmSubsystem armSubsystem, AirSubsystem airSubsystem, GripperSubsystem gripperSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_ArmSubsystem = armSubsystem;
     m_AirSubsystem = airSubsystem;
+    m_GripperSubsystem = gripperSubsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -31,6 +34,7 @@ public class ArmControl extends CommandBase {
     }
     else {
       m_ArmSubsystem.setArmDeployed(m_AirSubsystem);
+      m_GripperSubsystem.runFingerMotors(-0.5);
     }
   }
 

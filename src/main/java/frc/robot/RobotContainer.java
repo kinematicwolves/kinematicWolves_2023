@@ -106,8 +106,8 @@ public class RobotContainer {
 /* Driver Button Commands */
         /* Munipulator Button Commands */
         a_munipulatorButton.onTrue(new GripperControl(m_GripperSubsystem, m_AirSubsystem));
-        y_munipulatorButton.onTrue(new ArmControl(m_ArmSubsystem, m_AirSubsystem));
-        rb_munipulatorButton.whileTrue(new GripperEject(m_GripperSubsystem));
+        y_munipulatorButton.onTrue(new ArmControl(m_ArmSubsystem, m_AirSubsystem, m_GripperSubsystem));
+        rb_munipulatorButton.whileTrue(new GripperEject(m_GripperSubsystem, m_AirSubsystem));
     }
 
     public Command getAutonomousCommand() {
