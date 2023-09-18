@@ -39,6 +39,7 @@ public class SwerveSubsytem extends SubsystemBase {
         };
 
         mSwerveMods[3].mDriveMotor.setInverted(true);
+        mSwerveMods[1].mDriveMotor.setInverted(true);
 
         Timer.delay(1.0);
         resetModulesToAbsolute();
@@ -128,7 +129,7 @@ public class SwerveSubsytem extends SubsystemBase {
     }
 
     public void zeroGyro() {
-        gyro.setYaw(180);
+        gyro.setYaw(90);
     }
 
     public Rotation2d getYaw() {
