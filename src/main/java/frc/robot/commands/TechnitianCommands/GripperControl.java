@@ -2,21 +2,21 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Auton;
+package frc.robot.commands.TechnitianCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.AirSubsystem;
-import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.GripperSubsystem;
 
-public class DeployArmAuto extends CommandBase {
-  private ArmSubsystem m_ArmSubsystem;
-  private AirSubsystem m_AirSubsystem;
+public class GripperControl extends CommandBase {
+  private final GripperSubsystem m_GripperSubsystem;
+  private final AirSubsystem m_AirSubsystem;
 
-  /** Creates a new ScoreLowCubeAuto. */
-  public DeployArmAuto(ArmSubsystem armSubsystem, AirSubsystem airSubsystem) {
+  /** Creates a new GripperControl. */
+  public GripperControl(GripperSubsystem gripperSubsystem, AirSubsystem airSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_ArmSubsystem = armSubsystem;
     m_AirSubsystem = airSubsystem;
+    m_GripperSubsystem = gripperSubsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -26,7 +26,12 @@ public class DeployArmAuto extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_ArmSubsystem.setArmDeployed(m_AirSubsystem);
+    if (m_GripperSubsystem.isGripperOpen()) {
+      m_GripperSubsystem.setGripperClosed(m_AirSubsystem);
+    }
+    else {
+      m_GripperSubsystem.setGripperOpen(m_AirSubsystem);
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -36,6 +41,6 @@ public class DeployArmAuto extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

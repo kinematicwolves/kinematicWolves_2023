@@ -8,33 +8,38 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.GripperSubsystem;
+import frc.robot.subsystems.LightingSubsystem;
 
-public class ArmControl extends CommandBase {
-  private final ArmSubsystem m_ArmSubsystem;
-  private final AirSubsystem m_AirSubsystem;
-  private final GripperSubsystem m_GripperSubsystem;
-  
-  /** Creates a new ArmControl. */
-  public ArmControl(ArmSubsystem armSubsystem, AirSubsystem airSubsystem, GripperSubsystem gripperSubsystem) {
+public class PickupCone extends CommandBase {
+  private GripperSubsystem m_GripperSubsystem;
+  private ArmSubsystem m_ArmSubsystem;
+  private AirSubsystem m_AirSubsystem;
+  private LightingSubsystem m_LightingSubsystem;
+
+  /** Creates a new PickupCone. */
+  public PickupCone(GripperSubsystem gripperSubsystem, ArmSubsystem armSubsystem, AirSubsystem airSubsystem, LightingSubsystem lightingSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_ArmSubsystem = armSubsystem;
     m_AirSubsystem = airSubsystem;
+    m_ArmSubsystem = armSubsystem;
     m_GripperSubsystem = gripperSubsystem;
+    m_LightingSubsystem = lightingSubsystem;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_ArmSubsystem.setArmDeployed(m_AirSubsystem);
+    m_GripperSubsystem.setGripperOpen(m_AirSubsystem);
+    m_LightingSubsystem.setRedLightshow();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_ArmSubsystem.isArmDeployed()) {
+    if (m_GripperSubsystem.getGripperCurrent() > 20) {
+      m_GripperSubsystem.setGripperClosed(m_AirSubsystem);
       m_ArmSubsystem.setArmUndeployed(m_AirSubsystem);
-    }
-    else {
-      m_ArmSubsystem.setArmDeployed(m_AirSubsystem);
-      m_GripperSubsystem.runFingerMotors(-0.5);
+      m_LightingSubsystem.setGreenLightShow();
     }
   }
 
@@ -45,6 +50,6 @@ public class ArmControl extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

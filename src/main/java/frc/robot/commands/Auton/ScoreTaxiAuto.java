@@ -8,17 +8,19 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.GripperSubsystem;
+import frc.robot.subsystems.SwerveSubsytem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ScoreTaxiAuto extends SequentialCommandGroup {
   /** Creates a new ScoreTaxiAuto. */
-  public ScoreTaxiAuto(ArmSubsystem m_ArmSubsystem, AirSubsystem m_AirSubsystem, GripperSubsystem m_GripperSubsystem) {
+  public ScoreTaxiAuto(SwerveSubsytem m_SwerveSubsytem, ArmSubsystem m_ArmSubsystem, AirSubsystem m_AirSubsystem, GripperSubsystem m_GripperSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new DeployArmAuto(m_ArmSubsystem, m_AirSubsystem)
+      new ReleaseConeAuto(m_AirSubsystem, m_GripperSubsystem),
+      new OutsidePosAuto(m_SwerveSubsytem)
     );
   }
 }

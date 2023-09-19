@@ -37,6 +37,14 @@ public class LightingSubsystem extends SubsystemBase {
     m_Candle1Animation = new RainbowAnimation(1, 1, Constants.LightProfile.UNDERGLOW_LED_COUNT);
   }
 
+  public void setRedLightshow() {
+    m_Candle1Animation = new TwinkleAnimation(225, 0, 0, 50, 1, Constants.LightProfile.UNDERGLOW_LED_COUNT, TwinklePercent.Percent100);
+  }
+
+  public void setGreenLightShow() {
+    m_Candle1Animation = new TwinkleAnimation(0, 225, 0, 50, 1, Constants.LightProfile.UNDERGLOW_LED_COUNT, TwinklePercent.Percent100);
+  }
+
   public void setCubeLedSignal(){ // Purple
     m_Candle1Animation = new TwinkleAnimation(255, 0, 255, 69, 0.9, Constants.LightProfile.UNDERGLOW_LED_COUNT, TwinklePercent.Percent100); 
   }

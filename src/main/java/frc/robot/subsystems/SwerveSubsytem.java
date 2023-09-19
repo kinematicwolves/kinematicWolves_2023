@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import java.lang.reflect.Field;
 import java.util.function.Consumer;
 
 import com.ctre.phoenix.sensors.Pigeon2;
@@ -13,6 +14,10 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardComponent;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -58,7 +63,6 @@ public class SwerveSubsytem extends SubsystemBase {
                                 )
                                 );
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.SwerveProfile.maxSpeed);
-        SmartDashboard.putNumber("Swerve Yaw", gyro.getYaw());
 
         for (SwerveModule mod : mSwerveMods) {
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
@@ -148,13 +152,15 @@ public class SwerveSubsytem extends SubsystemBase {
 
         for (SwerveModule mod : mSwerveMods) {
             /* Date print */
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder (This_one_Jose) ",
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Raw Cancoder",
                     mod.getCanCoder().getDegrees());
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
-            SmartDashboard.putNumber("Gyro Pitch", gyro.getPitch());
-            SmartDashboard.putNumber("Gyro Roll", gyro.getRoll());
-        }
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated Offset",
+                    mod.getPosition().angle.getDegrees());
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", 
+                    mod.getState().speedMetersPerSecond);
+            SmartDashboard.putNumber("Gyro",
+                     gyro.getYaw());
+                }
     }
 
     public Consumer<SwerveModuleState[]> setModuleStates() {

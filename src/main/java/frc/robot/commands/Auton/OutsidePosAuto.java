@@ -20,7 +20,7 @@ public class OutsidePosAuto extends SequentialCommandGroup {
 
     private SwerveSubsytem m_drivetrain;
 // add startup dead timer (does nothing for like the first second except lock out)
-    public static final Rotation2d rotationOffset = Rotation2d.fromDegrees(180);
+    public static final Rotation2d rotationOffset = Rotation2d.fromDegrees(90);
 
     public OutsidePosAuto(SwerveSubsytem drivetrain)
     {
@@ -37,7 +37,7 @@ public class OutsidePosAuto extends SequentialCommandGroup {
 
         var thetaController =
         new ProfiledPIDController(
-            Constants.AutoConstants.kPThetaController, 0, 0, Constants.AutoConstants.kThetaControllerConstraints);
+            Constants.AutoConstants.kPThetaController, 0.02, 0.01, Constants.AutoConstants.kThetaControllerConstraints);
         thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
         SwerveControllerCommand swerveControllerCommand =

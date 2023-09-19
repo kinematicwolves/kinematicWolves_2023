@@ -6,15 +6,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.ArmControl;
-import frc.robot.commands.GripperControl;
 import frc.robot.commands.GripperEject;
+import frc.robot.commands.PickupCone;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.Auton.OutsidePosAuto;
 import frc.robot.commands.LightshowCommands.SetDisabledState;
 import frc.robot.commands.LightshowCommands.TechnicianLightshow;
 import frc.robot.commands.LightshowCommands.TeleOpLightshow;
-import frc.robot.commands.TechnicianCommands.SwerveTestMode;
 import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.GripperSubsystem;
@@ -35,17 +33,12 @@ public class RobotContainer {
     /* Controllers */
     private final Joystick driverController = new Joystick(Constants.ControllerProfile.DRIVER_CONTROLLER);
     private final Joystick munipulatorController = new Joystick(Constants.ControllerProfile.MUNIPULATOR_CONTROLLER);
-    private final Joystick technicianController = new Joystick(Constants.ControllerProfile.TECHNICIAM_CONTROLLER);
+    private final Joystick technitianController = new Joystick(Constants.ControllerProfile.TECHNICIAM_CONTROLLER);
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
     private final int rotationAxis = XboxController.Axis.kRightX.value;
-
-    /* Technician Drive Controls */
-    private final int technicianTranslationAxis = XboxController.Axis.kLeftY.value;
-    private final int technicianStrafeAxis = XboxController.Axis.kLeftX.value;
-    private final int technicianRotationAxis = XboxController.Axis.kRightX.value;
 
     /* Subsystems */
     private final SwerveSubsytem m_SwerveSubsytem = new SwerveSubsytem();
@@ -74,18 +67,9 @@ public class RobotContainer {
                         () -> driverController.getRawAxis(rotationAxis),
                         () -> true));
 
-        // Tehcnition drive default command
-        // m_SwerveSubsytem.setDefaultCommand(
-        //         new SwerveTestMode(
-        //                 m_SwerveSubsytem,
-        //                 () -> technicianController.getRawAxis(technicianTranslationAxis),
-        //                 () -> technicianController.getRawAxis(technicianStrafeAxis),
-        //                 () -> technicianController.getRawAxis(technicianRotationAxis),
-        //                 () -> true));
-
         // A chooser for Lightshow commands
         m_LightsChooser.setDefaultOption("TeleOp Mode", new TeleOpLightshow(m_LightingSubsystem));
-        m_LightsChooser.addOption("Test mode", new TechnicianLightshow(m_LightingSubsystem));
+        m_LightsChooser.addOption("Technitian Mode" , new TechnicianLightshow(m_LightingSubsystem));
         SmartDashboard.putData(m_LightsChooser);
 
         /* Chooser for Auton Commands */
@@ -96,18 +80,23 @@ public class RobotContainer {
     private void configureButtonBindings() {
 /* Button Box */
         // Munipulator Controller
-        JoystickButton a_munipulatorButton = new JoystickButton(munipulatorController, 
-                XboxController.Button.kA.value);
-        JoystickButton y_munipulatorButton = new JoystickButton(munipulatorController,
-                XboxController.Button.kY.value);
         JoystickButton rb_munipulatorButton = new JoystickButton(munipulatorController,
                 XboxController.Button.kRightBumper.value);
+        JoystickButton lb_munipulatorButton = new JoystickButton(munipulatorController,
+                XboxController.Button.kLeftBumper.value);
+
+        // Technitian Controller
+        JoystickButton a_technitianButton = new JoystickButton(technitianController,
+                XboxController.Button.kA.value);
+        JoystickButton b_technitianButton = new JoystickButton(technitianController, 
+                XboxController.Button.kB.value);
+        JoystickButton x_technitianButton = new JoystickButton(technitianController, 
+                XboxController.Button.kX.value);
 
 /* Driver Button Commands */
         /* Munipulator Button Commands */
-        a_munipulatorButton.onTrue(new GripperControl(m_GripperSubsystem, m_AirSubsystem));
-        y_munipulatorButton.onTrue(new ArmControl(m_ArmSubsystem, m_AirSubsystem, m_GripperSubsystem));
-        rb_munipulatorButton.whileTrue(new GripperEject(m_GripperSubsystem, m_AirSubsystem));
+        lb_munipulatorButton.onTrue(new PickupCone(m_GripperSubsystem, m_ArmSubsystem, m_AirSubsystem, m_LightingSubsystem));
+        rb_munipulatorButton.whileTrue(new GripperEject(m_GripperSubsystem, m_AirSubsystem, m_LightingSubsystem));
     }
 
     public Command getAutonomousCommand() {
