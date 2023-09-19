@@ -7,12 +7,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.GripperEject;
-import frc.robot.commands.PickupCone;
+import frc.robot.commands.PickupCube;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.Auton.OutsidePosAuto;
 import frc.robot.commands.LightshowCommands.SetDisabledState;
 import frc.robot.commands.LightshowCommands.TechnicianLightshow;
 import frc.robot.commands.LightshowCommands.TeleOpLightshow;
+import frc.robot.commands.TechnitianCommands.ArmControl;
 import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.GripperSubsystem;
@@ -95,8 +96,11 @@ public class RobotContainer {
 
 /* Driver Button Commands */
         /* Munipulator Button Commands */
-        lb_munipulatorButton.onTrue(new PickupCone(m_GripperSubsystem, m_ArmSubsystem, m_AirSubsystem, m_LightingSubsystem));
+        lb_munipulatorButton.onTrue(new PickupCube(m_GripperSubsystem, m_ArmSubsystem, m_AirSubsystem, m_LightingSubsystem));
         rb_munipulatorButton.whileTrue(new GripperEject(m_GripperSubsystem, m_AirSubsystem, m_LightingSubsystem));
+
+        /* Technitian button commands */
+        a_technitianButton.onTrue(new ArmControl(m_ArmSubsystem, m_AirSubsystem));
     }
 
     public Command getAutonomousCommand() {

@@ -20,6 +20,7 @@ public class GripperEject extends CommandBase {
     m_GripperSubsystem = gripperSubsystem;
     m_AirSubsystem = airSubsystem;
     m_LightingSubsystem = lightingSubsystem;
+    addRequirements(m_LightingSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -29,7 +30,7 @@ public class GripperEject extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_GripperSubsystem.runFingerMotors(-0.3);
+    m_GripperSubsystem.runFingerMotors(-0.25);
   }
 
   // Called once the command ends or is interrupted.

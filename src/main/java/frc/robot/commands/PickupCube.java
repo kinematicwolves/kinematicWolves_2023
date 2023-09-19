@@ -10,19 +10,23 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.GripperSubsystem;
 import frc.robot.subsystems.LightingSubsystem;
 
-public class PickupCone extends CommandBase {
+public class PickupCube extends CommandBase {
   private GripperSubsystem m_GripperSubsystem;
   private ArmSubsystem m_ArmSubsystem;
   private AirSubsystem m_AirSubsystem;
   private LightingSubsystem m_LightingSubsystem;
 
   /** Creates a new PickupCone. */
-  public PickupCone(GripperSubsystem gripperSubsystem, ArmSubsystem armSubsystem, AirSubsystem airSubsystem, LightingSubsystem lightingSubsystem) {
+  public PickupCube(GripperSubsystem gripperSubsystem, ArmSubsystem armSubsystem, AirSubsystem airSubsystem, LightingSubsystem lightingSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_AirSubsystem = airSubsystem;
     m_ArmSubsystem = armSubsystem;
     m_GripperSubsystem = gripperSubsystem;
     m_LightingSubsystem = lightingSubsystem;
+    addRequirements(m_LightingSubsystem);
+    addRequirements(m_AirSubsystem);
+    addRequirements(m_ArmSubsystem);
+    addRequirements(m_GripperSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -36,7 +40,7 @@ public class PickupCone extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_GripperSubsystem.getGripperCurrent() > 20) {
+    if (m_GripperSubsystem.getGripperCurrent() > 24) {
       m_GripperSubsystem.setGripperClosed(m_AirSubsystem);
       m_ArmSubsystem.setArmUndeployed(m_AirSubsystem);
       m_LightingSubsystem.setGreenLightShow();
