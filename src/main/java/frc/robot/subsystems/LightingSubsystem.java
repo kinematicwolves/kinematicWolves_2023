@@ -27,6 +27,7 @@ public class LightingSubsystem extends SubsystemBase {
     cfg.vBatOutputMode = VBatOutputMode.Modulated;
     m_underGlow.configAllSettings(cfg);
     m_underGlow.configLEDType(LEDStripType.GRB);
+    setTeleOpLightShow();
   }
 
   public void setEndgameLightshow(){ // White

@@ -40,7 +40,7 @@ public class PickupCube extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_GripperSubsystem.getGripperCurrent() > 24) {
+    if (m_GripperSubsystem.getGripperCurrent() > 8) {
       m_GripperSubsystem.setGripperClosed(m_AirSubsystem);
       m_ArmSubsystem.setArmUndeployed(m_AirSubsystem);
       m_LightingSubsystem.setGreenLightShow();
