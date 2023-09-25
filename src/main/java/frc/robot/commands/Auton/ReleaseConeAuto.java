@@ -36,7 +36,7 @@ public class ReleaseConeAuto extends CommandBase {
     }
     else {
       m_GripperSubsystem.runFingerMotors(0);
-      m_GripperSubsystem.setGripperOpen(m_AirSubsystem);
+      //m_GripperSubsystem.setGripperOpen(m_AirSubsystem);
     }
   }
 

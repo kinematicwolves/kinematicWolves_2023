@@ -20,7 +20,7 @@ public class OutsidePosAuto extends SequentialCommandGroup {
 
     private SwerveSubsytem m_drivetrain;
 // add startup dead timer (does nothing for like the first second except lock out)
-    public static final Rotation2d rotationOffset = Rotation2d.fromDegrees(90);
+    public static final Rotation2d rotationOffset = Rotation2d.fromDegrees(180);
 
     public OutsidePosAuto(SwerveSubsytem drivetrain)
     {

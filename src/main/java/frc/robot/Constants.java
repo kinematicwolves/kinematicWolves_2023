@@ -62,8 +62,8 @@ public final class Constants {
 
         /* These values are used by the drive falcon to ramp in open loop and closed loop driving.
          * We found a small open loop ramp (0.25) helps with tread wear, tipping, etc */
-        public static final double openLoopRamp = 0.28;
-        public static final double closedLoopRamp = 0.35;
+        public static final double openLoopRamp = 0.2; // 0.28
+        public static final double closedLoopRamp = 0.4; // 0.35
 
         /* Angle Motor PID Values */
         public static final double angleKP = chosenModule.angleKP;
@@ -85,11 +85,11 @@ public final class Constants {
 
         /* Swerve Profiling Values */
         /** Meters per Second */
-        public static final double maxSpeed = 5; // 3.2 
+        public static final double maxSpeed = 8; // 5
         /*Open Loop Throttle */
-        public static final double maxOpenLoopThrottle = 1;
+        public static final double maxOpenLoopThrottle = 1.5; // 1
         /** Radians per Second */
-        public static final double maxAngularVelocity = 3.5; 
+        public static final double maxAngularVelocity = 3.9; // 3.5
 
         /* Neutral Modes */
         public static final NeutralMode angleNeutralMode = NeutralMode.Coast;

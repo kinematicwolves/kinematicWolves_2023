@@ -14,6 +14,8 @@ import frc.robot.commands.LightshowCommands.SetDisabledState;
 import frc.robot.commands.LightshowCommands.TechnicianLightshow;
 import frc.robot.commands.LightshowCommands.TeleOpLightshow;
 import frc.robot.commands.TechnitianCommands.ArmControl;
+import frc.robot.commands.TechnitianCommands.GripperControl;
+import frc.robot.commands.TechnitianCommands.GripperMotors;
 import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.GripperSubsystem;
@@ -85,6 +87,8 @@ public class RobotContainer {
                 XboxController.Button.kRightBumper.value);
         JoystickButton lb_munipulatorButton = new JoystickButton(munipulatorController,
                 XboxController.Button.kLeftBumper.value);
+                JoystickButton a_munipulatorButton = new JoystickButton(munipulatorController,
+                XboxController.Button.kA.value);
 
         // Technitian Controller
         JoystickButton a_technitianButton = new JoystickButton(technitianController,
@@ -93,14 +97,20 @@ public class RobotContainer {
                 XboxController.Button.kB.value);
         JoystickButton x_technitianButton = new JoystickButton(technitianController, 
                 XboxController.Button.kX.value);
+        JoystickButton y_technitionButton = new JoystickButton(technitianController,
+                XboxController.Button.kY.value);
 
 /* Driver Button Commands */
         /* Munipulator Button Commands */
         lb_munipulatorButton.onTrue(new PickupCube(m_GripperSubsystem, m_ArmSubsystem, m_AirSubsystem, m_LightingSubsystem));
         rb_munipulatorButton.whileTrue(new GripperEject(m_GripperSubsystem, m_AirSubsystem, m_LightingSubsystem));
+        a_munipulatorButton.onTrue(new ArmControl(m_ArmSubsystem, m_AirSubsystem, m_LightingSubsystem));
 
         /* Technitian button commands */
-        a_technitianButton.onTrue(new ArmControl(m_ArmSubsystem, m_AirSubsystem));
+        a_technitianButton.onTrue(new ArmControl(m_ArmSubsystem, m_AirSubsystem, m_LightingSubsystem));
+        b_technitianButton.whileTrue(new GripperMotors(m_GripperSubsystem, m_LightingSubsystem, 0.5));
+        x_technitianButton.whileTrue(new GripperMotors(m_GripperSubsystem, m_LightingSubsystem, -0.5));
+        y_technitionButton.onTrue(new GripperControl(m_GripperSubsystem, m_AirSubsystem, m_LightingSubsystem));
     }
 
     public Command getAutonomousCommand() {

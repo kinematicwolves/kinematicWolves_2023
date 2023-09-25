@@ -5,20 +5,19 @@
 package frc.robot.commands.TechnitianCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.AirSubsystem;
-import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.GripperSubsystem;
 import frc.robot.subsystems.LightingSubsystem;
 
-public class ArmControl extends CommandBase {
-  private final ArmSubsystem m_ArmSubsystem;
-  private final AirSubsystem m_AirSubsystem;
+public class GripperMotors extends CommandBase {
+  private final GripperSubsystem m_GripperSubsystem;
+  private final Double m_commandedOutputFraction;
   private final LightingSubsystem m_LightingSubsystem;
-  
-  /** Creates a new ArmControl. */
-  public ArmControl(ArmSubsystem armSubsystem, AirSubsystem airSubsystem, LightingSubsystem lightingSubsystem) {
+
+  /** Creates a new GripperTest. */
+  public GripperMotors(GripperSubsystem gripperSubsystem, LightingSubsystem lightingSubsystem, double commandedOutputFraction) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_ArmSubsystem = armSubsystem;
-    m_AirSubsystem = airSubsystem;
+    m_GripperSubsystem = gripperSubsystem;
+    m_commandedOutputFraction = commandedOutputFraction;
     m_LightingSubsystem = lightingSubsystem;
   }
 
@@ -29,23 +28,20 @@ public class ArmControl extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_ArmSubsystem.isArmDeployed()) {
-      m_ArmSubsystem.setArmUndeployed(m_AirSubsystem);
-      m_LightingSubsystem.setTehcnicianLightshow();
-    }
-    else {
-      m_ArmSubsystem.setArmDeployed(m_AirSubsystem);
-      m_LightingSubsystem.setRedLightshow();
-    }
+    m_GripperSubsystem.runFingerMotors(m_commandedOutputFraction);
+    m_LightingSubsystem.setRedLightshow();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_GripperSubsystem.runFingerMotors(0);
+    m_LightingSubsystem.setTehcnicianLightshow();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

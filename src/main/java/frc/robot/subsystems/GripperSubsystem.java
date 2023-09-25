@@ -42,16 +42,20 @@ public class GripperSubsystem extends SubsystemBase {
     m_rightFingerMotor.set(ControlMode.PercentOutput, commandedOutputFraction);
   }
 
-  public void setGripperClosed(AirSubsystem airSubsystem) {
-    //airSubsystem.closeGriper();
-    runFingerMotors(0.3);
-    gripperIsOpen = false;
+  public void cubePickedUpState() {
+    runFingerMotors(0.33);
   }
 
-  public void setGripperOpen(AirSubsystem airSubsystem) {
+  public void pickupCube(AirSubsystem airSubsystem) {
     airSubsystem.openGriper();
-    runFingerMotors(0.35);
+    runFingerMotors(0.26);
     gripperIsOpen = true;
+  }
+
+  public void pickupCone(AirSubsystem airSubsystem) {
+    airSubsystem.closeGriper();
+    runFingerMotors(0.4);
+    gripperIsOpen = false;
   }
 
   public double getGripperCurrent() {
