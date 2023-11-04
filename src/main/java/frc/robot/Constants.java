@@ -89,7 +89,7 @@ public final class Constants {
         /*Open Loop Throttle */
         public static final double maxOpenLoopThrottle = 1.5; // 1
         /** Radians per Second */
-        public static final double maxAngularVelocity = 3.9; // 3.5
+        public static final double maxAngularVelocity = 4.9; // 3.5
 
         /* Neutral Modes */
         public static final NeutralMode angleNeutralMode = NeutralMode.Coast;
@@ -131,7 +131,7 @@ public final class Constants {
             public static final int driveMotorID = 10;
             public static final int angleMotorID = 11;
             public static final int canCoderID = 12;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(32.95); //32.95
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(32.1); //32.95
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }

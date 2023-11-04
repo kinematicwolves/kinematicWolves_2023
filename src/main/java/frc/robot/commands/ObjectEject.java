@@ -9,13 +9,13 @@ import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.GripperSubsystem;
 import frc.robot.subsystems.LightingSubsystem;
 
-public class GripperEject extends CommandBase {
+public class ObjectEject extends CommandBase {
   private final GripperSubsystem m_GripperSubsystem;
   private final AirSubsystem m_AirSubsystem;
   private final LightingSubsystem m_LightingSubsystem;
 
   /** Creates a new GripperEject. */
-  public GripperEject(GripperSubsystem gripperSubsystem, AirSubsystem airSubsystem, LightingSubsystem lightingSubsystem) {
+  public ObjectEject(GripperSubsystem gripperSubsystem, AirSubsystem airSubsystem, LightingSubsystem lightingSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_GripperSubsystem = gripperSubsystem;
     m_AirSubsystem = airSubsystem;
@@ -30,7 +30,7 @@ public class GripperEject extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_GripperSubsystem.runFingerMotors(-0.25);
+    m_GripperSubsystem.runFingerMotors(-0.28);
   }
 
   // Called once the command ends or is interrupted.

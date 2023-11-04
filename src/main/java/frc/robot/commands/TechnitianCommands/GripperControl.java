@@ -7,19 +7,16 @@ package frc.robot.commands.TechnitianCommands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.AirSubsystem;
 import frc.robot.subsystems.GripperSubsystem;
-import frc.robot.subsystems.LightingSubsystem;
 
 public class GripperControl extends CommandBase {
   private final GripperSubsystem m_GripperSubsystem;
   private final AirSubsystem m_AirSubsystem;
-  private final LightingSubsystem m_LightingSubsystem;
 
   /** Creates a new GripperControl. */
-  public GripperControl(GripperSubsystem gripperSubsystem, AirSubsystem airSubsystem, LightingSubsystem lightingSubsystem) {
+  public GripperControl(GripperSubsystem gripperSubsystem, AirSubsystem airSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_AirSubsystem = airSubsystem;
     m_GripperSubsystem = gripperSubsystem;
-    m_LightingSubsystem = lightingSubsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -29,14 +26,11 @@ public class GripperControl extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_GripperSubsystem.isGripperOpen()) {
-      m_AirSubsystem.closeGriper();;
-      m_LightingSubsystem.setRedLightshow();
+    if (m_AirSubsystem.isGripperOpen()) {
+      m_AirSubsystem.openGriper();
     }
     else {
-      m_AirSubsystem.openGriper();
-      m_LightingSubsystem.setRedLightshow();
-      m_LightingSubsystem.setTehcnicianLightshow();
+      m_AirSubsystem.closeGriper();
     }
   }
 

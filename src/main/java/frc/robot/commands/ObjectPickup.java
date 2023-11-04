@@ -10,14 +10,14 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.GripperSubsystem;
 import frc.robot.subsystems.LightingSubsystem;
 
-public class PickupCube extends CommandBase {
+public class ObjectPickup extends CommandBase {
   private GripperSubsystem m_GripperSubsystem;
   private ArmSubsystem m_ArmSubsystem;
   private AirSubsystem m_AirSubsystem;
   private LightingSubsystem m_LightingSubsystem;
 
   /** Creates a new PickupCone. */
-  public PickupCube(GripperSubsystem gripperSubsystem, ArmSubsystem armSubsystem, AirSubsystem airSubsystem, LightingSubsystem lightingSubsystem) {
+  public ObjectPickup(GripperSubsystem gripperSubsystem, ArmSubsystem armSubsystem, AirSubsystem airSubsystem, LightingSubsystem lightingSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_AirSubsystem = airSubsystem;
     m_ArmSubsystem = armSubsystem;
@@ -33,18 +33,16 @@ public class PickupCube extends CommandBase {
   @Override
   public void initialize() {
     m_ArmSubsystem.setArmDeployed(m_AirSubsystem);
-    m_GripperSubsystem.pickupCube(m_AirSubsystem);
-    m_LightingSubsystem.setRedLightshow();
+    m_GripperSubsystem.deployGripper(m_AirSubsystem);
+    m_GripperSubsystem.distanceSensorFeedback(m_LightingSubsystem);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_GripperSubsystem.getGripperCurrent() > 6) {
-      m_GripperSubsystem.cubePickedUpState();
-      m_AirSubsystem.closeGriper();
+    if (m_GripperSubsystem.getDistance() < 130) {
+      m_GripperSubsystem.undeployGripper(m_AirSubsystem);
       m_ArmSubsystem.setArmUndeployed(m_AirSubsystem);
-      m_LightingSubsystem.setGreenLightShow();
     }
   }
 

@@ -19,7 +19,9 @@ public class AirSubsystem extends SubsystemBase {
   private final DoubleSolenoid m_armSolenoid = m_PneumaticHub.makeDoubleSolenoid(
     Constants.PneumaticProfile.ARM_SOL_FWD, Constants.PneumaticProfile.ARM_SOL_RVS);
 
-  private boolean compressorIsOn = false;
+    private boolean compressorIsOn = false;
+
+    private boolean isGripperOpen = false;
 
   /** Creates a new AirSubsystem. */
   public AirSubsystem() {
@@ -50,10 +52,16 @@ public class AirSubsystem extends SubsystemBase {
 
   public void openGriper() {
     m_gripperSolenoid.set(Value.kForward);
+    isGripperOpen = true;
   }
 
   public void closeGriper() {
     m_gripperSolenoid.set(Value.kReverse);
+    isGripperOpen = false;
+  }
+
+  public boolean isGripperOpen() {
+    return isGripperOpen;
   }
 
   @Override

@@ -34,7 +34,7 @@ public class LightingSubsystem extends SubsystemBase {
   }
 
   public void setTeleOpLightShow(){ // Green
-    m_Candle1Animation = new RainbowAnimation(1, 1, Constants.LightProfile.UNDERGLOW_LED_COUNT);
+    m_Candle1Animation = new RainbowAnimation(1, 0.9, Constants.LightProfile.UNDERGLOW_LED_COUNT);
   }
 
   public void setRedLightshow() {
@@ -54,7 +54,7 @@ public class LightingSubsystem extends SubsystemBase {
   }
   
   public void setDisabledLightShow(){
-    m_Candle1Animation = new RainbowAnimation(1, 0.1, Constants.LightProfile.UNDERGLOW_LED_COUNT);
+    m_Candle1Animation = new RainbowAnimation(0.3, 0.1, Constants.LightProfile.UNDERGLOW_LED_COUNT);
   }
 
   @Override

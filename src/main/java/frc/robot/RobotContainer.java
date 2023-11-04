@@ -6,8 +6,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.GripperEject;
-import frc.robot.commands.PickupCube;
+import frc.robot.commands.ArmReset;
+import frc.robot.commands.ObjectEject;
+import frc.robot.commands.ObjectPickup;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.Auton.OutsidePosAuto;
 import frc.robot.commands.LightshowCommands.SetDisabledState;
@@ -81,13 +82,16 @@ public class RobotContainer {
     }
     
     private void configureButtonBindings() {
-/* Button Box */
+ /* Button Box */
+        // Driver Controller 
+        JoystickButton rb_driverButton = new JoystickButton(driverController, 
+                XboxController.Button.kRightBumper.value);
         // Munipulator Controller
         JoystickButton rb_munipulatorButton = new JoystickButton(munipulatorController,
                 XboxController.Button.kRightBumper.value);
         JoystickButton lb_munipulatorButton = new JoystickButton(munipulatorController,
                 XboxController.Button.kLeftBumper.value);
-                JoystickButton a_munipulatorButton = new JoystickButton(munipulatorController,
+        JoystickButton a_munipulatorButton = new JoystickButton(munipulatorController,
                 XboxController.Button.kA.value);
 
         // Technitian Controller
@@ -99,18 +103,35 @@ public class RobotContainer {
                 XboxController.Button.kX.value);
         JoystickButton y_technitionButton = new JoystickButton(technitianController,
                 XboxController.Button.kY.value);
+        JoystickButton lb_technitionButton = new JoystickButton(technitianController, 
+                XboxController.Button.kLeftBumper.value);
+        JoystickButton rb_technitionButton = new JoystickButton(driverController, 
+                XboxController.Button.kRightBumper.value);
 
-/* Driver Button Commands */
+        /* Driver Button Commands */
+        rb_driverButton.onTrue(new ArmReset(m_ArmSubsystem, m_GripperSubsystem, m_LightingSubsystem, m_AirSubsystem));
+
         /* Munipulator Button Commands */
-        lb_munipulatorButton.onTrue(new PickupCube(m_GripperSubsystem, m_ArmSubsystem, m_AirSubsystem, m_LightingSubsystem));
-        rb_munipulatorButton.whileTrue(new GripperEject(m_GripperSubsystem, m_AirSubsystem, m_LightingSubsystem));
-        a_munipulatorButton.onTrue(new ArmControl(m_ArmSubsystem, m_AirSubsystem, m_LightingSubsystem));
+        lb_munipulatorButton.onTrue(new ObjectPickup(
+                m_GripperSubsystem, m_ArmSubsystem, m_AirSubsystem, m_LightingSubsystem));
+        rb_munipulatorButton.whileTrue(new ObjectEject(
+                m_GripperSubsystem, m_AirSubsystem, m_LightingSubsystem));
+        a_munipulatorButton.onTrue(new ArmReset(
+                m_ArmSubsystem, m_GripperSubsystem, m_LightingSubsystem, m_AirSubsystem));
 
         /* Technitian button commands */
-        a_technitianButton.onTrue(new ArmControl(m_ArmSubsystem, m_AirSubsystem, m_LightingSubsystem));
-        b_technitianButton.whileTrue(new GripperMotors(m_GripperSubsystem, m_LightingSubsystem, 0.5));
-        x_technitianButton.whileTrue(new GripperMotors(m_GripperSubsystem, m_LightingSubsystem, -0.5));
-        y_technitionButton.onTrue(new GripperControl(m_GripperSubsystem, m_AirSubsystem, m_LightingSubsystem));
+        a_technitianButton.onTrue(new ArmControl(
+                m_ArmSubsystem, m_AirSubsystem, m_LightingSubsystem));
+        b_technitianButton.whileTrue(new GripperMotors(
+                m_GripperSubsystem, m_LightingSubsystem, 0.2)); // Gripper Wheel Speed
+        x_technitianButton.whileTrue(new GripperMotors(
+                m_GripperSubsystem, m_LightingSubsystem, -0.2)); // Gripper Wheel Speed
+        y_technitionButton.onTrue(new GripperControl(
+                m_GripperSubsystem, m_AirSubsystem));
+        lb_technitionButton.onTrue(new ObjectPickup(
+                m_GripperSubsystem, m_ArmSubsystem, m_AirSubsystem, m_LightingSubsystem));
+        rb_technitionButton.whileTrue(new ObjectEject(
+                m_GripperSubsystem, m_AirSubsystem, m_LightingSubsystem));
     }
 
     public Command getAutonomousCommand() {

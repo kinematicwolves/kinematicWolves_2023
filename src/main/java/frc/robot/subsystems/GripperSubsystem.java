@@ -7,9 +7,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.playingwithfusion.TimeOfFlight;
 
-import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -18,13 +17,11 @@ public class GripperSubsystem extends SubsystemBase {
 
   private final VictorSPX m_leftFingerMotor = new VictorSPX(Constants.GripperProfile.FINGER_ONE_ID);
   private final VictorSPX m_rightFingerMotor = new VictorSPX(Constants.GripperProfile.FINGER_TWO_ID);
-  private final PowerDistribution m_pdp = new PowerDistribution(1, ModuleType.kRev);
-  //private Timer m_timer = new Timer();
 
-  // private final CANSparkMax m_leftFingerMotor = new CANSparkMax(0, MotorType.kBrushless);
-  // private final CANSparkMax m_rightFingerMotor = new CANSparkMax(0, MotorType.kBrushless);
+  private final TimeOfFlight m_distanceSensor = new TimeOfFlight(0);
 
   private boolean gripperIsOpen = false;
+  private boolean objectInRange = false;
 
   /** Creates a new GripperSubsystem. */
   public GripperSubsystem() {
@@ -32,40 +29,56 @@ public class GripperSubsystem extends SubsystemBase {
     m_rightFingerMotor.setInverted(false);
   }
 
+  public boolean isObjectInRange() {
+    return objectInRange;
+  }
+
   public boolean isGripperOpen() {
     return gripperIsOpen;
   }
 
+  public void distanceSensorFeedback(LightingSubsystem lightingSubsystem) {
+    if (m_distanceSensor.getRange() < 130) {
+      lightingSubsystem.setGreenLightShow();
+      objectInRange = true;
+    }
+    else {
+      lightingSubsystem.setRedLightshow();
+      objectInRange = false;
+    }
+  }
 
   public void runFingerMotors(double commandedOutputFraction) {
     m_leftFingerMotor.set(ControlMode.PercentOutput, commandedOutputFraction);
     m_rightFingerMotor.set(ControlMode.PercentOutput, commandedOutputFraction);
   }
 
-  public void cubePickedUpState() {
-    runFingerMotors(0.33);
+  public void resetGripper(AirSubsystem airSubsystem) {
+    runFingerMotors(0);
+    airSubsystem.openGriper();
   }
 
-  public void pickupCube(AirSubsystem airSubsystem) {
+  public void deployGripper(AirSubsystem airSubsystem) {
     airSubsystem.openGriper();
-    runFingerMotors(0.26);
+    runFingerMotors(0.15);
     gripperIsOpen = true;
   }
 
-  public void pickupCone(AirSubsystem airSubsystem) {
+  public void undeployGripper(AirSubsystem airSubsystem) {
     airSubsystem.closeGriper();
-    runFingerMotors(0.4);
+    runFingerMotors(0.3);
     gripperIsOpen = false;
   }
 
-  public double getGripperCurrent() {
-    return m_pdp.getCurrent(2) + m_pdp.getCurrent(3);
+  public double getDistance() {
+    return m_distanceSensor.getRange();
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putBoolean("Gripper_Is_Open", isGripperOpen());
-    SmartDashboard.putNumber("Gripper Current", getGripperCurrent());
+    SmartDashboard.putNumber("Object Distance", getDistance());
+    SmartDashboard.putBoolean("Object In Range", isObjectInRange());
   }
 }
